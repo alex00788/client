@@ -10,9 +10,18 @@
 
 .modalContent {
   position: sticky;
-  left: 30%;
-  padding: 15px;
+  margin: 0 auto;
+  padding: 5px;
   background: rgba(246, 243, 243, 0.5);
   border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .modalContent {
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 5px;
+  }
+
 }
 

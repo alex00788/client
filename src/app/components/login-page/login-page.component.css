@@ -10,7 +10,7 @@
 .btnResend {
   cursor: pointer;
   position: absolute;
-  top: 400px;
+  top: 300px;
   border: none;
   border-radius: 5px;
   background: #93b9fd;
@@ -76,9 +76,6 @@ input {
   display: flex;
   width: 400px;
   justify-content: space-between;
-  position: absolute;
-  top: 200px;
-  left: 20px;
 }
 
 .registerBtn {
@@ -120,13 +117,6 @@ input {
     font-size: 30px;
     word-spacing: 150vw;
   }
-
-
-  .btnResend {
-    top: 350px;
-  }
-
-
 }
 
 @media (max-width: 720px) {
@@ -139,6 +129,12 @@ input {
 
 @media (max-width: 600px) {
 
+
+  .btnResend {
+    width: 320px;
+    font-size: 20px;
+  }
+
   .title {
     position: static;
     word-spacing: 200vw;
@@ -148,12 +144,15 @@ input {
   }
 
   .form {
+    max-width: 280px;
     word-spacing: 200vw;
   }
 
   .fut {
     display: flex;
     justify-content: space-between;
+    max-width: 250px;
+    margin: 15px auto;
   }
 
 
@@ -164,7 +163,10 @@ input {
   }
 
   input {
-
+    font-size: 17px;
   }
 
+  .inputForm {
+    width: 235px;
+  }
 }

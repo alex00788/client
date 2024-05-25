@@ -83,6 +83,9 @@ input {
   left: 20px;
 }
 
+.registrationForm {
+  position: relative;
+}
 
 .loginBtn {
   position: absolute;
@@ -207,6 +210,14 @@ input {
 
   .formReg {
     word-spacing: 200vw;
+    width: 280px;
+    max-height: 500px;
+    margin-top: 10px;
+  }
+
+
+  .inputForm {
+    width: 255px;
   }
 
   .futRegistration {
@@ -227,9 +238,46 @@ input {
   }
 
   label {
-    font-size: 25px;
-    width: 320px;
+    font-size: 21px;
+    width: 200px;
     word-spacing: normal;
+  }
+
+  input {
+    font-size: 17px;
+  }
+
+  .icon-pass {
+    right: 30px;
+  }
+
+  .loginBtn {
+    top: 5px;
+    left: 270px;
+    margin: 0;
+  }
+
+  .regFormBtn {
+    margin: 0;
+    top: 5px;
+    left: 5px;
+  }
+
+  .permission {
+    margin: 0;
+    padding: 15px;
+  }
+
+  .registrationBtn {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    width: 200px;
+  }
+
+  .registrationForm {
+    position: relative;
+    width: 320px;
   }
 
 }

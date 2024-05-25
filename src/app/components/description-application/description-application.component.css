@@ -83,7 +83,45 @@
   font-size: 30px;
   text-align: center;
   margin: 10px;
-  color: #5238fd;
+  color: black;
+}
+
+.mainTitle {
+  margin: 0 auto;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+
+/*плавное выплывание текста*/
+.easyClass{
+  margin: 0 30px;
+  text-align: start;
+  transform: translateX(-150%);
+  animation: ani 2s forwards;
+}
+@keyframes ani {
+  0% {transform: translateX(-150%);}
+  100% {transform: translateY(0);}
+}
+
+
+
+.easyEnterClass {
+  margin-left: 15px;
+}
+
+.easyChClass {
+  margin-left: 55px;
+}
+
+.easyRecClass {
+  margin-left: 105px;
+}
+
+
+h5{
+  margin: 0 10px;
 }
 
 .btnCloseDesc{

@@ -43,3 +43,29 @@ input{
   padding: 5px;
   border: none;
 }
+
+@media (max-width: 600px) {
+
+  .regFormAddNewOrgClass {
+    width: 290px;
+  }
+
+  .formAddNewOrg {
+    margin: 20px auto;
+  }
+
+  label{
+    margin-left: 15px;
+  }
+
+  input {
+    width: 250px;
+    margin: 0 auto;
+  }
+
+  .futRegFormAddNewOrg{
+    width: 240px;
+    margin: 10px auto;
+  }
+
+}

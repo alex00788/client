@@ -50,9 +50,8 @@
 
 
 .insideClass {
-  position: absolute;
-  top: 700px;
-  left: 500px;
+  position: fixed;
+  top: 450px;
 }
 
 

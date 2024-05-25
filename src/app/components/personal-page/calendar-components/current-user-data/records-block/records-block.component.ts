@@ -38,7 +38,7 @@ export class RecordsBlockComponent implements OnInit{
   private destroyed$: Subject<void> = new Subject();
   clickCount = 0;
   blockRepeat: boolean = false;
-  showBtnFilter: boolean = false;
+  showBtnFilter: boolean = true;
   currentDate: any;
   currentHour: any = new Date().getHours();
   currentTime = '';

@@ -64,10 +64,9 @@
 
 
 .errorModal {
-  position: absolute;
-  top: 230px;
-  left: 1050px;
-  margin: 10px;
+  position: fixed;
+  top: 470px;
+
   font-size: 30px;
   background: #f13885;
   border-radius: 10px;
@@ -81,42 +80,19 @@
 
 
 /*оптимизация под мобильные устройства*/
-@media (max-width: 1600px) {
-  .errorModal {
-    top: 680px;
-    left: 525px;
-  }
-}
-
-
-@media (max-width: 1300px) {
-  .errorModal {
-    top: 680px;
-    left: 325px;
-  }
-}
-
-
-
 @media (max-width: 960px) {
-  .errorModal {
-    top: 550px;
-    left: 150px;
-  }
-
   .wrapper{
     background: url('app/shared/img/1.jpg');
     background-size: cover;
   }
 }
 
-
-
-@media (max-width: 660px) {
+@media (max-width: 600px) {
 
 
   .errorModal {
-    top: 550px;
-    left: 20px;
+    width: 360px;
+    display: flex;
+    justify-content: center;
   }
 }

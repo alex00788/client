@@ -141,4 +141,12 @@ input{
     font-size: 15px;
   }
 
+  .footerContacts {
+    width: 200px;
+  }
+
+  .textareaClass {
+    width: 250px;
+  }
+
 }

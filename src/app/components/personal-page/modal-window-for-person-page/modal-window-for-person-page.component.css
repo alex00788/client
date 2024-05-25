@@ -11,18 +11,13 @@
 .modalContentForPerson {
   width: 500px;
   position: fixed;
-  top: 350px;
+  top: 150px;
   left: 33%;
   padding: 6px;
   background: white;
   border-radius: 10px;
 }
 
-@media (max-width: 1300px) {
-  .modalContentForPerson{
-    left: 28%;
-  }
-}
 
 @media (max-width: 960px) {
   .modalContentForPerson{
@@ -38,6 +33,7 @@
 
 @media (max-width: 600px) {
   .modalContentForPerson{
+    max-width: 320px;
     left: 7%;
   }
 }

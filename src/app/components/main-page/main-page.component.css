@@ -121,6 +121,7 @@
 @media (max-width: 660px) {
   .enter {
     top: 300px;
+    font-size: 23px;
     white-space: nowrap;
   }
 

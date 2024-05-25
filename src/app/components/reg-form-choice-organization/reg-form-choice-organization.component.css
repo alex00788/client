@@ -1,6 +1,6 @@
 .regFormClass {
   position: relative;
-  margin: 0 auto;
+  margin: 10px auto;
   padding-bottom: 15px;
   background: #aefaae;
   color: #5238fd;
@@ -19,8 +19,8 @@ label {
 
 .arrowClass {
   position: absolute;
-  top: 1px;
-  left: 15px;
+  top: 10px;
+  left: 10px;
   font-size: 25px;
   font-weight: bold;
   cursor: pointer;
@@ -153,6 +153,12 @@ hr {
 
 @media (max-width: 600px) {
   .regFormClass {
-    width: 400px;
+    max-width: 290px;
+  }
+
+  .orgClass {
+    margin: 20px auto;
+    max-height: 90px;
+    overflow: auto;
   }
 }
