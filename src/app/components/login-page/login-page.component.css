@@ -61,6 +61,7 @@ label {
   padding-left: 15px;
   font-size: 30px;
   color: blue;
+  white-space: nowrap;
 }
 
 input {
