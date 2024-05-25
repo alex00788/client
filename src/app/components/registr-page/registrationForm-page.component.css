@@ -237,6 +237,11 @@ input {
     word-spacing: normal;
   }
 
+
+  .noWrapEm {
+    white-space: nowrap;
+  }
+
   label {
     font-size: 21px;
     width: 200px;
