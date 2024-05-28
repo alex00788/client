@@ -63,17 +63,19 @@
             </ng-template>
 
             <ng-container *ngIf="dateService.currentUserSimpleUser | async;  else adminBlock">
-              <button class="btnAddEntryClass"
-                    (click)="currentUserRec(time.time, time.date)"
-                    [disabled]="
+              <div *ngIf="time.workStatus !== state">
+                <button class="btnAddEntryClass"
+                        (click)="currentUserRec(time.time, time.date)"
+                        [disabled]="
                        time.date.substring(3,5) < currentDate.substring(3,5) ||
                        time.date.substring(0,2) < currentDate.substring(0,2)  &&
                        time.date.substring(3,5) === currentDate.substring(3,5) ||
                        time.time < currentHour && time.date === currentDate
                       "
-            >
-              +
-            </button>
+                >
+                  +
+                </button>
+              </div>
               <hr>
             </ng-container>
 
@@ -109,18 +111,21 @@
                   </div>
                 </div>
 
-              <button
-                      class="btnAddEntryClass"
-                      (click)="currentHourTime(time.time, time.date)"
-                      *ngIf="
+              <div *ngIf="time.workStatus !== state">
+                <button
+                  class="btnAddEntryClass"
+                  (click)="currentHourTime(time.time, time.date)"
+                  *ngIf="
                        time.date.substring(3,5) > currentDate.substring(3,5) ||
                        time.date.substring(0,2) > currentDate.substring(0,2)  &&
                        time.date.substring(3,5) === currentDate.substring(3,5) ||
                        time.time > currentHour && time.date === currentDate
                       "
-              >
-                +
-              </button>
+                >
+                  +
+                </button>
+              </div>
+
               <hr>
             </ng-template>
 

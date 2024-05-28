@@ -49,6 +49,7 @@ export class DataCalendarNewComponent implements OnInit {
   pastDateIsBlocked: boolean = false;
   recordComplete: boolean = false;
   currentHour: any = new Date().getHours();
+  state = 'closed'
 
   // form = new FormGroup({
   //   newEntry: new FormControl(null, Validators.required),
@@ -266,15 +267,17 @@ export class DataCalendarNewComponent implements OnInit {
 // получаем тока день когда есть запись и отсортированный список пользователей на каждый час
   getAllRecOnThisWeek(currentWeek: any[]) {
     let usOnThisDay: any[] = [];
+    let workStatus = '';
     for (let i= 0; i < currentWeek.length; i++) {
       this.dataCalendarService.arrayOfDays.value.forEach((el:any)=> {
         if ( currentWeek[i] === el.date && el.users.length ) {
           let recordingTimeOnThisDay = [...new Set(this.dataCalendarService.arrayOfDays.value[i].users.map((el:any)=> el.time))];
           for (let ni = 0 ; ni < recordingTimeOnThisDay.length; ni++) {
+            workStatus = this.dataCalendarService.arrayOfDays.value[i].users.find((status: any)=> status.time === recordingTimeOnThisDay[ni]).workStatus
             const usOnThisTime = this.dataCalendarService.arrayOfDays.value[i].users.filter((usOnThisTime: any)=> {
               return usOnThisTime.time === recordingTimeOnThisDay[ni]
             })
-            usOnThisDay.push({date: currentWeek[i], time: recordingTimeOnThisDay[ni] , users: usOnThisTime})
+            usOnThisDay.push({date: currentWeek[i], time: recordingTimeOnThisDay[ni], workStatus, users: usOnThisTime})
           }
         }
       })
@@ -309,6 +312,7 @@ export class DataCalendarNewComponent implements OnInit {
 
   //функция добавления новой записи
   addEntry(user: any, curHourTime: any, date: any) {
+    const workStatus = this.dateService.maxPossibleEntries.value <= this.dateService.howMuchRecorded.value +1? 0 : 1; //0 = closed 1 = open
     const year = date.substring(date.length - 4);
     const month = date.substring(3,5);
     const dateNum = date.slice(0,2);
@@ -324,7 +328,8 @@ export class DataCalendarNewComponent implements OnInit {
       userId: user.id,
       remainingFunds: user.remainingFunds,
       sectionOrOrganization: user.sectionOrOrganization,
-      idOrg: this.dateService.idSelectedOrg.value
+      idOrg: this.dateService.idSelectedOrg.value,
+      workStatus: workStatus
     }
     this.apiService.addEntry(newUserAccount)
       .pipe(takeUntil(this.destroyed$))
@@ -335,13 +340,14 @@ export class DataCalendarNewComponent implements OnInit {
 
 
   deletePerson(idRec: any, userId: any, orgId: any) {
+    const workStatus = this.dateService.maxPossibleEntries.value >= this.dateService.howMuchRecorded.value +1? 0: 1; //0 = closed , 1 = open
     if (this.dateService.currentUserSimpleUser.value) {
       this.blockIfRecorded = false;
       this.dateService.userCancelHimselfRec.next(1);
     } else {
       this.dateService.userCancelHimselfRec.next(0);
     }
-    this.apiService.deleteEntry(idRec, userId, orgId, this.dateService.userCancelHimselfRec.value)
+    this.apiService.deleteEntry(idRec, userId, orgId, this.dateService.userCancelHimselfRec.value, workStatus)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.refreshData();
@@ -409,9 +415,9 @@ export class DataCalendarNewComponent implements OnInit {
     this.apiService.getAllEntryInCurrentTimes(dateAndTimeRec)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(allEntryCurTime => {
-        const filterOnSelectOrg = allEntryCurTime.filter((el: any) => {
-          return el.sectionOrOrganization === this.dateService.currentOrg.value
-        })
+        this.dateService.howMuchRecorded.next(allEntryCurTime.length);
+        const filterOnSelectOrg = allEntryCurTime.filter((el: any) =>
+           el.sectionOrOrganization === this.dateService.currentOrg.value)
         //ограничиваем запись если записано указанное кол-во человек  this.dateService.maxPossibleEntries.value
         if (filterOnSelectOrg.length >= this.dateService.maxPossibleEntries.value) {
           this.recordComplete = true;

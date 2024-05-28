@@ -162,8 +162,8 @@ export class ApiService {
 
 
 
-  deleteEntry(idRec: any, userId: any, orgId: any, userCancelHimselfRec: any): Observable<any> {
-    return this.http.delete<any>('/api/user/deleteEntry/' + idRec + '/' + userId + '/' + orgId + '/' + userCancelHimselfRec)
+  deleteEntry(idRec: any, userId: any, orgId: any, userCancelHimselfRec: any, workStatus: any): Observable<any> {
+    return this.http.delete<any>('/api/user/deleteEntry/' + idRec + '/' + userId + '/' + orgId + '/' + userCancelHimselfRec + '/' + workStatus)
       .pipe(catchError(this.errHandler.bind(this)))
   }
 

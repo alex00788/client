@@ -126,8 +126,9 @@ export class DataCalendarService {
 
   //удаление записи ...в блоке всех записей ...
   deleteSelectedRecInAllRecBlock(selectedRec: any) {
-      //один означает что пользователь клиент и нужно отправить писмо одмину что клиент отменил запись
-    this.apiService.deleteEntry(selectedRec.idRec, selectedRec.userId, selectedRec.orgId, this.dateService.userCancelHimselfRec.value)
+    const workStatus = this.dateService.maxPossibleEntries.value >= this.dateService.howMuchRecorded.value +1? 0: 1; //0 = closed, 1 = open
+    //один означает что пользователь клиент и нужно отправить писмо одмину что клиент отменил запись
+    this.apiService.deleteEntry(selectedRec.idRec, selectedRec.userId, selectedRec.orgId, this.dateService.userCancelHimselfRec.value, workStatus)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.getAllEntryAllUsersForTheMonth();
