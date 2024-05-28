@@ -145,6 +145,11 @@ export class ApiService {
   }
 
 
+  changeWorkStatusChoiceTime(data: any): Observable<any> {
+    return this.http.post<any>('/api/user/changeWorkStatus', data)
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
   setSettings(newSettings: any): Observable<any> {
     return this.http.post<any>('/api/user/setSettings', newSettings)
       .pipe(catchError(this.errHandler.bind(this)))

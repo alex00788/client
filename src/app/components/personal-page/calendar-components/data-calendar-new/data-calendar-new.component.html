@@ -12,13 +12,36 @@
       <div class="cowerTimeOfDay">
         <div class="timeOfDay" *ngFor="let time of day.times">
           <span class="timeOfDayClass">{{time.time}} : 00</span>
+          <div class="btnBlockTime" *ngIf="dateService.currentUserIsTheAdminOrg | async">
+            <div class="btnBlockTime"
+              *ngIf="
+              time.date.substring(3,5) > currentDate.substring(3,5) ||
+              time.date.substring(0,2) > currentDate.substring(0,2)  &&
+              time.date.substring(3,5) === currentDate.substring(3,5) ||
+              time.time > currentHour && time.date === currentDate"
+            >
+              <button class="btnBlockTime jBtnBlock" (click)="closedRecords(time)">
+                  <span *ngIf="time.workStatus !== state"> &#10008; </span>
+                  <span *ngIf="time.workStatus == state"> &#8635; </span>
+              </button>
+              <div class="tooltip">
+                <span *ngIf="time.workStatus !== state">
+                  закрыть запись на это время
+                </span>
+                <span *ngIf="time.workStatus == state">
+                  открыть запись на это время
+                </span>
+              </div>
+            </div>
+          </div>
           <div class="cowerBlockList">
 
             <ng-container *ngIf="dateService.currentUserSimpleUser | async;  else adminBlockBtn">
               <div class="usersOnThisTimeClass" *ngFor="let person of time.users; let i = index">
-                <button *ngIf="person.userId == dateService.currentUserId.value"
-                  class="btnDelete" (click)="deletePerson(person.idRec, person.userId, person.orgId)"
-                  [disabled]="
+                <div *ngIf="person.userId !== '*1'">
+                  <button *ngIf="person.userId == dateService.currentUserId.value"
+                          class="btnDelete" (click)="deletePerson(person.idRec, person.userId, person.orgId)"
+                          [disabled]="
                     pastDateIsBlocked ||
                     time.time < currentHour &&
                     currentDayCheck ||
@@ -28,21 +51,23 @@
                     time.date.substring(3,5) === currentDate.substring(3,5) ||
                     time.time < currentHour && time.date === currentDate
                   "
-                >
-                  &times;
-                </button>
-                <span class="personListClass"
-                      [class]="{currentPersonClass : person.userId == dateService.currentUserId.value}"
-                >
+                  >
+                    &times;
+                  </button>
+                  <span class="personListClass"
+                        [class]="{currentPersonClass : person.userId == dateService.currentUserId.value}"
+                  >
                   {{i +1}}.{{person.nameUser}}
                 </span>
+                </div>
               </div>
             </ng-container>
 
             <ng-template #adminBlockBtn>
               <div class="usersOnThisTimeClass" *ngFor="let person of time.users; let i = index">
-                <button class="btnDelete" (click)="deletePerson(person.idRec, person.userId, person.orgId)"
-                  [disabled]="
+                <div *ngIf="person.userId !== '*1'">
+                  <button class="btnDelete" (click)="deletePerson(person.idRec, person.userId, person.orgId)"
+                          [disabled]="
                     pastDateIsBlocked ||
                     time.time < currentHour &&
                     currentDayCheck ||
@@ -51,14 +76,15 @@
                     time.date.substring(3,5) === currentDate.substring(3,5) ||
                     time.time < currentHour && time.date === currentDate
                   "
-                >
-                  &times;
-                </button>
-                <span class="personListClass" (click)="openDataPerson(person)"
-                      [class]="{currentPersonClass : person.userId == dateService.currentUserId.value}"
-                >
+                  >
+                    &times;
+                  </button>
+                  <span class="personListClass" (click)="openDataPerson(person)"
+                        [class]="{currentPersonClass : person.userId == dateService.currentUserId.value}"
+                  >
                   {{i +1}}.{{person.nameUser}}
                 </span>
+                </div>
               </div>
             </ng-template>
 
@@ -66,11 +92,11 @@
               <div *ngIf="time.workStatus !== state">
                 <button class="btnAddEntryClass"
                         (click)="currentUserRec(time.time, time.date)"
-                        [disabled]="
-                       time.date.substring(3,5) < currentDate.substring(3,5) ||
-                       time.date.substring(0,2) < currentDate.substring(0,2)  &&
+                        *ngIf="
+                       time.date.substring(3,5) > currentDate.substring(3,5) ||
+                       time.date.substring(0,2) > currentDate.substring(0,2)  &&
                        time.date.substring(3,5) === currentDate.substring(3,5) ||
-                       time.time < currentHour && time.date === currentDate
+                       time.time > currentHour && time.date === currentDate
                       "
                 >
                   +

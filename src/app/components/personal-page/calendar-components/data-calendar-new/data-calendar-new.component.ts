@@ -232,7 +232,7 @@ export class DataCalendarNewComponent implements OnInit {
     addSetTime.forEach((el:any) => {
       const newRecTime: any[] = [];
       for (let i = this.dateService.timeStartRecord.value; i <= this.dateService.timeFinishRecord.value; i++) {
-        newRecTime.push({date: el.date, time: JSON.stringify(+i), users: [] })
+        newRecTime.push({date: el.date, time: JSON.stringify(+i), workStatus: 'open', users: []})
       }
       const result:any[] = []
       newRecTime.forEach((setTime: any)=> {
@@ -462,5 +462,26 @@ export class DataCalendarNewComponent implements OnInit {
     this.modalService.open();
     this.modalService.openClientListBlockWithData();
     this.dateService.dataSelectedUser.next(person);
+  }
+
+  closedRecords(time: any) {
+    const howMuchRec = this.dataCalendarService.allEntryAllUsersInMonth.value
+      .filter((el:any)=> el.date === time.date)
+      .filter((el:any)=> el.time === time.time)
+      .length
+
+    const dataForChangeStatus = {
+      date: time.date,
+      time: time.time,
+      state: time.workStatus,
+      idOrg: this.dateService.idSelectedOrg.value
+    }
+    if (this.dateService.maxPossibleEntries.value > howMuchRec) {
+      this.apiService.changeWorkStatusChoiceTime(dataForChangeStatus)
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(()=> {
+          this.refreshData();
+        })
+    }
   }
 }

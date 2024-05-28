@@ -4,6 +4,40 @@
   flex-wrap: wrap;
 }
 
+.tooltip{
+  display: inline;
+  white-space: nowrap;
+  margin: 0 2px;
+  color: #bfefe4;
+}
+
+.btnBlockTime{
+  display: inline;
+  white-space: nowrap;
+  margin: 0 2px;
+}
+
+.jBtnBlock{
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: red;
+  font-size: 17px;
+}
+
+.jBtnBlock:hover {
+  background: #aefaae;
+  color: #5238fd;
+}
+
+/*при наведении на оди менять стиль др*/
+.jBtnBlock:hover~.tooltip {
+  color: red;
+  transition: 1.5s;
+}
+
+
 .recordsBlockClassN {
   border-radius: 10px;
   width: 350px;
@@ -82,12 +116,11 @@ li {
 
 .timeOfDay {
   margin: 10px;
+  display: inline;
 }
 
 .timeOfDayClass {
-  text-align: center;
-  display: flex;
-  justify-content: start;
+  margin: 0 auto;
   font-size: 18px;
   color: #0221c0;
 }
