@@ -476,7 +476,7 @@ export class DataCalendarNewComponent implements OnInit {
       state: time.workStatus,
       idOrg: this.dateService.idSelectedOrg.value
     }
-    if (this.dateService.maxPossibleEntries.value > howMuchRec) {
+    if (this.dateService.maxPossibleEntries.value !== howMuchRec) {
       this.apiService.changeWorkStatusChoiceTime(dataForChangeStatus)
         .pipe(takeUntil(this.destroyed$))
         .subscribe(()=> {

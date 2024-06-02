@@ -100,11 +100,19 @@ export class SettingsBlockComponent implements OnInit{
         this.dateService.location.next(set.newSettings.location);
         this.dateService.phoneOrg.next(set.newSettings.phoneOrg);
         this.dateService.changedSettingsOrg.next(true);
+        this.refreshData()
         this.successService.localHandler('Настройки сохранены');
       });
 
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
   }
+
+  refreshData () {
+    this.dataCalendarService.getAllEntryAllUsersForTheMonth();
+    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dateService.recordingDaysChanged.next(true);
+  }
+
 
 
 }
