@@ -439,14 +439,16 @@ export class DataCalendarNewComponent implements OnInit {
   choosePerson(person: any, data: any) {
     this.clickCount++;
     this.selectedPersonId = person.id;
-    setTimeout(() => {
-      if (this.clickCount === 1) {
-          this.inputElementRef.nativeElement.value = person.surnameUser + ' ' + person.nameUser;
-      } else if (this.clickCount === 2) {
-        this.submit(data);
-      }
-      this.clickCount = 0;
-    }, 250)
+    this.submit(data);
+    // setTimeout(() => {
+    //   if (this.clickCount === 1) {
+    //     this.submit(data);
+    //
+    //   } else if (this.clickCount === 2) {
+    //      this.inputElementRef.nativeElement.value = person.surnameUser + ' ' + person.nameUser;
+    //   }
+    //   this.clickCount = 0;
+    // }, 250)
   }
 
 
@@ -465,18 +467,19 @@ export class DataCalendarNewComponent implements OnInit {
   }
 
   closedRecords(time: any) {
-    const howMuchRec = this.dataCalendarService.allEntryAllUsersInMonth.value
+    const filterRec = this.dataCalendarService.allEntryAllUsersInMonth.value
       .filter((el:any)=> el.date === time.date)
       .filter((el:any)=> el.time === time.time)
-      .length
 
+    const howMuchRec = filterRec.length
     const dataForChangeStatus = {
       date: time.date,
       time: time.time,
       state: time.workStatus,
       idOrg: this.dateService.idSelectedOrg.value
     }
-    if (this.dateService.maxPossibleEntries.value !== howMuchRec) {
+
+    if (this.dateService.maxPossibleEntries.value !== howMuchRec ||  filterRec[0]?.userId === '*1') {
       this.apiService.changeWorkStatusChoiceTime(dataForChangeStatus)
         .pipe(takeUntil(this.destroyed$))
         .subscribe(()=> {

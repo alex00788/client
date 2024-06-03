@@ -67,14 +67,14 @@
               <div class="usersOnThisTimeClass" *ngFor="let person of time.users; let i = index">
                 <div *ngIf="person.userId !== '*1'">
                   <button class="btnDelete" (click)="deletePerson(person.idRec, person.userId, person.orgId)"
-                          [disabled]="
+                          *ngIf="
                     pastDateIsBlocked ||
-                    time.time < currentHour &&
+                    time.time > currentHour &&
                     currentDayCheck ||
-                    time.date.substring(3,5) < currentDate.substring(3,5) ||
-                    time.date.substring(0,2) < currentDate.substring(0,2)  &&
+                    time.date.substring(3,5) > currentDate.substring(3,5) ||
+                    time.date.substring(0,2) > currentDate.substring(0,2)  &&
                     time.date.substring(3,5) === currentDate.substring(3,5) ||
-                    time.time < currentHour && time.date === currentDate
+                    time.time > currentHour && time.date === currentDate
                   "
                   >
                     &times;
@@ -130,9 +130,9 @@
                   </div>
 
                   <div class="futFormBtn">
-                    <button class="btn btnDisable" (click)="submit(time)"
-                    > записать
-                    </button>
+<!--                    <button class="btn btnDisable" (click)="submit(time)"-->
+<!--                    > записать-->
+<!--                    </button>-->
                     <button class="btn" type="button" (click)="cancel()"> отменить</button>
                   </div>
                 </div>
