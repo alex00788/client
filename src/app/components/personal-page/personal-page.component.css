@@ -1,7 +1,7 @@
 .personalPageStyle {
   height: 990px;
-  background: white;
-  opacity: 95%;
+  /*!*background: white;*! светлая тема*/
+  /*opacity: 95%;*/
   overflow: auto;
 }
 
@@ -114,6 +114,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  color: white;
 }
 
 
@@ -135,7 +136,8 @@
   text-align: center;
   border: none;
   border-radius: 10px;
-  color: #5238fd;
+  /*color: #5238fd;*/
+  color: white;
   cursor: pointer;
 }
 
@@ -147,7 +149,7 @@
 }
 
 .btnOut {
-  color: white;
+  color: black;
   cursor: pointer;
 }
 
