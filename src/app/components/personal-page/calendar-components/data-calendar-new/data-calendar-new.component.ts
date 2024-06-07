@@ -312,6 +312,10 @@ export class DataCalendarNewComponent implements OnInit {
 
   //функция добавления новой записи
   addEntry(user: any, curHourTime: any, date: any) {
+    if (user.recAllowed) {
+      this.localErrHandler('для дальнейшей записи обратитесь к администратору данной организации');
+      return;
+    }
     const workStatus = this.dateService.maxPossibleEntries.value <= this.dateService.howMuchRecorded.value +1? 0 : 1; //0 = closed 1 = open
     const year = date.substring(date.length - 4);
     const month = date.substring(3,5);

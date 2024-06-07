@@ -144,6 +144,14 @@ export class DataPersonModalComponent implements OnInit {
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any)=>{
        this.recAllowed = res.allowed;
+       this.refreshData();
       })
   }
+
+  refreshData () {
+    this.dataCalendarService.getAllEntryAllUsersForTheMonth();
+    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dateService.recordingDaysChanged.next(true);
+  }
+
 }
