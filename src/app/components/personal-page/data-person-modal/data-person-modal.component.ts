@@ -40,7 +40,7 @@ export class DataPersonModalComponent implements OnInit {
   showBtnAdminAndUser: boolean;
   hideBtnForCurrentAdmin: boolean;
   private destroyed$: Subject<void> = new Subject();
-  currentDate: any;
+  currentDate = moment().format('DD.MM.YYYY');
   currentHour: any = new Date().getHours();
   blockRepeat: boolean = false;
   clickCount = 0;
@@ -55,13 +55,7 @@ export class DataPersonModalComponent implements OnInit {
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)
     this.hideBtnForCurrentAdmin = this.selectedUser.userId == this.dateService.currentUserId.value;
     this.roleUser = this.selectedUser.role;
-    this.currentDate = moment().format('DD.MM.YYYY');
-
-    // if (moment(this.selectedUser.created).add(7 ,'day').format('DD.MM.YYYY') >= this.currentDate) {
-    //   this.newUser = false;   // ошибку консоли посмотреть в браузере
-    // } else {
-    //   this.newUser = true
-    // }
+    this.newUser = moment(this.selectedUser.created).add(7 ,'day') >= moment(); //если дата создания строки неделя то добавляем new в карточку клиента
     this.dataAboutSelectedUser();
     this.dataCalendarService.allEntryAllUsersInMonth
       .pipe(takeUntil(this.destroyed$))

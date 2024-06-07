@@ -88,11 +88,11 @@
             </span>
               <button class="strRecordsSelectedUser"
                       (click)="deleteSelectedRecSelectedUser(entry)"
-                      [disabled]="blockRepeat ||
-                    entry.date.substring(3,5) < currentDate.substring(3,5) ||
-                    entry.date.substring(0,2) < currentDate.substring(0,2)  &&
+                      *ngIf="blockRepeat ||
+                    entry.date.substring(3,5) > currentDate.substring(3,5) ||
+                    entry.date.substring(0,2) > currentDate.substring(0,2)  &&
                     entry.date.substring(3,5) === currentDate.substring(3,5) ||
-                    entry.time < currentHour && entry.date === currentDate                      "
+                    entry.time > currentHour && entry.date === currentDate                      "
               >
                 &times;
               </button>
