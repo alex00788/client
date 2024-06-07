@@ -464,6 +464,7 @@ export class DataCalendarNewComponent implements OnInit {
     this.modalService.open();
     this.modalService.openClientListBlockWithData();
     this.dateService.dataSelectedUser.next(person);
+    this.dataCalendarService.getPhoneSelectedUser(person.userId);
   }
 
   closedRecords(time: any) {

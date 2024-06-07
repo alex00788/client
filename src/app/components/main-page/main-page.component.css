@@ -4,6 +4,8 @@
 
 .modal{
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .successModal {
@@ -25,10 +27,6 @@
 .contactsBlock {
   display: flex;
   justify-content: center;
-  position: fixed;
-  left: 700px;
-  width: 450px;
-  top: 450px;
   }
 
 
@@ -49,21 +47,29 @@
 }
 
 .title {
-  text-align: center;
-  width: 355px;
-  margin: 20px auto;
+  display: flex;
+  justify-content: center;
   font-size: 50px;
   word-spacing: 100vw;
   font-weight: bold;
   cursor: pointer;
 }
 
+.enterAndBtn {
+  margin-top: 300px;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
 .enter {
+  color: white;
   cursor: pointer;
   font-size: 30px;
-  position: fixed;
-  top: 400px;
-  left: 700px;
+  display: flex;
+  justify-content: center;
 }
 
 .enter:hover {
@@ -107,10 +113,6 @@
     left: 200px;
   }
 
-  .contactsBlock {
-    width: 370px;
-  }
-
   .btnContactClass {
     margin: 5px 20px;
   }
@@ -125,6 +127,10 @@
     white-space: nowrap;
   }
 
+  .enter {
+    font-size: 25px;
+  }
+
   .appDescription {
     font-size: 25px;
     top: 70px;
@@ -137,5 +143,12 @@
 
   .contactsBlock {
     top: 350px;
+  }
+}
+
+
+@media (max-width: 450px) {
+  .enter {
+    font-size: 20px;
   }
 }

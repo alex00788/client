@@ -6,6 +6,7 @@ import {FormsModule,} from "@angular/forms";
 import {FilterClientListPipe} from "../../../../shared/pipe/filter-client-list.pipe";
 import {ModalService} from "../../../../shared/services/modal.service";
 import {PersonalBlockService} from "../personal-block.service";
+import {DataCalendarService} from "../data-calendar-new/data-calendar.service";
 
 @Component({
   selector: 'app-clients-list',
@@ -23,6 +24,7 @@ import {PersonalBlockService} from "../personal-block.service";
 export class ClientsListComponent implements OnInit{
   constructor(
     public dateService: DateService,
+    public dataCalendarService: DataCalendarService,
     public modalService: ModalService,
     public personalBlockService: PersonalBlockService,
     ) {
@@ -49,6 +51,7 @@ export class ClientsListComponent implements OnInit{
     person.userId = JSON.stringify(+person.id)
     this.modalService.open();
     this.modalService.openClientListBlockWithData();
+    this.dataCalendarService.getPhoneSelectedUser(person.userId);
     this.dateService.dataSelectedUser.next(person);
   }
 }

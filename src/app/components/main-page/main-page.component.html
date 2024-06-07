@@ -17,16 +17,6 @@
       <button class="btnDetailsClass"> подробнее... </button>
     </div>
 
-    <div>
-      <strong *ngIf="modalService.hideTitle$ | async"
-              class="enter" (click)="modalService.hideTitle()" routerLink="/personal-page">{{modalTitle}}</strong>
-    </div>
-
-    <div class="contactsBlock" *ngIf="modalService.hideTitle$ | async">
-      <button class="btnContactClass" (click)="modalService.openAppContacts()"> контакты </button>
-      <button class="btnContactClass" (click)="modalService.openAppSupport()"> поддержать разработку  </button>
-    </div>
-
 
     <div class="modal" *ngIf="modalService.isVisible$ | async">
       <app-modal-page>
@@ -38,6 +28,21 @@
         <app-contacts *ngIf="modalService.appContacts$ | async"></app-contacts>
         <app-support-development *ngIf="modalService.appSupport$ | async"></app-support-development>
       </app-modal-page>
+    </div>
+  </div>
+  <div class="enterAndBtn">
+    <div>
+      <strong *ngIf="modalService.hideTitle$ | async"
+              class="enter" (click)="modalService.hideTitle()"
+              routerLink="/personal-page"
+      >
+        {{modalTitle}}
+      </strong>
+
+      <div class="contactsBlock" *ngIf="modalService.hideTitle$ | async">
+        <button class="btnContactClass" (click)="modalService.openAppContacts()"> контакты </button>
+        <button class="btnContactClass" (click)="modalService.openAppSupport()"> поддержать разработку  </button>
+      </div>
     </div>
   </div>
 </div>

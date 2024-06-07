@@ -5,6 +5,10 @@
   width: 500px;
 }
 
+.newUser {
+  color: #5238fd;
+}
+
 .strRecordsSelectedUser {
   margin: 5px;
 }

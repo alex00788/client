@@ -46,6 +46,7 @@ export class DataPersonModalComponent implements OnInit {
   clickCount = 0;
   blockRecordsSelectedUser = true;
   selectedUser = this.dateService.dataSelectedUser.value;
+  newUser = true;
 
 
   ngOnInit(): void {
@@ -55,6 +56,12 @@ export class DataPersonModalComponent implements OnInit {
     this.hideBtnForCurrentAdmin = this.selectedUser.userId == this.dateService.currentUserId.value;
     this.roleUser = this.selectedUser.role;
     this.currentDate = moment().format('DD.MM.YYYY');
+
+    // if (moment(this.selectedUser.created).add(7 ,'day').format('DD.MM.YYYY') >= this.currentDate) {
+    //   this.newUser = false;   // ошибку консоли посмотреть в браузере
+    // } else {
+    //   this.newUser = true
+    // }
     this.dataAboutSelectedUser();
     this.dataCalendarService.allEntryAllUsersInMonth
       .pipe(takeUntil(this.destroyed$))

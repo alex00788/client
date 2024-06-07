@@ -13,6 +13,11 @@
   padding-bottom: 10px;
 }
 
+h2 {
+  color: #5238fd;
+  margin: 20px 50px;
+}
+
 .titleDescription:hover {
   color: #5238fd;
 }

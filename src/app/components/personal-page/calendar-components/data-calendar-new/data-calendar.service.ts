@@ -92,6 +92,15 @@ export class DataCalendarService {
       });
   }
 
+  getPhoneSelectedUser(userId: any) {
+    this.apiService.getPhoneClient(userId)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((phone:any)=> {
+        this.dateService.clientPhone.next(phone);
+      })
+  }
+
+
   //функция фильтрующая все записи пользователя по организации
   filterRecCurrentUserByOrg() {
     this.filterByOrg.next(true);

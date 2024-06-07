@@ -8,7 +8,15 @@
       <div>
         <strong> {{roleUser}}: </strong>
       </div>
+      <strong *ngIf="newUser" class="newUser">NEW</strong>
       <span> {{nameUser}}</span>
+    </div>
+
+    <div class="selectedUserClass">
+      <div>
+        <strong> Тел: </strong>
+      </div>
+      <span> {{dateService.clientPhone.value}}</span>
     </div>
 
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
@@ -16,6 +24,18 @@
         <strong> Остаток: </strong>
       </div>
       <span> {{remainingFunds}} </span>
+    </div>
+    <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
+      <div>
+        <strong> Разрешить: </strong>
+      </div>
+      <button>Запись</button>
+    </div>
+    <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
+      <div>
+        <strong> Запретить: </strong>
+      </div>
+      <button>Запись</button>
     </div>
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
       <div>

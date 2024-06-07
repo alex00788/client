@@ -139,6 +139,16 @@ export class ApiService {
       .pipe(catchError(this.errHandler.bind(this)))
   }
 
+
+  getPhoneClient(userId: any): Observable<any> {
+    return this.http.get<any>('/api/user/getPhoneClient', {
+      params: new HttpParams()
+        .append('userId', userId)
+    })
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
+
   addEntry(newUserAccount: any): Observable<any> {
     return this.http.post<any>('/api/user/addEntry', newUserAccount)
     .pipe(catchError(this.errHandler.bind(this)))

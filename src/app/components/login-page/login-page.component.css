@@ -130,6 +130,9 @@ input {
 
 @media (max-width: 600px) {
 
+  .titleModal {
+    font-size: 20px;
+  }
 
   .btnResend {
     width: 320px;
@@ -146,6 +149,7 @@ input {
 
   .form {
     max-width: 280px;
+    height: 200px;
     word-spacing: 200vw;
   }
 
@@ -156,8 +160,14 @@ input {
     margin: 15px auto;
   }
 
+  label {
+    height: 20px;
+    padding-top: 5px;
+    padding-left: 15px;
+    font-size: 15px;
+  }
 
-  .registerBtn {
+    .registerBtn {
     width: 140px;
     height: 20px;
     margin-top: 15px;

@@ -43,7 +43,7 @@
           <small> напишите вашу фамилию </small>
         </div>
         <div>
-          <label for="phoneNumber"> Ваш телефон начиная с +7 </label>
+          <label for="phoneNumber" class="phoneClass"> Ваш телефон начиная с +7 </label>
           <input id="phoneNumber" type="text" formControlName="phoneNumber"
                  maxlength="12" (input)="phoneValidation($event)" (focus)="phoneValidation($event)">
         </div>

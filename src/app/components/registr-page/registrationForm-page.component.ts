@@ -63,31 +63,31 @@ export class RegistrationFormPageComponent implements OnInit {
 
 
   get email() {
-    return this.form.controls.email as FormControl
+    return this.form.controls.email as FormControl;
   }
 
   get password() {
-    return this.form.controls.password as FormControl
+    return this.form.controls.password as FormControl;
   }
 
   get nameUser() {
-    return this.form.controls.nameUser as FormControl
+    return this.form.controls.nameUser as FormControl;
   }
 
   get surnameUser() {
-    return this.form.controls.surnameUser as FormControl
+    return this.form.controls.surnameUser as FormControl;
   }
 
   get phoneNumber() {
-    return this.form.controls.phoneNumber as FormControl
+    return this.form.controls.phoneNumber as FormControl;
   }
 
   get permission() {
-    return this.form.controls.permission as FormControl
+    return this.form.controls.permission as FormControl;
   }
 
   get sectionOrOrganization() {
-    return this.form.controls.sectionOrOrganization as FormControl
+    return this.form.controls.sectionOrOrganization as FormControl;
   }
 
 

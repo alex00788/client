@@ -37,6 +37,7 @@ export class DateService {                                            //moment()
   public maxPossibleEntries: BehaviorSubject<any> = new BehaviorSubject('')
   public howMuchRecorded: BehaviorSubject<any> = new BehaviorSubject(0)
   public dataSelectedUser: BehaviorSubject<any> = new BehaviorSubject({})
+  public clientPhone: BehaviorSubject<any> = new BehaviorSubject('')
 
   constructor() {
   }
