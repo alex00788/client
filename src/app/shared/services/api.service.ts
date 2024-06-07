@@ -198,4 +198,9 @@ export class ApiService {
     return this.http.post<any>('/api/user/clearTableRec', date )
       .pipe(catchError(this.errHandler.bind(this)))
   }
+
+  changeAllowed(data: any) {
+    return this.http.post<any>('/api/user/changeAllowed', data )
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
 }

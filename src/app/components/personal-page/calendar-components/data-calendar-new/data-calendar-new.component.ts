@@ -329,7 +329,9 @@ export class DataCalendarNewComponent implements OnInit {
       remainingFunds: user.remainingFunds,
       sectionOrOrganization: user.sectionOrOrganization,
       idOrg: this.dateService.idSelectedOrg.value,
-      workStatus: workStatus
+      workStatus: workStatus,
+      recAllowed: user.recAllowed,
+      created: user.created
     }
     this.apiService.addEntry(newUserAccount)
       .pipe(takeUntil(this.destroyed$))

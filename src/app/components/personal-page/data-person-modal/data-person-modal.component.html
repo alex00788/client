@@ -27,21 +27,17 @@
     </div>
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
       <div>
-        <strong> Разрешить: </strong>
+        <strong *ngIf="!recAllowed"> Запись разрешена: </strong>
+        <strong *ngIf="recAllowed"> Запись запрещена: </strong>
       </div>
-      <button>Запись</button>
+      <button *ngIf="recAllowed" (click)="changeAllowed()" style="background: #03f303"> Разрешить </button>
+      <button *ngIf="!recAllowed" (click)="changeAllowed()" style="background: salmon"> Запретить </button>
     </div>
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
       <div>
-        <strong> Запретить: </strong>
+        <strong> Абонемент: </strong>
       </div>
-      <button>Запись</button>
-    </div>
-    <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
-      <div>
-        <strong> Добавить: </strong>
-      </div>
-      <button>Абонемент</button>
+      <button>Добавить</button>
     </div>
     <div *ngIf="!hideBtnForCurrentAdmin">
       <div class="selectedUserClass" *ngIf="!showBtnAdminAndUser">

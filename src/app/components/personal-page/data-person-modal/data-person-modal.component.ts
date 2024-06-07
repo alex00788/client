@@ -47,6 +47,7 @@ export class DataPersonModalComponent implements OnInit {
   blockRecordsSelectedUser = true;
   selectedUser = this.dateService.dataSelectedUser.value;
   newUser = true;
+  recAllowed = false;
 
 
   ngOnInit(): void {
@@ -54,6 +55,7 @@ export class DataPersonModalComponent implements OnInit {
     this.dataCalendarService.getAllUsersCurrentOrganization();
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)
     this.hideBtnForCurrentAdmin = this.selectedUser.userId == this.dateService.currentUserId.value;
+    this.recAllowed = this.selectedUser.recAllowed;
     this.roleUser = this.selectedUser.role;
     this.newUser = moment(this.selectedUser.created).add(7 ,'day') >= moment(); //если дата создания строки неделя то добавляем new в карточку клиента
     this.dataAboutSelectedUser();
@@ -131,5 +133,17 @@ export class DataPersonModalComponent implements OnInit {
 
   showOrHideDaysRec() {
     this.blockRecordsSelectedUser = !this.blockRecordsSelectedUser;
+  }
+
+  changeAllowed() {
+    const data = {
+      recAllowed: this.recAllowed,
+      selectedUser: this.selectedUser
+    }
+    this.apiService.changeAllowed(data)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res: any)=>{
+       this.recAllowed = res.allowed;
+      })
   }
 }
