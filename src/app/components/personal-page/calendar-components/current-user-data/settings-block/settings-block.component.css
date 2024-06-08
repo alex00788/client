@@ -12,6 +12,12 @@
   color: #0221c0;
 }
 
+.timeSetClass {
+  color: #5238fd;
+  margin: 5px 0;
+}
+
+
 .currentSettingsData {
   position: relative;
   display: block;

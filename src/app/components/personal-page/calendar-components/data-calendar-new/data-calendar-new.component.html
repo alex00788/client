@@ -11,7 +11,7 @@
       </div>
       <div class="cowerTimeOfDay">
         <div class="timeOfDay" *ngFor="let time of day.times">
-          <span class="timeOfDayClass">{{time.time}} : 00</span>
+          <span class="timeOfDayClass">{{time.time}} : {{time.tMin}}</span>
           <div class="btnBlockTime" *ngIf="dateService.currentUserIsTheAdminOrg | async">
             <div class="btnBlockTime"
               *ngIf="

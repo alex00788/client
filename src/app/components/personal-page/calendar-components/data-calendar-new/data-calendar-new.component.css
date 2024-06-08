@@ -132,6 +132,7 @@ li {
   text-align: center;
   width: 380px;
   margin: 5px;
+  cursor: pointer;
 }
 
 .dataList {

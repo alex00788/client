@@ -31,9 +31,11 @@ export class SettingsBlockComponent implements OnInit{
   private destroyed$: Subject<void> = new Subject();
   dataSettings:  any;
   timesForRec : any = [''];
+  timesForRecMinutes : any = [''];
   form = new FormGroup({
     maxiPeople: new FormControl(this.dateService.maxPossibleEntries.value, Validators.required),
     timeStartRec: new FormControl(this.dateService.timeStartRecord.value, Validators.required),
+    timeMinutesRec: new FormControl(this.dateService.timeMinutesRec.value, Validators.required),
     timeFinishRec: new FormControl(this.dateService.timeFinishRecord.value, Validators.required),
     location: new FormControl(this.dateService.location.value, Validators.required),
     phoneOrg: new FormControl(this.dateService.phoneOrg.value, Validators.required),
@@ -50,6 +52,9 @@ export class SettingsBlockComponent implements OnInit{
     //  для настройки интервала времени в которое можно записаться
     for (let i = 0 ; i <= 23; i++) {
       this.timesForRec.push(i)
+    }
+    for (let i = 0 ; i <= 59; i++) {
+      this.timesForRecMinutes.push(i)
     }
   }
 
@@ -87,14 +92,17 @@ export class SettingsBlockComponent implements OnInit{
       remainingFunds: this.dateService.remainingFunds.value,
       maxiPeople: this.form.value.maxiPeople,
       timeStartRec: this.form.value.timeStartRec,
+      timeMinutesRec: this.form.value.timeMinutesRec,
       timeFinishRec: this.form.value.timeFinishRec,
       location: this.form.value.location,
       phoneOrg: this.form.value.phoneOrg,
     }
+    console.log('100', dataSettings)
     this.apiService.setSettings(dataSettings)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((set: any) => {
         this.dateService.timeStartRecord.next(set.newSettings.timeStartRec);
+        this.dateService.timeMinutesRec.next(set.newSettings.timeMinutesRec);
         this.dateService.timeFinishRecord.next(set.newSettings.timeLastRec);
         this.dateService.maxPossibleEntries.next(set.newSettings.maxClients);
         this.dateService.location.next(set.newSettings.location);

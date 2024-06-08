@@ -10,10 +10,15 @@
 
     <div class="oneSitting">
       <label>
-        Время начала записи:
+        Время начала:
       </label>
+      <small class="timeSetClass">ч:</small>
       <select class="settingsSelectClass" formControlName="timeStartRec">
         <option *ngFor="let chSt of timesForRec"> {{chSt}}</option>
+      </select>
+      <small class="timeSetClass">м:</small>
+      <select class="settingsSelectClass" formControlName="timeMinutesRec">
+        <option *ngFor="let minSt of timesForRecMinutes"> {{minSt}}</option>
       </select>
     </div>
 
@@ -77,7 +82,7 @@
        Время начала записи:
       </span>
         <span style="color: #5238fd">
-          {{dateService.timeStartRecord.value}} : 00
+          {{dateService.timeStartRecord.value}} : {{ dateService.timeMinutesRec.value }}
         </span>
       </div>
     </div>
@@ -87,7 +92,7 @@
        Последняя запись в:
       </span>
         <span style="color: #5238fd">
-          {{dateService.timeFinishRecord.value}} : 00
+          {{dateService.timeFinishRecord.value}} : {{ dateService.timeMinutesRec.value }}
         </span>
       </div>
     </div>

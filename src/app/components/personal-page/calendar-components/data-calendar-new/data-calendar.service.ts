@@ -65,6 +65,7 @@ export class DataCalendarService {
     const dataSettings = allUsersOrganization.find((admin: any)=> admin.role === 'ADMIN')
     if (dataSettings) {
       this.dateService.timeStartRecord.next(dataSettings.timeStartRec);
+      this.dateService.timeMinutesRec.next(dataSettings.timeMinutesRec);
       this.dateService.timeFinishRecord.next(dataSettings.timeLastRec);
       this.dateService.maxPossibleEntries.next(dataSettings.maxClients);
       this.dateService.location.next(dataSettings.location);
