@@ -201,7 +201,6 @@ export class DataCalendarNewComponent implements OnInit {
       let times = this.getAllRecOnThisWeek(currentWeek).filter((el:any)=> el.date === currentWeek[i])
       res.push({date: currentWeek[i], times })
     }
-    console.log('204', res)
     return this.getArrayOfDaysFromTheRequiredHours(res);
   }
 
