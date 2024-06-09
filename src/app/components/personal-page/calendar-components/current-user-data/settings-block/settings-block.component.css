@@ -14,7 +14,8 @@
 
 .timeSetClass {
   color: #5238fd;
-  margin: 5px 0;
+  margin: 5px 0 0 5px;
+  height: 20px;
 }
 
 
@@ -125,7 +126,7 @@ label {
 }
 
 .settingsSelectClass {
-  margin: 5px;
+  margin: 5px 5px 5px 0 ;
   display: inline;
   width: 53px;
 }

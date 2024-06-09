@@ -82,6 +82,8 @@ export class SettingsBlockComponent implements OnInit{
     this.personalBlockService.closeSettings();
     this.personalBlockService.settingsRecords = false;
     this.dateService.changeSettingsRec(this.form.value)
+    const timeMinutes = this.form.value.timeMinutesRec <= 9 && this.form.value.timeMinutesRec >=0 && this.form.value.timeMinutesRec !== '00'?
+      '0' + this.form.value.timeMinutesRec : this.form.value.timeMinutesRec;
     const dataSettings = {
       nameUser: currentUser.nameUser,
       surnameUser: currentUser.surnameUser,
@@ -92,12 +94,11 @@ export class SettingsBlockComponent implements OnInit{
       remainingFunds: this.dateService.remainingFunds.value,
       maxiPeople: this.form.value.maxiPeople,
       timeStartRec: this.form.value.timeStartRec,
-      timeMinutesRec: this.form.value.timeMinutesRec,
+      timeMinutesRec: timeMinutes,
       timeFinishRec: this.form.value.timeFinishRec,
       location: this.form.value.location,
       phoneOrg: this.form.value.phoneOrg,
     }
-    console.log('100', dataSettings)
     this.apiService.setSettings(dataSettings)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((set: any) => {
