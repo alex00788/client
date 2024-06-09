@@ -201,6 +201,7 @@ export class DataCalendarNewComponent implements OnInit {
       let times = this.getAllRecOnThisWeek(currentWeek).filter((el:any)=> el.date === currentWeek[i])
       res.push({date: currentWeek[i], times })
     }
+    console.log('204', res)
     return this.getArrayOfDaysFromTheRequiredHours(res);
   }
 
@@ -277,7 +278,7 @@ export class DataCalendarNewComponent implements OnInit {
             const usOnThisTime = this.dataCalendarService.arrayOfDays.value[i].users.filter((usOnThisTime: any)=> {
               return usOnThisTime.time === recordingTimeOnThisDay[ni]
             })
-            usOnThisDay.push({date: currentWeek[i], time: recordingTimeOnThisDay[ni], workStatus, users: usOnThisTime})
+            usOnThisDay.push({date: currentWeek[i], time: recordingTimeOnThisDay[ni], tMin: this.dateService.timeMinutesRec.value, workStatus, users: usOnThisTime})
           }
         }
       })
