@@ -28,16 +28,23 @@
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
       <div>
         <strong *ngIf="!recAllowed"> Запись разрешена: </strong>
-        <strong *ngIf="recAllowed"> Запись запрещена: </strong>
+        <strong *ngIf="recAllowed" style="color: red"> Запись запрещена: </strong>
       </div>
       <button *ngIf="recAllowed" (click)="changeAllowed()" style="background: #03f303"> Разрешить </button>
       <button *ngIf="!recAllowed" (click)="changeAllowed()" style="background: salmon"> Запретить </button>
     </div>
-    <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
+    <div  *ngIf="!hideBtnForCurrentAdmin">
+      <form [formGroup]="form" (submit)="submit()" class="selectedUserClass">
       <div>
-        <strong> Абонемент: </strong>
-      </div>
-      <button>Добавить</button>
+          <strong class="subscription"> Абонемент  </strong>
+          <small class="numOfRec"> (сколько раз клиент может записаться) </small>
+          <div class="tooltipForSubscription">
+            <small> (сколько раз клиент может записаться) </small>
+          </div>
+          <input type="number" class="inputAddSubscription" min="1" formControlName="subscription">
+        </div>
+        <button type="submit">Добавить</button>
+      </form>
     </div>
     <div *ngIf="!hideBtnForCurrentAdmin">
       <div class="selectedUserClass" *ngIf="!showBtnAdminAndUser">

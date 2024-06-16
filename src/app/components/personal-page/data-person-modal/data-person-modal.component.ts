@@ -8,6 +8,7 @@ import {TranslateMonthPipe} from "../../../shared/pipe/translate-month.pipe";
 import {RecordsBlockComponent} from "../calendar-components/current-user-data/records-block/records-block.component";
 import {DataCalendarService} from "../calendar-components/data-calendar-new/data-calendar.service";
 import moment from "moment";
+import {FormControl, FormGroup, ReactiveFormsModule,} from "@angular/forms";
 
 @Component({
   selector: 'app-data-person-modal',
@@ -17,7 +18,8 @@ import moment from "moment";
     AsyncPipe,
     TranslateMonthPipe,
     RecordsBlockComponent,
-    NgForOf
+    NgForOf,
+    ReactiveFormsModule
   ],
   templateUrl: './data-person-modal.component.html',
   styleUrl: './data-person-modal.component.css'
@@ -31,6 +33,9 @@ export class DataPersonModalComponent implements OnInit {
   ) {
   }
 
+  form = new FormGroup({
+    subscription: new FormControl(1),
+  })
   nameUser = 'Имя'
   roleUser = 'Роль'
   remainingFunds = 'Остаток средств'
@@ -154,4 +159,16 @@ export class DataPersonModalComponent implements OnInit {
     this.dateService.recordingDaysChanged.next(true);
   }
 
+  submit() {
+    const dataForChangeRemainingFunds = {
+      idRec: this.selectedUser.idRec,
+      remainingFunds: this.form.value.subscription
+    }
+    this.apiService.addSubscription(dataForChangeRemainingFunds)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res)=> {
+        this.remainingFunds = res.changeRemain.remainingFunds
+        this.refreshData();
+      })
+  }
 }

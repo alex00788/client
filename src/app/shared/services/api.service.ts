@@ -203,4 +203,9 @@ export class ApiService {
     return this.http.post<any>('/api/user/changeAllowed', data )
       .pipe(catchError(this.errHandler.bind(this)))
   }
+
+  addSubscription(data: { idRec: any; remainingFunds: number | null | undefined }) {
+    return this.http.post<any>('/api/user/addSubscription', data )
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
 }

@@ -75,3 +75,36 @@ span{
   margin-left: 15px;
   border-radius: 5px;
 }
+
+.inputAddSubscription {
+  width: 30px;
+  margin-left: 18px;
+}
+
+.numOfRec {
+  margin-left: 18px;
+}
+
+.tooltipForSubscription {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .numOfRec {
+    display:none;
+  }
+
+  .inputAddSubscription {
+    margin-left: 80px;
+  }
+
+  .subscription:hover~.tooltipForSubscription {
+    position: absolute;
+    display: block;
+    background: #f3f9f3;
+    width: 290px;
+    height: 70px;
+    color: #0221c0;
+  }
+
+}
