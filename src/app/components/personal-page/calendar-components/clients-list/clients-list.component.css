@@ -67,3 +67,14 @@ li {
 .chooseClient:focus:after {
   width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
 }
+
+
+@media (max-width: 600px) {
+  .chooseClient {
+    white-space: nowrap;
+  }
+
+  li {
+    margin: 5px 30px;
+  }
+}

@@ -142,3 +142,16 @@ label {
   display: flex;
   justify-content: space-between;
 }
+
+@media (max-width: 600px) {
+  .sittingCurrentValue {
+    max-width: 280px;
+    white-space: nowrap;
+  }
+
+  .oneSitting {
+    margin: 0 2px;
+    flex-wrap: nowrap;
+  }
+
+}

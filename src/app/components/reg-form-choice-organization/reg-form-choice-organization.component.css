@@ -154,6 +154,8 @@ hr {
 @media (max-width: 600px) {
   .regFormClass {
     max-width: 290px;
+    margin: 15px;
+    padding: 5px 15px;
   }
 
   .orgClass {

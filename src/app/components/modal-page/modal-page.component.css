@@ -18,7 +18,7 @@
 
 @media (max-width: 600px) {
   .modalContent {
-    max-width: 320px;
+    max-width: 350px;
     margin: 0 auto;
     padding: 5px;
   }
