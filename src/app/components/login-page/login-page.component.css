@@ -49,7 +49,7 @@
 .inputForm {
   margin-right: 15px;
   position: absolute;
-  top: 10px;
+  top: 25px;
   left: 20px;
 }
 
@@ -156,8 +156,9 @@ input {
   .fut {
     display: flex;
     justify-content: space-between;
-    max-width: 250px;
-    margin: 15px auto;
+    max-width: 230px;
+    max-height: 40px;
+    margin: 10px auto;
   }
 
   label {
@@ -168,9 +169,10 @@ input {
   }
 
     .registerBtn {
-    width: 140px;
+    width: 126px;
     height: 20px;
     margin-top: 15px;
+    margin-right: 0;
   }
 
   input {

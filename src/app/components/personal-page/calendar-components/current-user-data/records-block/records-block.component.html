@@ -93,10 +93,14 @@
 
      <ng-template #notContentBlock>
        <span class="notContentClass" *ngIf="dataCalendarService.showAll.value">
-         в {{dateService.date.value.format('M') | translateMonth}} записей нет!
+         В&nbsp;
+         <span style="color: #9484ef; text-decoration: underline" >
+            {{dateService.date.value.format('M') | translateMonth}}
+         </span>
+          &nbsp;записей нет!
        </span>
        <span class="notContentClass" *ngIf="dataCalendarService.filterByDate.value">
-         {{dateService.date.value.format('DD.MM') }} записей нет!
+        ... записей нет!
        </span>
      </ng-template>
 

@@ -91,6 +91,7 @@ span{
 
 @media (max-width: 600px) {
   .numOfRec {
+    max-width: 10px;
     display:none;
   }
 
@@ -107,4 +108,10 @@ span{
     color: #0221c0;
   }
 
+
+  .dataRecordsBlockSelectedUser {
+    margin-top: 20px;
+    margin-left: -29px;
+    width: 280px;
+  }
 }

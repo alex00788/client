@@ -38,15 +38,16 @@
       <div>
           <strong class="subscription"> Абонемент  </strong>
           <small class="numOfRec"> (сколько раз клиент может записаться) </small>
-          <div class="tooltipForSubscription">
+         <!-- <div class="tooltipForSubscription">
             <small> (сколько раз клиент может записаться) </small>
-          </div>
+            то тултип tooltype  по появляеться при наведении на малом жкране
+          </div>-->
           <input type="number" class="inputAddSubscription" min="1" formControlName="subscription">
         </div>
         <button type="submit">Добавить</button>
       </form>
     </div>
-    <div *ngIf="!hideBtnForCurrentAdmin">
+    <!--<div *ngIf="!hideBtnForCurrentAdmin">
       <div class="selectedUserClass" *ngIf="!showBtnAdminAndUser">
         <div>
           <strong> Назначить: </strong>
@@ -57,7 +58,7 @@
           <span *ngIf="showBtnAdmin">Администратором</span>
         </button>
       </div>
-    </div>
+    </div>-->
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
       <div (click)="showOrHideDaysRec()">
         <strong class="btnShowDayRec" *ngIf="!blockRecordsSelectedUser"> Показать дни записи... </strong>
