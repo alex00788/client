@@ -78,6 +78,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+    this.dateService.pasForLink.next(this.form.value.password);
     this.loginSub = this.apiService.login(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(userData => {
@@ -124,7 +125,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   resendLink() {
-    this.apiService.resendLink({email: this.form.value.email})
+    this.apiService.resendLink({email: this.form.value.email, password: this.dateService.pasForLink.value})
       .pipe(takeUntil(this.destroyed$))
       .subscribe((mes:any) => {
         this.errorResponseService.clear();
