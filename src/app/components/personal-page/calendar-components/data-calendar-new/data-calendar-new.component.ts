@@ -232,8 +232,9 @@ export class DataCalendarNewComponent implements OnInit {
     addSetTime.forEach((el:any) => {
       const newRecTime: any[] = [];
       for (let i = this.dateService.timeStartRecord.value; i <= this.dateService.timeFinishRecord.value; i++) {
-        const timeWithZero = +i <= 9 && +i >=0 && i !== '00'?  //&& time.length < 1
+        let timeWithZero = +i <= 9 && +i >=0 && i !== '00'?  //&& time.length < 1
           '0' + JSON.stringify(+i) : JSON.stringify(+i);
+        timeWithZero = timeWithZero == '0'? '0' + timeWithZero: timeWithZero;
         newRecTime.push({date: el.date, time: timeWithZero,tMin: this.dateService.timeMinutesRec.value,  workStatus: 'open', users: []})
       }
       const result:any[] = []

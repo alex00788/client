@@ -86,7 +86,9 @@ export class SettingsBlockComponent implements OnInit{
       '0' + this.form.value.timeMinutesRec : this.form.value.timeMinutesRec;
     const timeSt = this.form.value.timeStartRec <= 9 && this.form.value.timeStartRec >=0 && this.form.value.timeStartRec !== '00'?
       '0' + this.form.value.timeStartRec : this.form.value.timeStartRec;
-    const timeFn = this.form.value.timeFinishRec <= 9 && this.form.value.timeFinishRec >=0 && this.form.value.timeFinishRec !== '00'?
+    const timeFn = this.form.value.timeFinishRec <= 9 &&
+                    this.form.value.timeFinishRec >=0 &&
+                    this.form.value.timeFinishRec !== '00' ?
       '0' + this.form.value.timeFinishRec : this.form.value.timeFinishRec;
     this.form.value.timeStartRec = timeSt
     this.dateService.changeSettingsRec(this.form.value)
