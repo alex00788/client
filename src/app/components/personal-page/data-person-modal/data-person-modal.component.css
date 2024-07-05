@@ -5,6 +5,10 @@
   width: 500px;
 }
 
+.btnAddEnt {
+  display: flex;
+}
+
 .newUser {
   color: #5238fd;
 }
@@ -97,6 +101,7 @@ span{
 
   .inputAddSubscription {
     margin-left: 80px;
+    width: 20px;
   }
 
   .subscription:hover~.tooltipForSubscription {

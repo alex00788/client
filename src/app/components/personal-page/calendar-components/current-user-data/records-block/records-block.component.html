@@ -1,4 +1,4 @@
- <ng-container *ngIf="dateService.currentUserSimpleUser.value">
+ <ng-container>
    <div class="recordsBlockClass" *ngIf="personalBlockService.recordsBlock">
      <div class="recordsBlockTitle">
 
@@ -12,6 +12,15 @@
      </div>
      <div class="btnRecSitings">
        <div class="btnSFilterClass">
+         <span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
+           [class]="{
+              leftAndRightBtnWithoutMargin: dataCalendarService.allEntryCurrentUserThisMonth.value.length &&
+               dataCalendarService.filterByDate.value
+               }"
+           (click)="changeDay(-1)"
+         >
+           &#8592;
+         </span>
          <button
            *ngIf="!showBtnFilter"
            class="btnFilterRec"
@@ -53,12 +62,17 @@
            (click)="openFilterBtn()"
          > &times;
          </button>
+         <span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
+               [class]="{
+              leftAndRightBtnWithoutMargin: dataCalendarService.allEntryCurrentUserThisMonth.value.length &&
+               dataCalendarService.filterByDate.value
+               }"
+               (click)="changeDay(1)"
+               >
+           &#8594;
+         </span>
        </div>
      </div>
-     <div class="currentDateTime" *ngIf="dataCalendarService.filterByDate.value">
-       <app-info-block></app-info-block>
-     </div>
-
 
      <div class="dataRecordsBlock" *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length;  else notContentBlock">
        <div class="dataRecords">
@@ -100,7 +114,9 @@
           &nbsp;записей нет!
        </span>
        <span class="notContentClass" *ngIf="dataCalendarService.filterByDate.value">
-        ... записей нет!
+        <span class="leftAndRightBtn" (click)="changeDay(-1)"> &#8592; </span>
+         {{dateService.date.value.format('DD.MM.YY') }} записей нет!
+        <span class="leftAndRightBtn" (click)="changeDay(1)"> &#8594; </span>
        </span>
      </ng-template>
 

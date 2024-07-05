@@ -8,6 +8,26 @@
   white-space: nowrap;
 }
 
+.leftAndRightBtn {
+  margin: 0 20px;
+  padding: 0 20px;
+  border-radius: 20px;
+  background: #aefaae;
+}
+
+.leftAndRightBtnWithoutMargin {
+  margin: 0 5px;
+  padding: 0 5px;
+  border-radius: 20px;
+  background: #aefaae;
+}
+
+
+.leftAndRightBtn:hover {
+  background: #03f303;
+}
+
+
 .recordsBlockTitle {
   position: relative;
   display: flex;

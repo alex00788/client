@@ -13,7 +13,14 @@
 }
 
 .todayClass {
-  color: #5238fd;
+  color: white;
+  text-align: center;
 }
 
-
+.todayClassArrow {
+  color: white;
+  height: 1px;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 1px;
+}

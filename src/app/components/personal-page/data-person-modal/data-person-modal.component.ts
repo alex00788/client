@@ -9,6 +9,7 @@ import {RecordsBlockComponent} from "../calendar-components/current-user-data/re
 import {DataCalendarService} from "../calendar-components/data-calendar-new/data-calendar.service";
 import moment from "moment";
 import {FormControl, FormGroup, ReactiveFormsModule,} from "@angular/forms";
+import {SuccessService} from "../../../shared/services/success.service";
 
 @Component({
   selector: 'app-data-person-modal',
@@ -30,6 +31,7 @@ export class DataPersonModalComponent implements OnInit {
     public dataCalendarService: DataCalendarService,
     public modalService: ModalService,
     public apiService: ApiService,
+    public successService: SuccessService
   ) {
   }
 
@@ -169,6 +171,7 @@ export class DataPersonModalComponent implements OnInit {
       .subscribe((res)=> {
         this.remainingFunds = res.changeRemain.remainingFunds
         this.refreshData();
+        this.successService.localHandler(`Клиент сможет записаться ${this.form.value.subscription}  раз`);
       })
   }
 }

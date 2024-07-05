@@ -48,18 +48,23 @@
 
 
 .selectedTime {
-  margin: 5px;
+  margin: auto 10px;
   text-align: center;
   background: none;
   font-size: 17px;
   padding: 0 5px;
   border-radius: 10px;
-  color: #5238fd;
+  color: white;
+}
+
+.changeDayClass {
+  background: #343333;
+  cursor: pointer;
+  color: red;
 }
 
 .changeDayClass:hover {
   background: #a3f6a3;
-  cursor: pointer;
 }
 
 

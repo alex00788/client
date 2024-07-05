@@ -14,6 +14,7 @@
   text-align: center;
   position: fixed;
   top: 200px;
+  left: 30%;
   z-index: 111;
 }
 
@@ -139,6 +140,7 @@ h3 {
 
   .successModal {
     top: 150px;
+    left: 10%;
   }
 
   .contactsBlock {
@@ -150,5 +152,10 @@ h3 {
 @media (max-width: 450px) {
   .enter {
     font-size: 20px;
+  }
+
+  .successModal {
+    top: 150px;
+    left: 1%;
   }
 }

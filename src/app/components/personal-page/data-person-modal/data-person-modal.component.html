@@ -37,14 +37,17 @@
       <form [formGroup]="form" (submit)="submit()" class="selectedUserClass">
       <div>
           <strong class="subscription"> Абонемент  </strong>
-          <small class="numOfRec"> (сколько раз клиент может записаться) </small>
+<!--          <small class="numOfRec"> (сколько раз клиент может записаться) </small>-->
          <!-- <div class="tooltipForSubscription">
             <small> (сколько раз клиент может записаться) </small>
             то тултип tooltype  по появляеться при наведении на малом жкране
           </div>-->
-          <input type="number" class="inputAddSubscription" min="1" formControlName="subscription">
+
         </div>
-        <button type="submit">Добавить</button>
+        <div class="btnAddEnt">
+          <input type="number" class="inputAddSubscription" min="1" formControlName="subscription">
+          <button type="submit">Добавить</button>
+        </div>
       </form>
     </div>
     <!--<div *ngIf="!hideBtnForCurrentAdmin">

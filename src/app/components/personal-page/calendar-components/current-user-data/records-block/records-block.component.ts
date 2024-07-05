@@ -97,4 +97,9 @@ export class RecordsBlockComponent implements OnInit{
   openFilterBtn() {
     this.showBtnFilter = !this.showBtnFilter;
   }
+
+  changeDay(num: number) {
+      this.dateService.changeOneDay(num)
+      this.dataCalendarService.getAllEntryAllUsersForTheMonth()
+  }
 }

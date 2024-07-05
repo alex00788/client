@@ -64,7 +64,7 @@
   </div>
 
 
-  <div class="btnMainMenu" *ngIf="dateService.currentUserSimpleUser.value">
+  <div class="btnMainMenu">
     <button class="btnSettingsRecords"
             *ngIf="!personalBlockService.recordsBlock"
             (click)="personalBlockService.openRecordsBlock()"
@@ -73,7 +73,7 @@
       в {{dateService.date.value.format('M') | translateMonth}}
     </button>
   </div>
-  <div *ngIf="dateService.currentUserSimpleUser.value">
+  <div>
     <app-records-block></app-records-block>
   </div>
 
