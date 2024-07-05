@@ -84,6 +84,12 @@ export class SettingsBlockComponent implements OnInit{
     this.dateService.changeSettingsRec(this.form.value)
     const timeMinutes = this.form.value.timeMinutesRec <= 9 && this.form.value.timeMinutesRec >=0 && this.form.value.timeMinutesRec !== '00'?
       '0' + this.form.value.timeMinutesRec : this.form.value.timeMinutesRec;
+    const timeSt = this.form.value.timeStartRec <= 9 && this.form.value.timeStartRec >=0 && this.form.value.timeStartRec !== '00'?
+      '0' + this.form.value.timeStartRec : this.form.value.timeStartRec;
+    const timeFn = this.form.value.timeFinishRec <= 9 && this.form.value.timeFinishRec >=0 && this.form.value.timeFinishRec !== '00'?
+      '0' + this.form.value.timeFinishRec : this.form.value.timeFinishRec;
+    this.form.value.timeStartRec = timeSt
+    this.dateService.changeSettingsRec(this.form.value)
     const dataSettings = {
       nameUser: currentUser.nameUser,
       surnameUser: currentUser.surnameUser,
@@ -93,9 +99,9 @@ export class SettingsBlockComponent implements OnInit{
       roleSelectedOrg: this.dateService.currentUserRole.value,
       remainingFunds: this.dateService.remainingFunds.value,
       maxiPeople: this.form.value.maxiPeople,
-      timeStartRec: this.form.value.timeStartRec,
+      timeStartRec: timeSt,
       timeMinutesRec: timeMinutes,
-      timeFinishRec: this.form.value.timeFinishRec,
+      timeFinishRec: timeFn,
       location: this.form.value.location,
       phoneOrg: this.form.value.phoneOrg,
     }

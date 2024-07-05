@@ -232,7 +232,9 @@ export class DataCalendarNewComponent implements OnInit {
     addSetTime.forEach((el:any) => {
       const newRecTime: any[] = [];
       for (let i = this.dateService.timeStartRecord.value; i <= this.dateService.timeFinishRecord.value; i++) {
-        newRecTime.push({date: el.date, time: JSON.stringify(+i),tMin: this.dateService.timeMinutesRec.value,  workStatus: 'open', users: []})
+        const timeWithZero = +i <= 9 && +i >=0 && i !== '00'?  //&& time.length < 1
+          '0' + JSON.stringify(+i) : JSON.stringify(+i);
+        newRecTime.push({date: el.date, time: timeWithZero,tMin: this.dateService.timeMinutesRec.value,  workStatus: 'open', users: []})
       }
       const result:any[] = []
       newRecTime.forEach((setTime: any)=> {
@@ -291,6 +293,7 @@ export class DataCalendarNewComponent implements OnInit {
 
   //определение кликнули один или два раза чтоб обычн пользователь не кликнул дважды
   currentUserRec(time: any, date:any,) {
+    time = time <= 9 && time >=0 && time !== '00' && time.length < 1? '0' + time : time;
     this.clickCount++;
     setTimeout(() => {
       if (this.clickCount === 1) {
@@ -395,12 +398,13 @@ export class DataCalendarNewComponent implements OnInit {
 
 
   currentHourTime(time: any, date: any) {
+    time = time <= 9 && time >=0 && time !== '00' && time.length < 1? '0' + time : time;
     this.dateService.userSignedHimself.next(false);
     setTimeout(() => {
       this.inputElementRef.nativeElement.value = '';
       this.inputElementRef?.nativeElement?.focus();
       // this.disabledBtnRecord = !this.inputElementRef?.nativeElement?.value
-    }, 100)
+    }, 200)
     this.newEntryHasBeenOpenedTime = time;
     this.newEntryHasBeenOpenedDate = date;
     this.checkingTheNumberOfRecorded(date, time);
