@@ -5,7 +5,8 @@
   padding-top: 5px;
   border: none;
   color: #5238fd;
-  background: #c6faeb;;
+  width: 320px;
+  background: cyan;
   max-height: 150px;
   max-width: 470px;
   cursor: pointer;
@@ -56,6 +57,7 @@
 .ownOrgClass {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 

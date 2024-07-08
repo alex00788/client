@@ -125,8 +125,8 @@ export class DataPersonModalComponent implements OnInit {
     this.blockRepeat = true;
     setTimeout(() => {
       if (this.clickCount === 1) {
-        this.dataCalendarService.deleteSelectedRecInAllRecBlock(selectedRec);
         this.dateService.userCancelHimselfRec.next(0);
+        this.dataCalendarService.deleteSelectedRecInAllRecBlock(selectedRec);
         setTimeout(()=>{this.dataAboutSelectedUser()}, 50)
         this.dataAboutSelectedUser();
       } else if (this.clickCount === 2) {

@@ -77,8 +77,8 @@ export class RecordsBlockComponent implements OnInit{
     this.clickCount++;
     setTimeout(() => {
       if (this.clickCount === 1) {
-        this.dataCalendarService.deleteSelectedRecInAllRecBlock(selectedRec);
         this.dateService.userCancelHimselfRec.next(1);
+        this.dataCalendarService.deleteSelectedRecInAllRecBlock(selectedRec);
       } else if (this.clickCount === 2) {
         return
       }

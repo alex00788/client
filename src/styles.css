@@ -25,10 +25,12 @@
   border: solid 1px #f6dbff;
   display: block;
   cursor: pointer;
+  width: 280px;
+  height: 40px;
 }
 .btnSettingsRecords:hover {
   color: #0221c0;
-  background: #03f303;
+  background: cyan;
 }
 
 .btnMainMenu {
