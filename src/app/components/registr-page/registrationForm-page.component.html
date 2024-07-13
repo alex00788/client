@@ -7,7 +7,7 @@
       <div class="inputForm">
         <div>
           <label for="email">Ваш Email </label>
-          <input id="email" type="text" formControlName="email">
+          <input id="email" type="text" formControlName="email" (keyup)="clearTrim($event)">
         </div>
         <div class="errorInputMessage" *ngIf="email.errors && email.touched">
           <small *ngIf="email.errors?.['required']"> необходимо заполнить email</small>

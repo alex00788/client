@@ -134,4 +134,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.accountNotConfirmed = false;
       })
   }
+
+  clearTrim(e:any) {
+    e.target.value = e.target.value.replace(' ', '');
+  }
 }

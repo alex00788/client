@@ -155,4 +155,8 @@ export class RegistrationFormPageComponent implements OnInit {
   permissionChange() {
     this.permissionChB = !this.permissionChB;
   }
+
+  clearTrim(e: any) {
+    e.target.value = e.target.value.replace(' ', '');
+  }
 }
