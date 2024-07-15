@@ -5,6 +5,13 @@
   border-radius: 10px;
 }
 
+.videoFor {
+  color: #0221c0;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 50px 20px 30px;
+}
+
 .titleDescription {
   margin: auto;
   width: 200px;
