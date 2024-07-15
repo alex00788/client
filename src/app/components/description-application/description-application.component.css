@@ -12,6 +12,31 @@
   margin: 0 50px 20px 30px;
 }
 
+.videoForShared {
+  cursor: pointer;
+  position: relative;
+}
+
+.videoForShared:hover {
+  font-weight: bold;
+}
+
+.videoForShared:after {
+  display: block;
+  position: absolute;
+  left: 0;    /*изменить на right:0;, чтобы изменить направление подчёркивания */
+  width: 0;   /*задаём длинну линии до наведения курсора*/
+  height: 1px; /*задаём ширину линии*/
+  background-color: #2630f1; /*задаём цвет линии*/
+  content: "";
+  transition: width 0.3s ease-out; /*задаём время анимации*/
+}
+.videoForShared:hover:after,
+.videoForShared:focus:after {
+  width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+}
+
+
 .titleDescription {
   margin: auto;
   width: 200px;

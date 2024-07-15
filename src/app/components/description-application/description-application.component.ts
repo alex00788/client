@@ -20,6 +20,7 @@ export class DescriptionApplicationComponent {
 
   switchHowItWorkBlock() {
     this.blockDescription = !this.blockDescription;
+    this.showVideoAbout = false;
   }
 
   switch() {
