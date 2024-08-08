@@ -40,7 +40,8 @@ import {SupportDevelopmentComponent} from "../support-development/support-develo
 })
 
 export class MainPageComponent implements OnInit{
-  mainTitle = 'ЗаписьКпрофи.рф'
+  mainTitle = 'Online запись в любую организацию'
+  mainTitleComp = 'Online запись к профи'
   modalTitle = 'ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ'
 
 
@@ -50,6 +51,8 @@ export class MainPageComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    console.log('запрос на статистику ')
+
   }
 
   openModal() {
