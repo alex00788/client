@@ -29,11 +29,12 @@ export class SettingsBlockComponent implements OnInit{
     public successService: SuccessService
   ) {  }
   private destroyed$: Subject<void> = new Subject();
-  dataSettings:  any;
+  // dataSettings:  any;
   timesForRec : any = [''];
   timesForRecMinutes : any = [''];
   form = new FormGroup({
     maxiPeople: new FormControl(this.dateService.maxPossibleEntries.value, Validators.required),
+    timeUntilBlock: new FormControl(this.dateService.timeUntilBlock.value, Validators.required),
     timeStartRec: new FormControl(this.dateService.timeStartRecord.value, Validators.required),
     timeMinutesRec: new FormControl(this.dateService.timeMinutesRec.value, Validators.required),
     timeFinishRec: new FormControl(this.dateService.timeFinishRecord.value, Validators.required),
@@ -68,6 +69,9 @@ export class SettingsBlockComponent implements OnInit{
     if (!this.dateService.maxPossibleEntries.value) {
       this.dateService.maxPossibleEntries.next(this.form.value.maxiPeople)
     }
+    if (!this.dateService.timeUntilBlock.value) {
+      this.dateService.timeUntilBlock.next(this.form.value.timeUntilBlock)
+    }
     if (!this.dateService.location.value) {
       this.dateService.location.next(this.form.value.location)
     }
@@ -101,6 +105,7 @@ export class SettingsBlockComponent implements OnInit{
       roleSelectedOrg: this.dateService.currentUserRole.value,
       remainingFunds: this.dateService.remainingFunds.value,
       maxiPeople: this.form.value.maxiPeople,
+      timeUntilBlock: this.form.value.timeUntilBlock,
       timeStartRec: timeSt,
       timeMinutesRec: timeMinutes,
       timeFinishRec: timeFn,
@@ -113,6 +118,7 @@ export class SettingsBlockComponent implements OnInit{
         this.dateService.timeStartRecord.next(set.newSettings.timeStartRec);
         this.dateService.timeMinutesRec.next(set.newSettings.timeMinutesRec);
         this.dateService.timeFinishRecord.next(set.newSettings.timeLastRec);
+        this.dateService.timeUntilBlock.next(set.newSettings.timeUntilBlock);
         this.dateService.maxPossibleEntries.next(set.newSettings.maxClients);
         this.dateService.location.next(set.newSettings.location);
         this.dateService.phoneOrg.next(set.newSettings.phoneOrg);
@@ -131,5 +137,21 @@ export class SettingsBlockComponent implements OnInit{
   }
 
 
+  inputVal(inpVal: any) {
+    if (inpVal.target.value > 24) {
+      inpVal.target.value = 24
+    }
+    if (inpVal.target.value.length > 2 || inpVal.target.value > 24) {
+      inpVal.target.value = inpVal.target.value.slice(0, -1)
+    }
+    if (inpVal.target.value[0] == 0 && inpVal.target.value.length > 1) {
+      inpVal.target.value = 12
+    }
+  }
 
+  clearDefVal(val: any) {
+    if (val.target.value === 'Задать в настройках') {
+        val.target.value = '';
+    }
+  }
 }

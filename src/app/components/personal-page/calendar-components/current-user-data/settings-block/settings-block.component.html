@@ -3,9 +3,19 @@
   <form [formGroup]="form" (submit)="submit()">
     <div class="oneSitting">
       <label>
-        Max клиентов в записи:
+        Max клиентов в одной записи:
       </label>
       <input type="number" maxlength="2" max="20" min="1" class="settingsInputClass" formControlName="maxiPeople">
+    </div>
+
+    <div class="oneSitting">
+      <label>
+        Отменить можно за сколько ч:
+      </label>
+      <input type="number" maxlength="2" max="20" min="1"
+             (input)="inputVal($event)"
+             class="settingsInputClass" formControlName="timeUntilBlock"
+      >
     </div>
 
     <div class="oneSitting">
@@ -35,14 +45,18 @@
       <label>
         Адрес:
       </label>
-      <input type="text" class="settingsInputLocationClass" formControlName="location">
+      <input #location type="text" class="settingsInputLocationClass" formControlName="location"
+             (click)="clearDefVal($event)"
+      >
     </div>
 
     <div class="oneSitting">
       <label>
         Телефон:
       </label>
-      <input type="text" class="settingsInputLocationClass" formControlName="phoneOrg">
+      <input type="text" class="settingsInputLocationClass" formControlName="phoneOrg"
+      (click)="clearDefVal($event)"
+      >
     </div>
 
     <div class="btnSetClass">
@@ -69,10 +83,20 @@
     <div class="sittingCurrentValue" (click)="personalBlockService.changeSettingsRecords()">
       <div class="setSpaceBetween">
         <span>
-       Max клиентов в одной записи:
-      </span>
+          MAX клиентов в одной записи:
+        </span>
         <span style="color: #5238fd">
-          {{dateService.maxPossibleEntries.value}}
+          {{dateService.maxPossibleEntries.value}} чел
+        </span>
+      </div>
+    </div>
+    <div class="sittingCurrentValue" (click)="personalBlockService.changeSettingsRecords()">
+      <div class="setSpaceBetween">
+        <span>
+          Отмена записи возможна за:
+        </span>
+        <span style="color: #5238fd">
+          {{dateService.timeUntilBlock.value}} ч
         </span>
       </div>
     </div>

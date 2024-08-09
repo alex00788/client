@@ -23,7 +23,7 @@
   position: relative;
   display: block;
   border-radius: 10px;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
   padding-bottom: 5px;
   color: black;
   background: #c6faeb;
@@ -34,7 +34,7 @@
   position: relative;
   cursor: pointer;
   margin: 10px auto;
-  width: 230px;
+  width: 270px;
   /*display: flex;*/
   /*justify-content: space-between;*/
 }
