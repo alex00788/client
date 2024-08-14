@@ -42,7 +42,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private dateService: DateService,
     public successService: SuccessService,
-
     public errorResponseService: ErrorResponseService
   ) {
   }
@@ -83,19 +82,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe(userData => {
         if (userData?.user.isActivated) {
-        this.form.reset();
-        this.router.navigate(['personal-page']);
-        this.modalService.close();
-        this.dateService.setUser(userData);
-        this.accountNotConfirmed = true;
-        this.dateService.currentOrg.next(userData)
-      } else {
+          this.form.reset();
+          this.router.navigate(['personal-page']);
+          this.modalService.close();
+          this.dateService.setUser(userData);
+          this.accountNotConfirmed = true;
+          this.dateService.currentOrg.next(userData)
+        } else {
           this.errorResponseService.localHandler('активируйте аккаунт, пройдите по ссылке в почте...');
           this.accountNotConfirmed = true;
           this.router.navigate(['/']);
           this.apiService.logout();
         }
-    })
+      })
   }
 
 
@@ -114,6 +113,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     if (this.loginSub) {
       this.loginSub.unsubscribe();
     }
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   openRegistrationPage() { //  откроет форму регистрации
@@ -127,7 +128,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   resendLink() {
     this.apiService.resendLink({email: this.form.value.email, password: this.dateService.pasForLink.value})
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((mes:any) => {
+      .subscribe((mes: any) => {
         this.errorResponseService.clear();
         this.modalService.close();
         this.successService.localHandler(mes.message)
@@ -135,7 +136,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       })
   }
 
-  clearTrim(e:any) {
+  clearTrim(e: any) {
     e.target.value = e.target.value.replace(' ', '');
   }
 }

@@ -23,15 +23,16 @@ export class HeaderCalendarComponent implements OnInit, OnDestroy {
 
   constructor(
     public dateService: DateService,
-    public dataCalendarService:DataCalendarService,
-              ) {}
+    public dataCalendarService: DataCalendarService,
+  ) {
+  }
 
   subInterval: any;
   hours: any = new Date().getHours();
   min: any = new Date().getMinutes();
   sec: any = new Date().getSeconds();
-  currentTime =  '' ;
-  dataSettings:  any;
+  currentTime = '';
+  dataSettings: any;
 
   ngOnInit(): void {
     // this.watchOnPage();   //показ и запуск часов

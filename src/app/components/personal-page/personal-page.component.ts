@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {ApiService} from "../../shared/services/api.service";
 import {BodyCalendarComponent} from "./calendar-components/body-calendar/body-calendar.component";
@@ -63,7 +63,7 @@ import moment from "moment";
   templateUrl: './personal-page.component.html',
   styleUrl: './personal-page.component.css'
 })
-export class PersonalPageComponent implements OnInit {
+export class PersonalPageComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private apiService: ApiService,
@@ -118,5 +118,10 @@ export class PersonalPageComponent implements OnInit {
     this.modalService.showTitle();
     this.router.navigate(['/'])
     this.apiService.logout()
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

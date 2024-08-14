@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Week} from "../../../../shared/interfaces";
 import {DateService} from "../date.service";
 import moment from "moment";
@@ -17,7 +17,7 @@ import {RecordingService} from "../recording.service";
   templateUrl: './body-calendar.component.html',
   styleUrl: './body-calendar.component.css'
 })
-export class BodyCalendarComponent implements OnInit {
+export class BodyCalendarComponent implements OnInit, OnDestroy{
   constructor(
     public recordingService: RecordingService,
     public dateService: DateService) {
@@ -66,5 +66,10 @@ export class BodyCalendarComponent implements OnInit {
   //метод, который при клике по дате, будет ее выбирать
   select(day: moment.Moment) {
       this.dateService.changeDay(day)
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit,} from '@angular/core';
+import {Component, OnDestroy, OnInit,} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {DateService} from "../date.service";
 import {Subject, takeUntil} from "rxjs";
@@ -21,7 +21,7 @@ import {DataCalendarService} from "../data-calendar-new/data-calendar.service";
   templateUrl: './clients-list.component.html',
   styleUrl: './clients-list.component.css'
 })
-export class ClientsListComponent implements OnInit{
+export class ClientsListComponent implements OnInit, OnDestroy {
   constructor(
     public dateService: DateService,
     public dataCalendarService: DataCalendarService,
@@ -53,5 +53,10 @@ export class ClientsListComponent implements OnInit{
     this.modalService.openClientListBlockWithData();
     this.dataCalendarService.getPhoneSelectedUser(person.userId);
     this.dateService.dataSelectedUser.next(person);
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

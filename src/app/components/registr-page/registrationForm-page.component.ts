@@ -1,4 +1,4 @@
-import {Component, OnInit,} from '@angular/core';
+import {Component, OnDestroy, OnInit,} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgForOf, NgIf} from "@angular/common";
@@ -22,16 +22,16 @@ import {SuccessService} from "../../shared/services/success.service";
   ], templateUrl: './registrationForm-page.component.html',
   styleUrl: './registrationForm-page.component.css'
 })
-export class RegistrationFormPageComponent implements OnInit {
+export class RegistrationFormPageComponent implements OnInit, OnDestroy {
 
   constructor(
-              private apiService: ApiService,
-              private router: Router,
-              private activateRouter: ActivatedRoute,
-              private modalService: ModalService,
-              private dateService: DateService,
-              public errorResponseService: ErrorResponseService,
-              public successService: SuccessService
+    private apiService: ApiService,
+    private router: Router,
+    private activateRouter: ActivatedRoute,
+    private modalService: ModalService,
+    private dateService: DateService,
+    public errorResponseService: ErrorResponseService,
+    public successService: SuccessService
   ) {
   }
 
@@ -113,7 +113,7 @@ export class RegistrationFormPageComponent implements OnInit {
           this.router.navigate(['/'])
           this.apiService.logout()
         }
-    })
+      })
   }
 
 
@@ -140,6 +140,8 @@ export class RegistrationFormPageComponent implements OnInit {
     if (this.loginSub) {
       this.loginSub.unsubscribe();
     }
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
 

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ModalService} from "../../shared/services/modal.service";
 import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {Subject, takeUntil} from "rxjs";
@@ -21,7 +21,7 @@ import {DateService} from "../personal-page/calendar-components/date.service";
   templateUrl: './reg-form-choice-organization.component.html',
   styleUrl: './reg-form-choice-organization.component.css'
 })
-export class RegFormChoiceOrganizationComponent implements OnInit {
+export class RegFormChoiceOrganizationComponent implements OnInit, OnDestroy {
   constructor(
               private apiService: ApiService,
               public modalService: ModalService,
@@ -69,5 +69,10 @@ export class RegFormChoiceOrganizationComponent implements OnInit {
 
   addNewOrg() {
     this.modalService.openFormAddNewOrg$();
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {ModalService} from "../../shared/services/modal.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Subject, takeUntil} from "rxjs";
@@ -16,7 +16,7 @@ import {SuccessService} from "../../shared/services/success.service";
   templateUrl: './reg-form-new-org.component.html',
   styleUrl: './reg-form-new-org.component.css'
 })
-export class RegFormNewOrgComponent {
+export class RegFormNewOrgComponent implements OnDestroy{
   constructor(
     public successService: SuccessService,
     public modalService: ModalService,
@@ -48,4 +48,10 @@ export class RegFormNewOrgComponent {
           this.modalService.close();
       })
   }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
 }

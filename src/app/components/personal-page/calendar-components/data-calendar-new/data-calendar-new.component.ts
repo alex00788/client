@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import moment from "moment";
 import {DataCalendarService} from "./data-calendar.service";
 import {DateService} from "../date.service";
@@ -25,7 +25,7 @@ import {ErrorResponseService} from "../../../../shared/services/error.response.s
   templateUrl: './data-calendar-new.component.html',
   styleUrl: './data-calendar-new.component.css'
 })
-export class DataCalendarNewComponent implements OnInit {
+export class DataCalendarNewComponent implements OnInit, OnDestroy {
   constructor(
     public dataCalendarService:DataCalendarService,
     public dateService: DateService,
@@ -498,5 +498,10 @@ export class DataCalendarNewComponent implements OnInit {
           this.refreshData();
         })
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

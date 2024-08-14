@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DateService} from "../calendar-components/date.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Subject, takeUntil} from "rxjs";
@@ -25,7 +25,7 @@ import {SuccessService} from "../../../shared/services/success.service";
   templateUrl: './data-person-modal.component.html',
   styleUrl: './data-person-modal.component.css'
 })
-export class DataPersonModalComponent implements OnInit {
+export class DataPersonModalComponent implements OnInit, OnDestroy {
   constructor(
     public dateService: DateService,
     public dataCalendarService: DataCalendarService,
@@ -173,5 +173,10 @@ export class DataPersonModalComponent implements OnInit {
         this.refreshData();
         this.successService.localHandler(`Клиент сможет записаться ${this.form.value.subscription}  раз`);
       })
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

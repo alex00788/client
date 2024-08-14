@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {NgIf} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ApiService} from "../../shared/services/api.service";
@@ -16,7 +16,7 @@ import {SuccessService} from "../../shared/services/success.service";
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.css'
 })
-export class ContactsComponent {
+export class ContactsComponent implements OnDestroy {
   constructor(
     private apiService:ApiService,
     public modalService: ModalService,
@@ -53,5 +53,10 @@ export class ContactsComponent {
         this.modalService.close();
         this.successService.localHandler(res.message);
       })
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }
