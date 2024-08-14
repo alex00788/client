@@ -1,6 +1,6 @@
 .form {
   position: relative;
-  margin: 20px;
+  margin: 10px 20px;
   width: 450px;
   height: 250px;
   background: #aefaae;
@@ -29,6 +29,7 @@
   font-size: 30px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .btn {

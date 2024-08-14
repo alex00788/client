@@ -19,6 +19,12 @@
     <app-success-modal></app-success-modal>
   </div>
 
+  <div class="btnMainMenu exit" (click)="logoutSystems()">
+    <button class="btnSettingsRecords">
+      Выход &times;
+    </button>
+  </div>
+
   <div class="btnMainMenu" *ngIf="!personalBlockService.personalData">
     <button class="btnSettingsRecords" (click)="personalBlockService.switchData()">
       Мои данные

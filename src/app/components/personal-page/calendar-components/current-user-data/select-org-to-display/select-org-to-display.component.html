@@ -15,6 +15,7 @@
          <span class="ownOrgClass" (click)="choiceOrgForRec(org)">
           {{org.name}}
          </span>
+        <hr>
       </div>
     </div>
   </div>
@@ -22,9 +23,9 @@
 
 
 <ng-template #showSelectedOrgBlock>
-  <div class="selectedOrg">
+  <div class="selectedOrg" (click)="changeOrg()">
     <div class="titleSelectOrg">
-      <strong (click)="changeOrg()">
+      <strong>
         {{dateService.currentOrg.value}}
       </strong>
     </div>

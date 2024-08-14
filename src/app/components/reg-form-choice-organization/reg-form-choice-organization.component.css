@@ -1,25 +1,34 @@
 .regFormClass {
   position: relative;
-  margin: 10px auto;
+  margin: 10px 20px;
   padding-bottom: 15px;
   background: #aefaae;
   color: #5238fd;
-  width: 400px;
+  width: 450px;
   max-height: 350px;
   border-radius: 10px;
   text-align: center;
 }
 
 label {
-  margin: 0 auto 20px auto;
+  margin: 0 auto 10px auto;
   display: flex;
   justify-content: center;
   font-size: 28px;
 }
 
+.futReg {
+  border-top: solid 1px;
+  width: 350px;
+  margin: 0 auto;
+}
+
 .arrowClass {
   position: absolute;
   top: 10px;
+  width: 55px;
+  height: 30px;
+  border-radius: 10px;
   left: 10px;
   font-size: 25px;
   font-weight: bold;
@@ -28,6 +37,7 @@ label {
 
 .arrowClass:hover {
   color: red;
+  background: #9bfd9b;
 }
 
 .closeChoiceOrgClass {
@@ -132,11 +142,12 @@ hr {
 }
 
 .btnNewOrg {
-  margin-left: 5px;
+  margin: 10px;
   border: none;
   background: none;
   border-radius: 10px;
   color: #5238fd;
+  font-weight: bold;
 }
 
 .textNoOrg {
@@ -152,8 +163,24 @@ hr {
 
 
 @media (max-width: 600px) {
+  label {
+    font-size: 20px;
+  }
+
+
+  .futReg {
+    border-top: solid 1px;
+    width: 270px;
+    margin: 0 auto;
+  }
+
+  .arrowClass {
+    top: 15px;
+    width: 45px;
+  }
+
   .regFormClass {
-    max-width: 290px;
+    width: 280px;
     margin: 15px;
     padding: 5px 15px;
   }

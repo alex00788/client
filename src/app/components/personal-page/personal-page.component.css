@@ -5,6 +5,10 @@
   overflow: auto;
 }
 
+.exit {
+  display: none;
+}
+
 .cowerTitlePersonal {
   position: relative;
 }
@@ -211,9 +215,25 @@
 }
 
 @media (max-width: 600px) {
+  .currentSelectedOrg {
+    padding-left: 0;
+  }
+
   .successModalPersonalPage{
     width: 100%;
     left: 1%;
     right: 1%;
+  }
+
+  .btnOut {
+    display: none;
+  }
+
+  .btnLogoutSystemsClass {
+    display: none;
+  }
+
+  .exit {
+    display: flex;
   }
 }

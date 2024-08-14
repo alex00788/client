@@ -4,7 +4,7 @@
 <label for="inputRegFormChoice" *ngIf="dateService.allOrgForReg.value.length === 1"> Выбрана: </label>
 
 <div class="regFormClass">
-  <strong class="arrowClass" (click)="openLoginPage()"> &larr;  </strong>
+  <strong class="arrowClass" (click)="openLoginPage()">  &larr;  </strong>
   <!--<strong class="closeChoiceOrgClass" *ngIf="!highlightBtn" (click)="modalService.close()"> &times;  </strong>-->
     <input id="inputRegFormChoice" type="text" placeholder="поиск..."
            *ngIf="dateService.allOrgForReg.value.length !== 1"
@@ -21,11 +21,12 @@
     </div>
 
   <div class="futReg">
-    <hr>
-    <span class="textNoOrg"> Если организации нет, вы можете </span>
     <button class="btnNewOrg"
             (click)="addNewOrg()"
-            [disabled]="dateService.allOrgForReg.value.length === 1"> добавить новую</button>
+            [disabled]="dateService.allOrgForReg.value.length === 1"
+            >
+      + Добавить новую
+    </button>
   </div>
 </div>
 

@@ -12,6 +12,10 @@
   margin: 0 50px 20px 30px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .videoForShared {
   cursor: pointer;
   position: relative;
@@ -56,6 +60,7 @@ h2 {
 
 .btnVideo {
   margin: 10px;
+  padding: 0 10px;
   background: none;
   border: none;
   cursor: pointer;
@@ -67,7 +72,6 @@ h2 {
 .btnVideo:hover {
   background: white;
   color: #5238fd;
-  padding: 0 10px;
   white-space: nowrap;
 }
 
