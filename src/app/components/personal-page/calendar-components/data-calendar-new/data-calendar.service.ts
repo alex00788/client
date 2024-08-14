@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject, takeUntil} from "rxjs";
+import {BehaviorSubject, Subject, take, takeUntil} from "rxjs";
 import {ApiService} from "../../../../shared/services/api.service";
 import {DateService} from "../date.service";
 
@@ -34,7 +34,8 @@ export class DataCalendarService {
       userId: this.dateService.currentUserId.value,
     }
     this.apiService.getAllEntryAllUsersOrg(dataForGetAllEntryAllUsersSelectedMonth)
-      .pipe(takeUntil(this.destroyed$))
+      // .pipe(takeUntil(this.destroyed$))
+      .pipe(take(1))
       .subscribe(allEntryAllUsersInMonth => {              //   все записи ORG !!!
         this.allEntryAllUsersInMonth.next(allEntryAllUsersInMonth);
       });
@@ -44,7 +45,8 @@ export class DataCalendarService {
   //получаем всех пользователей выбранной организации
   getAllUsersCurrentOrganization() {
     this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value)
-      .pipe(takeUntil(this.destroyed$))
+      // .pipe(takeUntil(this.destroyed$))
+      .pipe(take(1))
       .subscribe(allUsersOrganization => {
         this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
         if (allUsersOrganization.length) {
@@ -83,7 +85,8 @@ export class DataCalendarService {
       userId: this.dateService.currentUserId.value,
     }
     this.apiService.getAllEntryCurrentUser(dataForGetAllEntryCurrentUsersThisMonth)
-      .pipe(takeUntil(this.destroyed$))
+      // .pipe(takeUntil(this.destroyed$))
+      .pipe(take(1))
       .subscribe(dataAllEntryCurrentUsersThisMonth => {
         this.allEntryCurrentUserThisMonth.next(dataAllEntryCurrentUsersThisMonth);
         this.allUsersForShowAllFilter.next(dataAllEntryCurrentUsersThisMonth);
@@ -95,7 +98,8 @@ export class DataCalendarService {
 
   getPhoneSelectedUser(userId: any) {
     this.apiService.getPhoneClient(userId)
-      .pipe(takeUntil(this.destroyed$))
+      // .pipe(takeUntil(this.destroyed$))
+      .pipe(take(1))
       .subscribe((phone:any)=> {
         this.dateService.clientPhone.next(phone);
       })
@@ -139,7 +143,8 @@ export class DataCalendarService {
     const workStatus = this.dateService.maxPossibleEntries.value >= this.dateService.howMuchRecorded.value +1? 0: 1; //0 = closed, 1 = open
     //один означает что пользователь клиент и нужно отправить писмо одмину что клиент отменил запись
     this.apiService.deleteEntry(selectedRec.idRec, selectedRec.userId, selectedRec.orgId, this.dateService.userCancelHimselfRec.value, workStatus)
-      .pipe(takeUntil(this.destroyed$))
+      // .pipe(takeUntil(this.destroyed$))
+      .pipe(take(1))
       .subscribe(() => {
         this.getAllEntryAllUsersForTheMonth();
         this.getAllUsersCurrentOrganization();
