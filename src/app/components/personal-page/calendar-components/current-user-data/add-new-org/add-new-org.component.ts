@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {PersonalBlockService} from "../../personal-block.service";
 import {DateService} from "../../date.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -18,7 +18,7 @@ import {SuccessService} from "../../../../../shared/services/success.service";
   templateUrl: './add-new-org.component.html',
   styleUrl: './add-new-org.component.css'
 })
-export class AddNewOrgComponent {
+export class AddNewOrgComponent implements OnDestroy {
   constructor(
     public personalBlockService: PersonalBlockService,
     public dateService: DateService,
@@ -32,6 +32,7 @@ export class AddNewOrgComponent {
     nameOrg: new FormControl(null, Validators.required),
     supervisorName: new FormControl(null, Validators.required),
     managerPhone: new FormControl('+7', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
   })
 
   addNewOrg() {
@@ -42,5 +43,10 @@ export class AddNewOrgComponent {
         this.personalBlockService.windowAddingNewOrgIsOpen = false;
         this.formAddOrg.reset();
       })
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 }

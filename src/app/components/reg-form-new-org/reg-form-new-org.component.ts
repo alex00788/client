@@ -26,6 +26,7 @@ export class RegFormNewOrgComponent {
   private destroyed$: Subject<void> = new Subject();
   form = new FormGroup({
     nameSupervisor: new FormControl(null, Validators.required),
+    email: new FormControl(null, [Validators.required, Validators.email]),
     phoneNumber: new FormControl(null, Validators.required),
     nameSectionOrOrganization: new FormControl(null, Validators.required),
   })

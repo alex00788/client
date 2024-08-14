@@ -2,11 +2,13 @@
 <div class="regFormAddNewOrgClass">
 
   <form class="formAddNewOrg" [formGroup]="form" (submit)="submit()">
-    <label for="nameSupervisor"> Имя руководителя </label>
+    <label for="nameSupervisor"> Имя руководителя *</label>
     <input id="nameSupervisor" type="text" formControlName="nameSupervisor">
-    <label for="phoneNumber"> Телефон </label>
+    <label for="email"> Email * </label>
+    <input id="email" type="text" formControlName="email">
+    <label for="phoneNumber"> Телефон *</label>
     <input id="phoneNumber" type="text" formControlName="phoneNumber">
-    <label for="nameSectionOrOrganization"> Название организации </label>
+    <label for="nameSectionOrOrganization"> Название организации *</label>
     <input id="nameSectionOrOrganization" type="text" formControlName="nameSectionOrOrganization">
 
   <div class="futRegFormAddNewOrg">
