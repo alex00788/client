@@ -5,7 +5,7 @@
   padding-top: 5px;
   border: none;
   color: #5238fd;
-  width: 320px;
+  max-width: 400px;
   background: cyan;
   max-height: 150px;
   max-width: 470px;
@@ -31,7 +31,6 @@
   color: #5238fd;
   background: #c6faeb;
   max-height: 150px;
-  /*max-width: 470px;*/
   overflow: auto;
 }
 

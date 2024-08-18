@@ -9,7 +9,7 @@
 }
 
 .modalContentForPerson {
-  width: 500px;
+  max-width: 500px;
   position: fixed;
   top: 150px;
   left: 33%;
@@ -22,8 +22,8 @@
 
 @media (max-width: 960px) {
   .modalContentForPerson{
-    left: 25%;
-    right: 25%;
+    left: 20%;
+    right: 20%;
   }
 }
 
@@ -42,7 +42,14 @@
 
 @media (max-width: 450px) {
   .modalContentForPerson{
-    left: 4%;
+    left: 12%;
+    right: 1%;
+  }
+}
+
+@media (max-width: 380px) {
+  .modalContentForPerson{
+    left: 5%;
     right: 1%;
   }
 }

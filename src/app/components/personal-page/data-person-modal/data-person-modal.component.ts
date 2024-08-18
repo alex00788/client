@@ -179,4 +179,9 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
     this.destroyed$.next();
     this.destroyed$.complete();
   }
+
+  renameUser() {
+    this.modalService.currentDataAboutSelectedUser.next(this.selectedUser);
+    this.modalService.openModalRenameUser();
+  }
 }

@@ -33,6 +33,7 @@ import {
 import {SwitchOfTheWeekComponent} from "./calendar-components/switch-of-the-week/switch-of-the-week.component";
 import {SuccessModalComponent} from "../success-modal/success-modal.component";
 import moment from "moment";
+import {ModalRenameComponent} from "./modal-rename/modal-rename.component";
 
 
 @Component({
@@ -59,6 +60,7 @@ import moment from "moment";
     DataAboutRecComponent,
     SwitchOfTheWeekComponent,
     SuccessModalComponent,
+    ModalRenameComponent,
   ],
   templateUrl: './personal-page.component.html',
   styleUrl: './personal-page.component.css'

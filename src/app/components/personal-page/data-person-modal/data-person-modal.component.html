@@ -9,7 +9,7 @@
         <strong> {{roleUser}}: </strong>
       </div>
       <strong *ngIf="newUser" class="newUser">NEW</strong>
-      <span> {{nameUser}}</span>
+      <span (click)="renameUser()" class="renameUser"> {{nameUser}}</span>
     </div>
 
     <div class="selectedUserClass">

@@ -9,6 +9,14 @@
   display: flex;
 }
 
+.renameUser {
+  cursor: pointer;
+}
+
+.renameUser:hover {
+  color: #518af3;
+}
+
 .newUser {
   color: #5238fd;
 }

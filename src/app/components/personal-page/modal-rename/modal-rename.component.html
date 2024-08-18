@@ -1,0 +1,15 @@
+<div class="renameUser">
+  <div class="titleRenameBlock">
+    Введите новое имя и фамилию
+  </div>
+  <form [formGroup]="formRename" (submit)="renameUser()">
+    <div class="dataRenameBlock">
+      <input type="text" placeholder="Имя" formControlName="newNameUser">
+      <input type="text" placeholder="Фамилия" formControlName="newSurnameUser">
+    </div>
+    <div class="btnRenameBlock">
+      <button type="button" (click)="modalService.openClientListBlockWithData()"> Назад </button>
+      <button type="submit" [disabled]="formRename.invalid"> Изменить </button>
+    </div>
+  </form>
+</div>

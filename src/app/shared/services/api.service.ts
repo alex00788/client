@@ -208,4 +208,9 @@ export class ApiService {
     return this.http.post<any>('/api/user/addSubscription', data )
       .pipe(catchError(this.errHandler.bind(this)))
   }
+
+  renameUser(data: any) {
+    return this.http.put<any>('/api/user/renameUser', data )
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
 }

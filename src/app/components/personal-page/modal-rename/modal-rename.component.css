@@ -1,0 +1,42 @@
+.renameUser {
+  padding: 10px;
+}
+
+input {
+  max-width: 145px;
+  margin: 10px;
+}
+
+.titleRenameBlock {
+  text-align: center;
+  margin: 10px auto;
+}
+
+.dataRenameBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.btnRenameBlock {
+  max-width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px auto;
+}
+
+@media (max-width: 735px) {
+  input {
+    max-width: 115px;
+  }
+
+}
+
+@media (max-width: 600px) {
+  input {
+    max-width: 110px;
+  }
+
+}

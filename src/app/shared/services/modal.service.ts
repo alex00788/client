@@ -14,6 +14,8 @@ export class ModalService {
   appSupport$ = new BehaviorSubject<boolean>(false)
   recordsBlock = new BehaviorSubject<boolean>(false)
   clientListBlock = new BehaviorSubject<boolean>(false)
+  modalRenameUser = new BehaviorSubject<boolean>(false)
+  currentDataAboutSelectedUser = new BehaviorSubject<any>({})
 
   open() {
     this.isVisible$.next(true)
@@ -128,7 +130,17 @@ export class ModalService {
   openClientListBlockWithData() {
     this.recordsBlock.next(false);
     this.clientListBlock.next(true);
+    this.modalRenameUser.next(false);
   }
 
+  openModalRenameUser() {
+    this.clientListBlock.next(false);
+    this.modalRenameUser.next(true);
+  }
+
+  closeModalRenameUser() {
+    this.clientListBlock.next(false);
+    this.modalRenameUser.next(false);
+  }
 
 }
