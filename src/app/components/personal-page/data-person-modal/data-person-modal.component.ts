@@ -181,6 +181,9 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   }
 
   renameUser() {
+    if (!this.selectedUser.userId) {
+      this.selectedUser.userId = this.selectedUser.id;
+    }
     this.modalService.currentDataAboutSelectedUser.next(this.selectedUser);
     this.modalService.openModalRenameUser();
   }
