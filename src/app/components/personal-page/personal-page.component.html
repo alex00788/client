@@ -44,6 +44,30 @@
     <app-personal-data-block *ngIf="personalBlockService.personalData"></app-personal-data-block>
   </div>
 
+  <div class="btnMainMenu">
+    <button class="btnSettingsRecords"
+            *ngIf="!personalBlockService.recordsBlock"
+            (click)="personalBlockService.openRecordsBlock()"
+    >
+      Мои записи
+      в {{dateService.date.value.format('M') | translateMonth}}
+    </button>
+  </div>
+  <div>
+    <app-records-block></app-records-block>
+  </div>
+
+  <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
+    <button class="btnSettingsRecords"
+            *ngIf="!personalBlockService.clientListBlock"
+            (click)="personalBlockService.openClientList()"
+    > Список клиентов
+    </button>
+  </div>
+  <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
+    <app-clients-list></app-clients-list>
+  </div>св
+
 
   <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
     <div class="btnMainMenu" *ngIf="!personalBlockService.windowAddingNewOrgIsOpen">
@@ -56,17 +80,6 @@
     </div>
   </div>
 
-  <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
-    <button class="btnSettingsRecords"
-            *ngIf="!personalBlockService.clientListBlock"
-            (click)="personalBlockService.openClientList()"
-    > Список клиентов
-    </button>
-  </div>
-  <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
-    <app-clients-list></app-clients-list>
-  </div>
-
 
   <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
     <button class="btnSettingsRecords"
@@ -77,20 +90,6 @@
   </div>
   <div class="bodyCalendarElementClass" >
     <app-settings-block *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
-  </div>
-
-
-  <div class="btnMainMenu">
-    <button class="btnSettingsRecords"
-            *ngIf="!personalBlockService.recordsBlock"
-            (click)="personalBlockService.openRecordsBlock()"
-    >
-      Мои записи
-      в {{dateService.date.value.format('M') | translateMonth}}
-    </button>
-  </div>
-  <div>
-    <app-records-block></app-records-block>
   </div>
 
 
