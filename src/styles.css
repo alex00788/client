@@ -62,9 +62,11 @@
 }
 
 .myData {
+  color: #ffff;
   border-radius: 10px;
   padding: 10px 15px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .myData:hover {

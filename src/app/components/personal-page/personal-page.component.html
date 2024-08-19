@@ -26,10 +26,10 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.98 1.984l7 6h-2.003v6H9.96V10.97H5.997v3.016H2.982v-6H.979l7-6z" fill="red"></path>
       </svg>
     </span>
-      <span class="myData" *ngIf="!personalBlockService.personalData" style="color: white" (click)="personalBlockService.switchData()">
+      <span class="myData" *ngIf="!personalBlockService.personalData" (click)="personalBlockService.switchData()">
         Мои данные
       </span>
-      <span class="myData" *ngIf="personalBlockService.personalData" style="color: white" (click)="personalBlockService.switchData()">
+      <span class="myData" *ngIf="personalBlockService.personalData" style="color: red" (click)="personalBlockService.switchData()">
        &times;
       </span>
       <span class="btnHome" style="color: red" (click)="logoutSystems()">
