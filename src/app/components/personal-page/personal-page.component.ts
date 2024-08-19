@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {ApiService} from "../../shared/services/api.service";
 import {BodyCalendarComponent} from "./calendar-components/body-calendar/body-calendar.component";
 import {HeaderCalendarComponent} from "./calendar-components/header-calendar/header-calendar.component";
@@ -61,6 +61,7 @@ import {ModalRenameComponent} from "./modal-rename/modal-rename.component";
     SwitchOfTheWeekComponent,
     SuccessModalComponent,
     ModalRenameComponent,
+    RouterLink,
   ],
   templateUrl: './personal-page.component.html',
   styleUrl: './personal-page.component.css'
@@ -125,5 +126,10 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  routerLinkMain() {
+    this.router.navigate(['/']);
+    this.modalService.showTitle();
   }
 }

@@ -5,9 +5,6 @@
   overflow: auto;
 }
 
-.exit {
-  display: none;
-}
 
 .cowerTitlePersonal {
   position: relative;
@@ -233,7 +230,4 @@
     display: none;
   }
 
-  .exit {
-    display: flex;
-  }
 }
