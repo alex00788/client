@@ -213,4 +213,9 @@ export class ApiService {
     return this.http.put<any>('/api/user/renameUser', data )
       .pipe(catchError(this.errHandler.bind(this)))
   }
+
+  renameSelectedOrg(data: any) {
+    return this.http.put<any>('/api/user/renameOrg', data )
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
 }

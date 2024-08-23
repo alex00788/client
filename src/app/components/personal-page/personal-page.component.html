@@ -80,6 +80,16 @@
     </div>
   </div>
 
+  <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
+    <div class="btnMainMenu" *ngIf="!personalBlockService.windowRenameOrgIsOpen">
+      <button class="btnSettingsRecords" (click)="personalBlockService.renameCurrentOrg()">
+        Переименовать ORG
+      </button>
+    </div>
+    <div class="bodyCalendarElementClass" *ngIf="personalBlockService.windowRenameOrgIsOpen">
+      <app-rename-org (nameOrgChanged)="getAllOrg()"></app-rename-org>
+    </div>
+  </div>
 
   <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
     <button class="btnSettingsRecords"

@@ -1,4 +1,9 @@
-import {Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild
+} from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {FilterOrgPipe} from "../../../../../shared/pipe/filter-org.pipe";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -29,7 +34,7 @@ export class SelectOrgToDisplayComponent {
   showSelectedOrg = false;
 
   @ViewChild('inputSearchOrg') inputSearchOrgRef: ElementRef;
-//оределяем, что кликнули за пределом блока div закрыть при потери фокуса
+  //оределяем, что кликнули за пределом блока div закрыть при потери фокуса
   @HostListener('document:click', ['$event']) onClick(event: Event) {
     // элемент в котором находимся есть в том по которому кликнули?
     if (!this.el.nativeElement.contains(event.target)) {
@@ -50,9 +55,9 @@ export class SelectOrgToDisplayComponent {
     this.dateService.currentOrg.next(org.name)
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
-    setTimeout(()=> {
+    setTimeout(() => {
       this.refreshDataAboutOrg();
-    },50)
+    }, 50)
   }
 
 //При обновлении оставаться на выбранной организации//  чтоб изменить при логине нужно придумать метод который будет перезаписывать в таблице юзер организации и ее id
@@ -67,8 +72,8 @@ export class SelectOrgToDisplayComponent {
 
 
   changeOrg() {
-    setTimeout(()=> {
+    setTimeout(() => {
       this.showSelectedOrg = true;
-    },250)
+    }, 250)
   }
 }

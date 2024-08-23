@@ -13,6 +13,7 @@ export class PersonalBlockService {
   clientListBlock: boolean = false;
   changeSettingsRecordsBlock: boolean = false;
   windowAddingNewOrgIsOpen: boolean = false;
+  windowRenameOrgIsOpen: boolean = false;
 
 
   switchData() {
@@ -32,6 +33,13 @@ export class PersonalBlockService {
     this.windowAddingNewOrgIsOpen = true;
   }
 
+  renameCurrentOrg () {
+    this.windowRenameOrgIsOpen = true;
+  }
+
+  closeWindowRenameOrg() {
+    this.windowRenameOrgIsOpen = false;
+  }
 
   changeSettingsRecords() {
     this.settingsRecords = !this.settingsRecords;

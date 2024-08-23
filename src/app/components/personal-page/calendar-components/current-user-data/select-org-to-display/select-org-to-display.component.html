@@ -8,6 +8,7 @@
       <input type="text"  #inputSearchOrg
              placeholder="поиск организации" [(ngModel)]="searchOrgForRec">
     </div>
+
     <div class="listOrg"
          *ngIf="dateService.allOrganization | async as allOrgForWork">
       <div class="org-sClass"
@@ -26,7 +27,7 @@
   <div class="selectedOrg" (click)="changeOrg()">
     <div class="titleSelectOrg">
       <strong>
-        {{dateService.currentOrg.value}}
+        {{dateService.currentOrg | async}}
       </strong>
     </div>
   </div>

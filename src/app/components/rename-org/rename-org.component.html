@@ -1,0 +1,17 @@
+<div class="settingsRecordsClass">
+  <form [formGroup]="renameForm" (submit)="renameOrg()">
+    <div>
+      <label class="newNameOrg"> Введите новее название </label>
+      <input  class="inputForNewNameOrg" type="text" formControlName="nameOrg">
+    </div>
+
+    <div class="btnRenameOrg">
+      <button class="btnSettingsRecords" (click)="personalBlockService.closeWindowRenameOrg()">
+        Отменить
+      </button>
+      <button class="btnSettingsRecords" type="submit" [disabled]="renameForm.invalid" >
+        Изменить
+      </button>
+    </div>
+  </form>
+</div>

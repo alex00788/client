@@ -1,0 +1,37 @@
+.settingsRecordsClass {
+  display: block;
+  border-radius: 10px;
+  margin: 3px;
+  border: solid 1px red;
+  color: white;
+}
+
+.btnRenameOrg {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}
+
+.newNameOrg {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.inputForNewNameOrg {
+  border: solid 1px red;
+  padding: 5px;
+  margin: 10px;
+  width: 260px;
+  background: #e8d8d8;
+  color: blue;
+}
+
+.btnSettingsRecords:disabled {
+  border: solid 3px red;
+  color: #9b9494;
+}
