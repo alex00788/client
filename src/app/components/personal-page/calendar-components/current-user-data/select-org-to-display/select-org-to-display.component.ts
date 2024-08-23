@@ -2,6 +2,8 @@ import {
   Component,
   ElementRef,
   HostListener,
+  OnDestroy,
+  OnInit,
   ViewChild
 } from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -9,6 +11,7 @@ import {FilterOrgPipe} from "../../../../../shared/pipe/filter-org.pipe";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DateService} from "../../date.service";
 import {DataCalendarService} from "../../data-calendar-new/data-calendar.service";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'app-select-org-to-display',
@@ -24,17 +27,17 @@ import {DataCalendarService} from "../../data-calendar-new/data-calendar.service
   templateUrl: './select-org-to-display.component.html',
   styleUrl: './select-org-to-display.component.css'
 })
-export class SelectOrgToDisplayComponent {
-  constructor(    public dateService: DateService,
-                  public dataCalendarService: DataCalendarService,
-                  private el: ElementRef
-  ) {}
-
+export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
+  constructor(public dateService: DateService,
+              public dataCalendarService: DataCalendarService,
+              private el: ElementRef
+  ) {
+  }
+  private destroyed$: Subject<void> = new Subject();
   searchOrgForRec = '';
   showSelectedOrg = false;
-
   @ViewChild('inputSearchOrg') inputSearchOrgRef: ElementRef;
-  //оределяем, что кликнули за пределом блока div закрыть при потери фокуса
+//оределяем, что кликнули за пределом блока div закрыть при потери фокуса
   @HostListener('document:click', ['$event']) onClick(event: Event) {
     // элемент в котором находимся есть в том по которому кликнули?
     if (!this.el.nativeElement.contains(event.target)) {
@@ -45,8 +48,13 @@ export class SelectOrgToDisplayComponent {
     }
   }
 
-
-
+  ngOnInit(): void {
+    this.dateService.currentOrgWasRenamed
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((v: any) => {
+        this.refreshDataAboutOrg();
+      })
+  }
 
 
   choiceOrgForRec(org: any) {
@@ -76,4 +84,10 @@ export class SelectOrgToDisplayComponent {
       this.showSelectedOrg = true;
     }, 250)
   }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
+  }
+
 }

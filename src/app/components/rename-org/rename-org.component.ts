@@ -43,8 +43,10 @@ export class RenameOrgComponent implements OnInit, OnDestroy{
     this.apiService.renameSelectedOrg(dataForRenameOrg)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {
+        this.dateService.currentOrg.next(res.newNameOrg);
         this.personalBlockService.closeWindowRenameOrg();
         this.nameOrgChanged.emit();
+        this.dateService.currentOrgWasRenamed.next(true);
         this.successService.localHandler('Организация переименована');
       })
   }
