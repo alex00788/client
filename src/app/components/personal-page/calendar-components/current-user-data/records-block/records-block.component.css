@@ -4,6 +4,9 @@
   margin: 5px auto;
   padding: 5px;
   background: #c6faeb;
+  background: none;
+  color: white;
+  border: solid 1px red;
   border-radius: 15px;
   white-space: nowrap;
 }
@@ -12,7 +15,9 @@
   margin: 0 20px;
   padding: 0 20px;
   border-radius: 20px;
-  background: #aefaae;
+  background: none;
+  color: red;
+  border: solid 1px red;
 }
 
 .leftAndRightBtnWithoutMargin {
@@ -39,6 +44,7 @@
   position: absolute;
   right: 5px;
   background: none;
+  color: red;
   border: none;
   cursor: pointer;
 }
@@ -78,15 +84,17 @@
 }
 
 .todayInRec {
-  color: #5238fd;
+  color: red;
 }
 
 
 .btnFilterRec {
+  color: white;
   border-radius: 10px;
   border: 1px;
   cursor: pointer;
   background: none;
+  border: solid 1px red;
   margin: 10px 3px;
 }
 

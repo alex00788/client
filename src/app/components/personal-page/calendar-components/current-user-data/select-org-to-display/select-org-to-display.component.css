@@ -4,9 +4,10 @@
   margin: 5px;
   padding-top: 5px;
   border: none;
-  color: #5238fd;
+  color: white;
   max-width: 400px;
-  background: cyan;
+  background: none;
+  border: solid 2px red;
   max-height: 150px;
   max-width: 470px;
   cursor: pointer;
@@ -28,8 +29,8 @@
   border-radius: 10px;
   margin: 5px;
   border: solid 1px red;
-  color: #5238fd;
-  background: #c6faeb;
+    color: white;
+  background: none;
   max-height: 150px;
   overflow: auto;
 }

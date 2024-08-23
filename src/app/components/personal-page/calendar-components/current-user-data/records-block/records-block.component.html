@@ -21,6 +21,7 @@
          >
            &#8592;
          </span>
+         Фильтр по :
          <button
            *ngIf="!showBtnFilter"
            class="btnFilterRec"
@@ -45,7 +46,7 @@
               btnFilterRecSelect: dataCalendarService.filterByDate.value,
               btnFilterRecNotSelected: !dataCalendarService.filterByDate.value}"
            (click)="dataCalendarService.filterRecCurrentUserByDate()"
-         > Дата
+         > Дате
          </button>
          <button
            *ngIf="showBtnFilter"

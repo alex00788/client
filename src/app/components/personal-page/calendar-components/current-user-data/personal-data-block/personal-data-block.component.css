@@ -3,7 +3,9 @@
   margin: 10px auto;
   padding: 5px;
   border-radius: 10px;
-  background: #c6faeb;
+  background: none;
+  color: white;
+  border: solid 1px red;
 }
 
 .titleNow {
@@ -29,6 +31,7 @@
   position: absolute;
   right: 1px;
   border: none 1px #f6dbff;
+  color: red;
   cursor: pointer;
   background: none;
 }
