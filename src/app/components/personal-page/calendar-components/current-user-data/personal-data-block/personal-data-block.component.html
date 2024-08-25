@@ -1,12 +1,12 @@
 <div class="now">
   <div class="titleNow" (click)="personalBlockService.switchData()">
     <strong class="clickBtn"> Мои данные </strong>
-    <button class="btnClosePersonalDataComponent" (click)="personalBlockService.switchData()">&times;</button>
+    <!--<button class="btnClosePersonalDataComponent" (click)="personalBlockService.switchData()">&times;</button>-->
   </div>
   <div class="currentUser">
     <div>
       <!--<strong *ngIf="dateService.currentUserIsTheMainAdmin | async"> {{dateService.currentUserRole | async}}: </strong>-->
-      <strong *ngIf="dateService.currentUserSimpleUser | async"> {{dateService.currentUserRole | async }}: </strong>
+      <strong *ngIf="dateService.currentUserSimpleUser | async"> Клиент: </strong>
       <strong *ngIf="dateService.currentUserIsTheAdminOrg | async"> {{dateService.currentUserRole | async}}: </strong>
     </div>
     <span> {{dateService.currentUserNameAndSurname | async}} </span>

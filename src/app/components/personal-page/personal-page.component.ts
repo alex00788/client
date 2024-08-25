@@ -134,4 +134,9 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
     this.modalService.showTitle();
   }
+
+  switchCalendar() {
+    this.dateService.openCalendar();
+    this.recordingService.closeRecordsBlock()
+  }
 }

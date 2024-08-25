@@ -20,10 +20,10 @@
                 <span *ngIf="changeIcon; else changeIconBlock">👁</span>
                 <ng-template #changeIconBlock> 🤫 </ng-template>
               </span>
-          <input id="password" type="password" formControlName="password" maxlength="6">
+          <input id="password" type="password" formControlName="password" maxlength="17">
         </div>
         <div class="errorInputMessage" *ngIf="password.errors && password.touched">
-          <small *ngIf="password.errors?.['required']"> придумайте пароль от 4 до 6 символов</small>
+          <small *ngIf="password.errors?.['required']"> придумайте пароль от 4 до 17 символов</small>
           <small *ngIf="password.errors?.['minlength']"> минимально 4 символа сейчас {{password.value.length}}</small>
         </div>
 
@@ -68,5 +68,10 @@
 
     </div>
   </form>
-
+  <button class="registerAgain" type="button"
+          *ngIf="modalService.registrationError | async"
+          (click)="registerAgain()"
+  >
+      Сбросить и Зарегистрироваться заново
+  </button>
 </div>

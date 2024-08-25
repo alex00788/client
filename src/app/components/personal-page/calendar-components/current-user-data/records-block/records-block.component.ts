@@ -52,12 +52,13 @@ export class RecordsBlockComponent implements OnInit{
     this.currentDate = moment().format('DD.MM.YYYY');
     this.recordingDaysChanged();
 
-    this.dateService.date
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(()=>{
-        this.dataCalendarService.showAllRec();
-        this.dataCalendarService.filterRecCurrentUserByDate();
-      })
+    // this.dateService.date
+    //   .pipe(takeUntil(this.destroyed$))
+    //   .subscribe(()=>{
+    //     //чтоб по умолчинию фильтр был по дате поменять местами след 2 строки
+    //     this.dataCalendarService.filterRecCurrentUserByDate();
+    //     this.dataCalendarService.showAllRec();
+    //   })
   }
 
   // функция обновляет блок показывающий когда записан пользователь...как только пользователь запишется или отпишется

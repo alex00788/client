@@ -17,7 +17,7 @@ export class DateService {                                            //moment()
   public userSignedHimself: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public userCancelHimselfRec: BehaviorSubject<any> = new BehaviorSubject(0) //0 означает что пользователь админ писмо об отмене отправлять нужно клиенту что запись отменилась
   public currentUserSimpleUser: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  public calendarBodyOpen: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  public calendarBodyOpen: BehaviorSubject<boolean> = new BehaviorSubject(true)
   public recordingDaysChanged: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public changedSettingsOrg: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public remainingFunds: BehaviorSubject<any> = new BehaviorSubject('')
@@ -41,6 +41,7 @@ export class DateService {                                            //moment()
   public howMuchRecorded: BehaviorSubject<any> = new BehaviorSubject(0)
   public dataSelectedUser: BehaviorSubject<any> = new BehaviorSubject({})
   public clientPhone: BehaviorSubject<any> = new BehaviorSubject('')
+  public clientEmail: BehaviorSubject<any> = new BehaviorSubject('')
   public pasForLink: BehaviorSubject<any> = new BehaviorSubject('')
 
   constructor() {

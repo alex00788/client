@@ -6,7 +6,6 @@
   background: #c6faeb;
   background: none;
   color: white;
-  border: solid 1px red;
   border-radius: 15px;
   white-space: nowrap;
 }
@@ -17,7 +16,6 @@
   border-radius: 20px;
   background: none;
   color: red;
-  border: solid 1px red;
 }
 
 .leftAndRightBtnWithoutMargin {
@@ -94,7 +92,6 @@
   border: 1px;
   cursor: pointer;
   background: none;
-  border: solid 1px red;
   margin: 10px 3px;
 }
 

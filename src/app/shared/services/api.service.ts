@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {catchError, Observable, tap, throwError} from "rxjs";
 import {ErrorResponseService} from "./error.response.service";
+import {ModalService} from "./modal.service";
 
 @Injectable({providedIn: "root",})
 
@@ -10,12 +11,18 @@ export class ApiService {
   // token:UserData;
   constructor(
     private http: HttpClient,
+    public modalService: ModalService,
     private errorResponseService: ErrorResponseService
   ) {}
 
   //перехват и показ ошибки
   public errHandler(err: HttpErrorResponse) {
-
+    if (
+      err.error.message === 'Пользователь с таким email уже существует'
+    ) {
+      //показываем кнопку для сброса регистрации
+      this.modalService.registrationError.next(true);
+    }
     if (!err.error?.message) {
       this.errorResponseService.localHandler('ошибка при запросе на серв')
       return throwError(() => err)
@@ -59,6 +66,13 @@ export class ApiService {
         catchError(this.errHandler.bind(this)),
       )
   }
+
+
+  registerAgain(data: any) {
+    return this.http.put<any>('/api/user/registerAgain', data )
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
 
   login(user: any): Observable<any> {
     return this.http.post<any>('/api/user/login', user)

@@ -1,12 +1,12 @@
 <ng-container *ngIf="showSelectedOrg; else showSelectedOrgBlock">
   <div class="selectOrgToDisplayClass">
     <div class="choiceTitleSelectOrg">
-      <strong style="color: #7e9af1"> Выберете куда хотите записаться! </strong>
+      <strong style="color: black"> Выберете куда хотите записаться! </strong>
     </div>
 
     <div class="searchOrg">
       <input type="text"  #inputSearchOrg
-             placeholder="поиск организации" [(ngModel)]="searchOrgForRec">
+             placeholder="поиск" [(ngModel)]="searchOrgForRec">
     </div>
 
     <div class="listOrg"

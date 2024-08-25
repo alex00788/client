@@ -17,9 +17,9 @@ export class DataCalendarService {
   public allEntryAllUsersInMonth: BehaviorSubject<any> = new BehaviorSubject([])
   public allEntryCurrentUserThisMonth: BehaviorSubject<any> = new BehaviorSubject([])
   public arrayOfDays: BehaviorSubject<any> = new BehaviorSubject([])
-  public filterByDate: BehaviorSubject<boolean> = new BehaviorSubject(true)
+  public filterByDate: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public filterByOrg: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  public showAll: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  public showAll: BehaviorSubject<boolean> = new BehaviorSubject(true)
   public allUsersForShowAllFilter: BehaviorSubject<any> = new BehaviorSubject([])
 
 
@@ -100,8 +100,9 @@ export class DataCalendarService {
     this.apiService.getPhoneClient(userId)
       // .pipe(takeUntil(this.destroyed$))
       .pipe(take(1))
-      .subscribe((phone:any)=> {
-        this.dateService.clientPhone.next(phone);
+      .subscribe((phoneAndMail:any)=> {
+        this.dateService.clientPhone.next(phoneAndMail.phone);
+        this.dateService.clientEmail.next(phoneAndMail.email);
       })
   }
 

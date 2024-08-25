@@ -16,6 +16,7 @@ export class ModalService {
   clientListBlock = new BehaviorSubject<boolean>(false)
   modalRenameUser = new BehaviorSubject<boolean>(false)
   currentDataAboutSelectedUser = new BehaviorSubject<any>({})
+  registrationError = new BehaviorSubject<boolean>(false)
 
   open() {
     this.isVisible$.next(true)

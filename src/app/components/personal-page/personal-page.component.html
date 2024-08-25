@@ -44,6 +44,19 @@
     <app-personal-data-block *ngIf="personalBlockService.personalData"></app-personal-data-block>
   </div>
 
+
+  <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
+    <button class="btnSettingsRecords"
+            *ngIf="!personalBlockService.clientListBlock"
+            (click)="personalBlockService.openClientList()"
+    > Мои клиенты
+    </button>
+  </div>
+  <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
+    <app-clients-list></app-clients-list>
+  </div>
+
+
   <div class="btnMainMenu">
     <button class="btnSettingsRecords"
             *ngIf="!personalBlockService.recordsBlock"
@@ -57,17 +70,17 @@
     <app-records-block></app-records-block>
   </div>
 
+
   <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
     <button class="btnSettingsRecords"
-            *ngIf="!personalBlockService.clientListBlock"
-            (click)="personalBlockService.openClientList()"
-    > Список клиентов
+            *ngIf="personalBlockService.settingsBtn"
+            (click)="personalBlockService.switchSettingsData()">
+      Настройки
     </button>
   </div>
-  <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
-    <app-clients-list></app-clients-list>
+  <div class="bodyCalendarElementClass" >
+    <app-settings-block *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
   </div>
-
 
   <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
     <div class="btnMainMenu" *ngIf="!personalBlockService.windowAddingNewOrgIsOpen">
@@ -91,17 +104,6 @@
     </div>
   </div>
 
-  <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
-    <button class="btnSettingsRecords"
-            *ngIf="personalBlockService.settingsBtn"
-            (click)="personalBlockService.switchSettingsData()">
-      Настройки
-    </button>
-  </div>
-  <div class="bodyCalendarElementClass" >
-    <app-settings-block *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
-  </div>
-
 
   <div class="btnMainMenu">
     <button
@@ -111,7 +113,7 @@
   </div>
   <div class="bodyCalendarElementClass calendarNum" *ngIf="dateService.calendarBodyOpen | async">
     <div class="cowerBodyCalendar">
-      <button class="btnCloseInfoBlock" (click)="dateService.openCalendar()">
+      <button class="btnCloseInfoBlock" (click)="switchCalendar()">
         &times;
       </button>
       <app-header-calendar></app-header-calendar>
@@ -119,13 +121,12 @@
     </div>
   </div>
 
-
-  <div class="btnMainMenu" *ngIf="!recordingService.recordsBlock.value">
-    <button class="btnSettingsRecords" (click)="recordingService.openRecordsBlock()">
-<!--      Расписание выбранной организации {{dateService.currentOrg.value}}-->
-      Расписание
-    </button>
-  </div>
+<!--  <div class="btnMainMenu" *ngIf="!recordingService.recordsBlock.value">-->
+<!--    <button class="btnSettingsRecords" (click)="recordingService.openRecordsBlock()">-->
+<!--&lt;!&ndash;      Расписание выбранной организации {{dateService.currentOrg.value}}&ndash;&gt;-->
+<!--      Расписание-->
+<!--    </button>-->
+<!--  </div>-->
 
   <div class="showRecCurrentOrg" *ngIf="recordingService.recordsBlock.value">
     <div class="dateNowAndSelected">

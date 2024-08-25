@@ -48,6 +48,7 @@
            (click)="dataCalendarService.filterRecCurrentUserByDate()"
          > Дате
          </button>
+
          <button
            *ngIf="showBtnFilter"
            class="btnFilterRec"
@@ -57,12 +58,14 @@
            (click)="dataCalendarService.showAllRec()"
          > Все
          </button>
+
          <button
            *ngIf="showBtnFilter"
            class="btnFilterRec"
            (click)="openFilterBtn()"
          > &times;
          </button>
+
          <span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
                [class]="{
               leftAndRightBtnWithoutMargin: dataCalendarService.allEntryCurrentUserThisMonth.value.length &&

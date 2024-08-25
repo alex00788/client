@@ -66,6 +66,7 @@ export class BodyCalendarComponent implements OnInit, OnDestroy{
   //метод, который при клике по дате, будет ее выбирать
   select(day: moment.Moment) {
       this.dateService.changeDay(day)
+      this.recordingService.openRecordsBlock()
   }
 
   ngOnDestroy(): void {

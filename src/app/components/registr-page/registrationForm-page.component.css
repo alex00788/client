@@ -9,6 +9,18 @@
   overflow: auto;
 }
 
+
+.registerAgain {
+  position: absolute;
+  font-size: 30px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.registerAgain:hover {
+  background: #aefaae;
+}
+
 .phoneClass {
   white-space: nowrap;
 }

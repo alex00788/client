@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit,} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {ModalPageComponent} from "../modal-page/modal-page.component";
 import {ApiService} from "../../shared/services/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,6 +19,7 @@ import {SuccessService} from "../../shared/services/success.service";
     NgIf,
     NgForOf,
     ModalPageComponent,
+    AsyncPipe,
   ], templateUrl: './registrationForm-page.component.html',
   styleUrl: './registrationForm-page.component.css'
 })
@@ -28,7 +29,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private router: Router,
     private activateRouter: ActivatedRoute,
-    private modalService: ModalService,
+    public modalService: ModalService,
     private dateService: DateService,
     public errorResponseService: ErrorResponseService,
     public successService: SuccessService
@@ -160,5 +161,16 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
 
   clearTrim(e: any) {
     e.target.value = e.target.value.replace(' ', '');
+  }
+
+  registerAgain() {
+    this.apiService.registerAgain(this.form.value)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(res => {
+        this.errorResponseService.clear();
+        this.modalService.registrationError.next(false);
+        this.successService.localHandler(res.message)
+      })
+
   }
 }
