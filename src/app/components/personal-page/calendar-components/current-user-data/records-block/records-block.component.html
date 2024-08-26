@@ -12,7 +12,7 @@
      </div>
      <div class="btnRecSitings">
        <div class="btnSFilterClass">
-         <span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
+         <!--<span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
            [class]="{
               leftAndRightBtnWithoutMargin: dataCalendarService.allEntryCurrentUserThisMonth.value.length &&
                dataCalendarService.filterByDate.value
@@ -20,8 +20,8 @@
            (click)="changeDay(-1)"
          >
            &#8592;
-         </span>
-         Фильтр по :
+         </span>-->
+         Фильтр по:
          <button
            *ngIf="!showBtnFilter"
            class="btnFilterRec"
@@ -66,7 +66,7 @@
          > &times;
          </button>
 
-         <span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
+         <!--<span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
                [class]="{
               leftAndRightBtnWithoutMargin: dataCalendarService.allEntryCurrentUserThisMonth.value.length &&
                dataCalendarService.filterByDate.value
@@ -74,7 +74,7 @@
                (click)="changeDay(1)"
                >
            &#8594;
-         </span>
+         </span>-->
        </div>
      </div>
 
@@ -118,9 +118,10 @@
           &nbsp;записей нет!
        </span>
        <span class="notContentClass" *ngIf="dataCalendarService.filterByDate.value">
-        <span class="leftAndRightBtn" (click)="changeDay(-1)"> &#8592; </span>
+         <!--тут закоментированы стрелки переключающие 1 день календаря-->
+        <!--<span class="leftAndRightBtn" (click)="changeDay(-1)"> &#8592; </span>-->
          {{dateService.date.value.format('DD.MM.YY') }} записей нет!
-        <span class="leftAndRightBtn" (click)="changeDay(1)"> &#8594; </span>
+        <!--<span class="leftAndRightBtn" (click)="changeDay(1)"> &#8594; </span>-->
        </span>
      </ng-template>
 

@@ -6,6 +6,7 @@ import {NgForOf} from "@angular/common";
 import {MomentTransformDatePipe} from "../../../../shared/pipe/moment-transform-date.pipe";
 import {Subject, takeUntil} from "rxjs";
 import {RecordingService} from "../recording.service";
+import {DataCalendarService} from "../data-calendar-new/data-calendar.service";
 
 @Component({
   selector: 'app-body-calendar',
@@ -20,6 +21,7 @@ import {RecordingService} from "../recording.service";
 export class BodyCalendarComponent implements OnInit, OnDestroy{
   constructor(
     public recordingService: RecordingService,
+    public dataCalendarService: DataCalendarService,
     public dateService: DateService) {
   }
   private destroyed$: Subject<void> = new Subject();
@@ -67,6 +69,7 @@ export class BodyCalendarComponent implements OnInit, OnDestroy{
   select(day: moment.Moment) {
       this.dateService.changeDay(day)
       this.recordingService.openRecordsBlock()
+      this.dateService.recordingDaysChanged.next(true);
   }
 
   ngOnDestroy(): void {

@@ -86,7 +86,7 @@ export class DataCalendarService {
     }
     this.apiService.getAllEntryCurrentUser(dataForGetAllEntryCurrentUsersThisMonth)
       // .pipe(takeUntil(this.destroyed$))
-      .pipe(take(1))
+      .pipe(take(2))
       .subscribe(dataAllEntryCurrentUsersThisMonth => {
         this.allEntryCurrentUserThisMonth.next(dataAllEntryCurrentUsersThisMonth);
         this.allUsersForShowAllFilter.next(dataAllEntryCurrentUsersThisMonth);
