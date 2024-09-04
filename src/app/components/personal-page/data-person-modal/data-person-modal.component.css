@@ -22,6 +22,10 @@
   color: #5238fd;
 }
 
+.heightRow {
+  margin: 15px 0;
+}
+
 .strRecordsSelectedUser {
   margin: 5px;
 }
@@ -62,8 +66,8 @@ span{
 }
 
 .personalDataTitle{
-  text-align: center;
-  margin: 5px 30px 20px 30px;
+  text-align: start;
+  margin: 5px 30px 20px 40px;
 }
 
 .btnClosePersonalData{
@@ -90,7 +94,7 @@ span{
 }
 
 .inputAddSubscription {
-  width: 30px;
+  width: 40px;
   margin-left: 18px;
 }
 
@@ -110,7 +114,7 @@ span{
 
   .inputAddSubscription {
     margin-left: 80px;
-    width: 20px;
+    width: 40px;
   }
 
   .subscription:hover~.tooltipForSubscription {
