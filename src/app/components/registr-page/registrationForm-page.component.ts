@@ -98,8 +98,11 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
-    this.form.value.sectionOrOrganization = this.dateService.selectOrgForReg.value[0].name
-    this.form.value.idOrg = this.dateService.idSelectedOrg.value;
+    //тут записываем данные орг с которой пришли или которую выбрали при регистрации
+    this.form.value.sectionOrOrganization = this.dateService.nameOrganizationWhereItCameFrom.value?
+      this.dateService.nameOrganizationWhereItCameFrom.value : this.dateService.selectOrgForReg.value[0].name;
+    this.form.value.idOrg = this.dateService.nameOrganizationWhereItCameFrom.value?
+      this.dateService.idOrganizationWhereItCameFrom.value : this.dateService.idSelectedOrg.value;
     this.loginSub = this.apiService.registration(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(userData => {
@@ -152,7 +155,12 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
 
 
   openRegFormChoiceOrg() {
-    this.modalService.openRegFormChoiceOrganisation();
+    //если перешли по ссылки из орг то тут пропускаем форму выбора организации
+    if ( this.dateService.nameOrganizationWhereItCameFrom.value) {
+     this.openLoginPage();
+    } else {
+      this.modalService.openRegFormChoiceOrganisation();
+    }
   }
 
   permissionChange() {
@@ -160,7 +168,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
   }
 
   clearTrim(e: any) {
-    e.target.value = e.target.value.replace(' ', '');
+    e.target.value = e.target.value.replaceAll(' ', '');
   }
 
   registerAgain() {
@@ -171,6 +179,31 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
         this.modalService.registrationError.next(false);
         this.successService.localHandler(res.message)
       })
-
   }
+
+
+
+
+
+  //так можно проверить почту на ввод недопустимых и повторных значений с помощью регулярн выражен
+  // removeFobbidenCharacters(e: any) {
+    //символы не разрешенные при вводе email
+  //   const emailEexcludeSymbols = [' ', '&', '?', '=', '+', '#', '%', '}', '{', '\\', '[', ']', '|', '^', '<', '>', '*', '$', '!', '~', '`', ',', ';', '(', ')', '\'', '"'];
+  //   const str = [...e.target.value];
+  //   const res = [];
+  //   str.forEach((el) => {
+  //     if (emailEexcludeSymbols.includes(el) ||
+  //       (el === '.' && e.target.value.indexOf(el) === 0) ||
+  //       /[А-Яа-яЁё]/.test(el)
+  //     ) {
+  //       e.target.value = e.target.value.replace(el, '');
+  //     }
+  //   });
+  //   e.target.value = e.target.value.replace(/\.+$/, '.');
+  //   e.target.value = e.target.value.replace(/\@+$/, '@');
+  //   e.target.value = e.target.value.replace(/\-+$/, '-');
+  //   e.target.value = e.target.value.replace(/\_+$/, '_');
+  //   e.target.value = e.target.value.replace(/\/+$/, '/');
+  // }
+
 }

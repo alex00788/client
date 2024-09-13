@@ -72,6 +72,9 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
 
   submit() {
+    //обноляем значения чтоб сбросить переход по ссылки из организации
+    this.dateService.nameOrganizationWhereItCameFrom.next('');
+    this.dateService.idOrganizationWhereItCameFrom.next('');
     // в зависимости от введеных данных присваиваеться роль и рисуеться интерфейс!!!
     this.form.disable()          //блокировка формы чтоб не отправлять много запросов подряд
     if (this.form.invalid) {
@@ -122,7 +125,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   openRegFormChoiceOrg() {
-    this.modalService.openRegFormChoiceOrganisation();
+    //если перешли по ссылки из орг сразу перебрасываем на нее
+    // или открываем выбор организаций
+    if (this.dateService.nameOrganizationWhereItCameFrom.value) {
+      this.openRegistrationPage();
+    } else {
+      this.modalService.openRegFormChoiceOrganisation();
+    }
   }
 
   resendLink() {
