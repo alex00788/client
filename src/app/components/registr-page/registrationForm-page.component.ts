@@ -108,6 +108,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
       .subscribe(userData => {
         if (userData?.user.isActivated) {
           this.form.reset()
+          this.permissionChB = false
           this.router.navigate(['personal-page'])
           this.modalService.close()
           this.dateService.setUser(userData)
@@ -144,6 +145,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     if (this.loginSub) {
       this.loginSub.unsubscribe();
     }
+    this.permissionChB = false;
     this.destroyed$.next();
     this.destroyed$.complete();
   }
