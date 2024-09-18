@@ -55,6 +55,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
   })
 
   ngOnInit(): void {
+    this.permissionChB = false;
     this.errorResponseService.disableLoginForm
       .pipe(takeUntil(this.destroyed$))
       .subscribe(res =>
