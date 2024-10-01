@@ -51,7 +51,7 @@
           <small> напишите ваш телефон начиная с +7</small>
         </div>
 
-        <div class="permissionBlock" (click)="permissionChange()">
+        <div class="permissionBlock" (click)="permissionChange($event)">
           <input  id="permission" type="checkbox" formControlName="permission">
           <label class="permission" for="permission"> Разрешаю обработку персональных данных </label>
         </div>

@@ -166,8 +166,8 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  permissionChange() {
-    this.permissionChB = !this.permissionChB;
+  permissionChange(e: any) {
+    this.permissionChB = e.target.checked;
   }
 
   clearTrim(e: any) {

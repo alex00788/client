@@ -92,11 +92,11 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
 
 
   //удаление и перенос в архив всех записей из таблицы записи старше 3 месяцев каждого 1го числа месяца
-  clearTableRec() {
+  clearTableRec() {        //не перенес на бек тк ошибка даты проблемма с моментом в node.js
     const m = moment();
     if (m.format('D') == '1') {
-      //отсчитываем 3 месяца назад вычесляем 1 число полученого месяца
-      const threeMonthsAgo = m.subtract(3, 'months').startOf('month').format('YYYY.MM.DD');
+      //отсчитываем 2 месяца назад вычесляем 1 число полученого месяца
+      const threeMonthsAgo = m.subtract(2, 'months').startOf('month').format('YYYY.MM.DD');
       this.apiService.clearTableRec({threeMonthsAgo})
         .pipe(takeUntil(this.destroyed$))
         .subscribe()
