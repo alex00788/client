@@ -115,7 +115,9 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.dateService.youCanSendRequestToClearDatabase.next(false)
     this.apiService.clearTableRec({threeMonthsAgo})
       .pipe(takeUntil(this.destroyed$))
-      .subscribe()
+      .subscribe((e: any) => {
+        this.getAllOrg();
+      })
   }
 
 

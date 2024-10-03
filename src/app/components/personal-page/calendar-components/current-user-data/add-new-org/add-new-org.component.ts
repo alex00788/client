@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {PersonalBlockService} from "../../personal-block.service";
 import {DateService} from "../../date.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -27,7 +27,7 @@ export class AddNewOrgComponent implements OnDestroy {
 
   ) {  }
   private destroyed$: Subject<void> = new Subject();
-
+  @Output() emitForOrgUpdatesAfterAddingNew= new EventEmitter();
   formAddOrg = new FormGroup({
     nameOrg: new FormControl(null, Validators.required),
     supervisorName: new FormControl(null, Validators.required),
@@ -42,6 +42,7 @@ export class AddNewOrgComponent implements OnDestroy {
         this.successService.localHandler(res.message)
         this.personalBlockService.windowAddingNewOrgIsOpen = false;
         this.formAddOrg.reset();
+        this.emitForOrgUpdatesAfterAddingNew.emit()
       })
   }
 

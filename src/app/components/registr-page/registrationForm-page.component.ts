@@ -42,7 +42,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
   changeIcon = true;
   loginSub: any;
   permissionChB = false;
-
+  loading = false;
   form = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(4)]),
@@ -58,9 +58,10 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     this.permissionChB = false;
     this.errorResponseService.disableLoginForm
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(res =>
+      .subscribe(res => {
         res ? this.form.disable() : this.form.enable()
-      )
+        this.loading = false;
+      })
   }
 
 
@@ -94,6 +95,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
 
 
   submit() {
+    this.loading = true;
     // в зависимости от введеных данных присваиваеться роль и рисуеться интерфейс!!!
     this.form.disable()          //блокировка формы чтоб не отправлять много запросов подряд
     if (this.form.invalid) {
@@ -101,12 +103,13 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     }
     //тут записываем данные орг с которой пришли или которую выбрали при регистрации
     this.form.value.sectionOrOrganization = this.dateService.nameOrganizationWhereItCameFrom.value?
-      this.dateService.nameOrganizationWhereItCameFrom.value : this.dateService.selectOrgForReg.value[0].name;
+    this.dateService.nameOrganizationWhereItCameFrom.value : this.dateService.selectOrgForReg.value[0].name;
     this.form.value.idOrg = this.dateService.nameOrganizationWhereItCameFrom.value?
-      this.dateService.idOrganizationWhereItCameFrom.value : this.dateService.idSelectedOrg.value;
+    this.dateService.idOrganizationWhereItCameFrom.value : this.dateService.idSelectedOrg.value;
     this.loginSub = this.apiService.registration(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(userData => {
+        this.loading = false;
         if (userData?.user.isActivated) {
           this.form.reset()
           this.permissionChB = false

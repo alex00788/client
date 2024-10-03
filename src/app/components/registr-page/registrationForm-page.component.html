@@ -62,7 +62,8 @@
         </div>
         <button class="registrationBtn" type="submit" [disabled]="form.invalid || form.disabled || !permissionChB"
         >
-          Зарегистрироваться
+          <span *ngIf="!loading">Зарегистрироваться</span>
+          <span *ngIf="loading">Секунду, проверяем данные...</span>
         </button>
       </div>
 

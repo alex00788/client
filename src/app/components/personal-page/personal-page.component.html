@@ -89,7 +89,7 @@
       </button>
     </div>
     <div class="bodyCalendarElementClass" *ngIf="personalBlockService.windowAddingNewOrgIsOpen">
-      <app-add-new-org></app-add-new-org>
+      <app-add-new-org (emitForOrgUpdatesAfterAddingNew)="getAllOrg()"></app-add-new-org>
     </div>
   </div>
 
@@ -107,7 +107,7 @@
   <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
     <div class="btnMainMenu">
       <button class="btnSettingsRecords" (click)="forcedCleaning()">
-        Принудительная чистка
+        Принудительная чистка БД
       </button>
     </div>
   </div>
