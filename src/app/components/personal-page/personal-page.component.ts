@@ -86,7 +86,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dateService.getCurrentUser(); // заполняет блок мои данные
     this.getAllOrg();
-    this.clearTableRec();
+    this.clearTableRec();    //вызываеться  1 раз при входе 2 раза в месяц
     this.dataCalendarService.getAllUsersCurrentOrganization();
   }
 
@@ -94,13 +94,28 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   //удаление и перенос в архив всех записей из таблицы записи старше 3 месяцев каждого 1го числа месяца
   clearTableRec() {        //не перенес на бек тк ошибка даты проблемма с моментом в node.js
     const m = moment();
-    if (m.format('D') == '1') {
+    if (m.format('D') == '1' && this.dateService.youCanSendRequestToClearDatabase.value ||
+        m.format('DD') == '15' && this.dateService.youCanSendRequestToClearDatabase.value
+    ) {
       //отсчитываем 2 месяца назад вычесляем 1 число полученого месяца
-      const threeMonthsAgo = m.subtract(2, 'months').startOf('month').format('YYYY.MM.DD');
+      const threeMonthsAgo = m.clone().subtract(2, 'months').startOf('month').format('YYYY.MM.DD');
+      this.dateService.youCanSendRequestToClearDatabase.next(false);
       this.apiService.clearTableRec({threeMonthsAgo})
         .pipe(takeUntil(this.destroyed$))
         .subscribe()
     }
+    if (m.format('D') !== '1' && m.format('DD') !== '15') {
+      this.dateService.youCanSendRequestToClearDatabase.next(true);
+    }
+  }
+
+  forcedCleaning () {
+    const m = moment();
+    const threeMonthsAgo = m.clone().subtract(2, 'months').startOf('month').format('YYYY.MM.DD');
+    this.dateService.youCanSendRequestToClearDatabase.next(false)
+    this.apiService.clearTableRec({threeMonthsAgo})
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe()
   }
 
 

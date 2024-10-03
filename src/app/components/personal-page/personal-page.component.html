@@ -104,6 +104,13 @@
     </div>
   </div>
 
+  <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
+    <div class="btnMainMenu">
+      <button class="btnSettingsRecords" (click)="forcedCleaning()">
+        Принудительная чистка
+      </button>
+    </div>
+  </div>
 
   <div class="btnMainMenu">
     <button
