@@ -35,6 +35,7 @@ import {SuccessModalComponent} from "../success-modal/success-modal.component";
 import moment from "moment";
 import {ModalRenameComponent} from "./modal-rename/modal-rename.component";
 import {RenameOrgComponent} from "../rename-org/rename-org.component";
+import {SuccessService} from "../../shared/services/success.service";
 
 
 @Component({
@@ -73,6 +74,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private apiService: ApiService,
     public dateService: DateService,
+    public successService: SuccessService,
     public modalService: ModalService,
     public recordingService: RecordingService,
     public dataCalendarService: DataCalendarService,
@@ -116,6 +118,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.apiService.clearTableRec({threeMonthsAgo})
       .pipe(takeUntil(this.destroyed$))
       .subscribe((e: any) => {
+        this.successService.localHandler(e.message);
         this.getAllOrg();
       })
   }
