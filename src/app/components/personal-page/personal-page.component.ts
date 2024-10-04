@@ -111,6 +111,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     }
   }
 
+//принудительная очистка бд по нажатию кнопки main-админом
   forcedCleaning () {
     const m = moment();
     const threeMonthsAgo = m.clone().subtract(2, 'months').startOf('month').format('YYYY.MM.DD');
