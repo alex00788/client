@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {AsyncPipe, NgIf} from "@angular/common";
 import {ModalPageComponent} from "../modal-page/modal-page.component";
 import {ApiService} from "../../shared/services/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -18,6 +18,7 @@ import {SuccessService} from "../../shared/services/success.service";
     ReactiveFormsModule,
     NgIf,
     ModalPageComponent,
+    AsyncPipe,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
@@ -39,7 +40,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private router: Router,
     private activateRouter: ActivatedRoute,
-    private modalService: ModalService,
+    public modalService: ModalService,
     private dateService: DateService,
     public successService: SuccessService,
     public errorResponseService: ErrorResponseService

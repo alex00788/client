@@ -25,5 +25,6 @@ constructor(
   closeErr() {
     this.errorResponseService.clear();
     this.modalService.registrationError.next(false);
+    this.modalService.rememberPas.next(false);
   }
 }
