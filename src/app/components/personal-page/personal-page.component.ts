@@ -94,7 +94,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dateService.getCurrentUser(); // заполняет блок мои данные
     this.getAllOrg();
-    this.clearTableRec();    //вызываеться  1 раз при входе 2 раза в месяц
+    this.clearTableRec();    //вызывается 1 раз при входе 2 раза в месяц
     this.dataCalendarService.getAllUsersCurrentOrganization();
   }
 
@@ -158,8 +158,15 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   }
 
   routerLinkMain() {
-    this.router.navigate(['/']);
-    this.modalService.showTitle();
+    //повторяю логику выбора организации тока подставляю данные указанные при регистрации которые беру из localStorage
+    const data = JSON.parse(localStorage.getItem('userData') as string)
+    this.dateService.idSelectedOrg.next(data.user.initialValueIdOrg)
+    this.dateService.currentOrg.next(data.user.initialValueSectionOrOrganization)
+    this.dataCalendarService.getAllEntryAllUsersForTheMonth();
+    this.dataCalendarService.getAllUsersCurrentOrganization();
+//ниже две строки для того чтобы перекидывать на страницу входа без разлогинивания
+    // this.router.navigate(['/']);
+    // this.modalService.showTitle();
   }
 
   switchCalendar() {
