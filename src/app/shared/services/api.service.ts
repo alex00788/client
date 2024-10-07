@@ -100,6 +100,11 @@ export class ApiService {
       )
   }
 
+  //отправка pas на почту пользователя
+  rememberPas(email: any): Observable<any> {
+    return this.http.post<any>('/api/user/rememberPas', {email})
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
 
 
   getAllEntryAllUsersOrg(dataForGetAllEntryAllUs: any): Observable<any> {

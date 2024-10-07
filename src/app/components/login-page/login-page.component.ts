@@ -149,4 +149,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   clearTrim(e: any) {
     e.target.value = e.target.value.replace(' ', '');
   }
+
+  rememberPas() {
+    this.apiService.rememberPas(this.form.value.email)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res: any) => {
+        this.successService.localHandler(res.message)
+      })
+  }
 }
