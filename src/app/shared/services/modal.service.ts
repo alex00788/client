@@ -31,6 +31,7 @@ export class ModalService {
 
   hideTitle() {
     this.hideTitle$.next(false)
+    this.downloadApp$.next(false)
   }
 
   showTitle() {

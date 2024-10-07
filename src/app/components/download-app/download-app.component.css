@@ -1,5 +1,5 @@
 .coverDownloadApp {
-  padding: 10px;
+  padding: 5px;
 }
 
 .downloadAppBtnBlock {
@@ -24,4 +24,12 @@
   margin: 10px 0;
   font-size: 14px;
   line-height: 20px;
+}
+
+
+
+@media (max-width: 550px) {
+  .downloadAppPhoneDescriptionBlock {
+    max-width: 300px;
+  }
 }
