@@ -10,6 +10,7 @@ export class ModalService {
   regFormAddNewOrg$ = new BehaviorSubject<boolean>(false)
   loginForm$ = new BehaviorSubject<boolean>(false)
   appDescription$ = new BehaviorSubject<boolean>(false)
+  downloadApp$ = new BehaviorSubject<boolean>(false)
   appContacts$ = new BehaviorSubject<boolean>(false)
   appSupport$ = new BehaviorSubject<boolean>(false)
   recordsBlock = new BehaviorSubject<boolean>(false)
@@ -46,6 +47,7 @@ export class ModalService {
     this.regFormAddNewOrg$.next(false);
     this.appContacts$.next(false);
     this.appSupport$.next(false);
+    this.downloadApp$.next(false);
   }
 
   openRegistrationForm$ () {
@@ -89,6 +91,20 @@ export class ModalService {
     this.regFormAddNewOrg$.next(false);
     this.appContacts$.next(false);
     this.appSupport$.next(false);
+    this.downloadApp$.next(false);
+  }
+
+  downloadApplication () {
+    this.open();
+    this.downloadApp$.next(true);
+    this.appDescription$.next(false);
+    this.registrationForm$.next(false);
+    this.loginForm$.next(false);
+    this.hideTitle$.next(false);
+    this.regFormChoiceOrg$.next(false);
+    this.regFormAddNewOrg$.next(false);
+    this.appContacts$.next(false);
+    this.appSupport$.next(false);
   }
 
   openAppContacts() {
@@ -101,6 +117,7 @@ export class ModalService {
     this.regFormAddNewOrg$.next(false);
     this.appContacts$.next(true);
     this.appSupport$.next(false);
+    this.downloadApp$.next(false);
   }
 
   closeContacts() {
@@ -118,6 +135,7 @@ export class ModalService {
     this.regFormAddNewOrg$.next(false);
     this.appContacts$.next(false);
     this.appSupport$.next(true);
+    this.downloadApp$.next(false);
   }
 
   // closeAppDescription$() {

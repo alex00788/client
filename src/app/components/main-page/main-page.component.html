@@ -15,9 +15,12 @@
     <!--<button (click)="openModal()">войти заново</button>-->
 
     <div class="appDescription" (click)="modalService.openAppDescription$()">
-      <button class="btnDetailsClass"> подробнее... </button>
+      <button class="btnDetailsClass"> Подробнее... </button>
     </div>
 
+    <div class="appDescription" (click)="modalService.downloadApplication()">
+      <button class="btnDetailsClass"> Скачать приложение </button>
+    </div>
 
     <div class="modal" *ngIf="modalService.isVisible$ | async">
       <app-modal-page>
@@ -26,6 +29,7 @@
         <app-reg-form-new-org *ngIf="modalService.regFormAddNewOrg$ | async"></app-reg-form-new-org>
         <app-registrationForm-page *ngIf="modalService.registrationForm$ | async"></app-registrationForm-page>
         <app-description-application *ngIf="modalService.appDescription$ | async"></app-description-application>
+        <app-download-app *ngIf="modalService.downloadApp$ | async"></app-download-app>
         <app-contacts *ngIf="modalService.appContacts$ | async"></app-contacts>
         <app-support-development *ngIf="modalService.appSupport$ | async"></app-support-development>
       </app-modal-page>
@@ -41,8 +45,8 @@
       </strong>
 
       <div class="contactsBlock" *ngIf="modalService.hideTitle$ | async">
-        <button class="btnContactClass" (click)="modalService.openAppContacts()"> контакты </button>
-        <button class="btnContactClass" (click)="modalService.openAppSupport()"> поддержать разработку  </button>
+        <button class="btnContactClass" (click)="modalService.openAppContacts()"> Контакты </button>
+        <button class="btnContactClass" (click)="modalService.openAppSupport()"> Поддержать разработку  </button>
       </div>
     </div>
   </div>

@@ -16,6 +16,7 @@ import {ContactsComponent} from "../contacts/contacts.component";
 import {SupportDevelopmentComponent} from "../support-development/support-development.component";
 import {Subject, takeUntil} from "rxjs";
 import {DateService} from "../personal-page/calendar-components/date.service";
+import {DownloadAppComponent} from "../download-app/download-app.component";
 
 @Component({
   selector: 'main-page',
@@ -35,7 +36,8 @@ import {DateService} from "../personal-page/calendar-components/date.service";
     SuccessModalComponent,
     ContactsComponent,
     SupportDevelopmentComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    DownloadAppComponent
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'

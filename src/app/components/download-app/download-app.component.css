@@ -1,0 +1,27 @@
+.coverDownloadApp {
+  padding: 10px;
+}
+
+.downloadAppBtnBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.downloadAppPhoneBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 4px;
+}
+
+.downloadAppBtn {
+  margin: 3px;
+  border-radius: 7px;
+}
+
+.downloadAppDescription {
+  margin: 10px 0;
+  font-size: 14px;
+  line-height: 20px;
+}
