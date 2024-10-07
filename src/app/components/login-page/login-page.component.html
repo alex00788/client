@@ -10,7 +10,7 @@
     <div class="inputForm">
       <div>
         <label for="email"> Email </label>
-        <input id="email" type="text" formControlName="email" (keyup)="clearTrim($event)">
+        <input id="email" type="text" formControlName="email" (input)="clearTrim($event)">
       </div>
       <div>
         <label for="password"> Пароль </label>

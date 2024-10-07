@@ -36,6 +36,7 @@ import moment from "moment";
 import {ModalRenameComponent} from "./modal-rename/modal-rename.component";
 import {RenameOrgComponent} from "../rename-org/rename-org.component";
 import {SuccessService} from "../../shared/services/success.service";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 
 
 @Component({
@@ -65,6 +66,8 @@ import {SuccessService} from "../../shared/services/success.service";
     ModalRenameComponent,
     RouterLink,
     RenameOrgComponent,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './personal-page.component.html',
   styleUrl: './personal-page.component.css'
@@ -81,9 +84,12 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     public personalBlockService: PersonalBlockService,
   ) {
   }
-
+  formDeleteData = new FormGroup({
+    dataEmail: new FormControl('', [Validators.required, Validators.email]),
+  })
   private destroyed$: Subject<void> = new Subject();
   inputValue = '';
+  deleteData = false;
 
   ngOnInit(): void {
     this.dateService.getCurrentUser(); // заполняет блок мои данные
@@ -159,5 +165,24 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   switchCalendar() {
     this.dateService.openCalendar();
     this.recordingService.closeRecordsBlock()
+  }
+
+  deleteTestDataSwitch() {
+    this.deleteData = !this.deleteData;
+  }
+
+  clearTrim(e: any) {
+    e.target.value = e.target.value.replaceAll(' ', '');
+  }
+
+  removeTestData() {
+    this.apiService.deleteTestData(this.formDeleteData.value.dataEmail)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res) => {
+        this.formDeleteData.reset()
+        this.deleteData = false;
+        this.successService.localHandler(res.message);
+        this.getAllOrg();
+      })
   }
 }

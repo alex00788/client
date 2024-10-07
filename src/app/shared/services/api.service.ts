@@ -196,6 +196,10 @@ export class ApiService {
       .pipe(catchError(this.errHandler.bind(this)))
   }
 
+  deleteTestData(email: any): Observable<any> {
+    return this.http.delete<any>('/api/user/deleteTestData/' + email)
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
 
   changeRoleSelectedUser(userId: any, idOrg: any) : Observable<any> {
     const dataId = {userId, idOrg}

@@ -112,6 +112,18 @@
     </div>
   </div>
 
+  <div *ngIf="dateService.currentUserIsTheMainAdmin | async"  >
+    <div class="btnMainMenu">
+      <button class="btnSettingsRecords" (click)="deleteTestDataSwitch()">
+        Удалить тест данные
+      </button>
+    </div>
+    <form [formGroup]="formDeleteData" (submit)="removeTestData()" *ngIf="deleteData" class="deleteTestData">
+      <input type="text" style="margin: 10px" (input)="clearTrim($event)" formControlName="dataEmail" placeholder="email">
+      <button class="btnSettingsRecords" type="submit"  *ngIf="formDeleteData.valid">!!!Удалить безвозвратно!!!</button>
+    </form>
+  </div>
+
   <div class="btnMainMenu">
     <button
       class="btnSettingsRecords" *ngIf="!dateService.calendarBodyOpen.value" (click)="dateService.openCalendar()">

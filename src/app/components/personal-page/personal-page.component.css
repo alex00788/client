@@ -5,6 +5,16 @@
   overflow: auto;
 }
 
+.deleteTestData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.btnSettingsRecords:disabled {
+  opacity: 50%;
+}
 
 .cowerTitlePersonal {
   position: relative;
