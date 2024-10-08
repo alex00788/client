@@ -3,53 +3,15 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 1200px;
+  height: 100%;
   background: black;
   opacity: 50%;
 }
 
 .modalContentForPerson {
-  max-width: 500px;
+  max-width: 100%;
   position: fixed;
   top: 150px;
-  left: 33%;
-  right: 33%;
-  padding: 6px;
   background: white;
   border-radius: 10px;
-}
-
-
-@media (max-width: 960px) {
-  .modalContentForPerson{
-    left: 20%;
-    right: 20%;
-  }
-}
-
-@media (max-width: 720px){
-  .modalContentForPerson{
-    max-width: 320px;
-  }
-}
-
-@media (max-width: 500px) {
-  .modalContentForPerson{
-    left: 15%;
-    right: 7%;
-  }
-}
-
-@media (max-width: 450px) {
-  .modalContentForPerson{
-    left: 12%;
-    right: 1%;
-  }
-}
-
-@media (max-width: 380px) {
-  .modalContentForPerson{
-    left: 5%;
-    right: 1%;
-  }
 }

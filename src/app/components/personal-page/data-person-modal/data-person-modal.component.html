@@ -1,7 +1,7 @@
 <div class="selectedUserClass">
   <div class="coverPersonalData">
     <div class="personalDataTitle">
-      <strong> Данные о пользователе </strong>
+      <strong class="clientTitle"> Данные о клиенте </strong>
       <button class="btnClosePersonalData" (click)="modalService.close()">&times;</button>
     </div>
     <div class="selectedUserClass">
@@ -85,22 +85,21 @@
 <ng-container *ngIf="!hideBtnForCurrentAdmin">
   <div class="selectedUserClass" *ngIf="blockRecordsSelectedUser">
     <div class="recordDaysClass">
-      <div class="personalDataTitle">
-        <strong>
-          Дни записи пользователя
+      <div class="personalDataTitleFooter">
+        <strong class="clientTitle">
+          Дни записи клиента
           <span style="color: #5238fd">
            в {{dateService.date.value.format('M') | translateMonth}}
          </span>
         </strong>
-        <button class="btnAllDayRecBlockClose" (click)="showOrHideDaysRec()">&times;</button>
        <!-- <button class="btnCancelAllRecSelectedUs" disabled> отменить все записи !</button>-->
         <div class="dataRecordsBlockSelectedUser" >
           <div class="dataRecordsSelectedUser">
             <div class="strSRecordsSelectedUser heightRow" *ngFor="let entry of dateService.allEntrySelectedUserInSelectMonth | async">
-            <span class="strRecordsSelectedUser">
+            <span>
               дата: {{entry.date}}
             </span>
-              <span class="strRecordsSelectedUser">
+              <span>
               время: {{entry.time}}:00
             </span>
               <button class="strRecordsSelectedUser"

@@ -2,7 +2,13 @@
   background: #f8eeee;
 }
 .coverPersonalData {
-  width: 500px;
+  width: 100%;
+}
+
+.clientTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btnAddEnt {
@@ -27,7 +33,7 @@
 }
 
 .strRecordsSelectedUser {
-  margin: 5px;
+  margin-left: 5px;
 }
 
 .dataRecordsBlockSelectedUser {
@@ -59,15 +65,18 @@
   display: flex;
   justify-content: space-between;
   margin: 10px;
+  max-width: 380px;
 }
 
 span{
   margin-left: 3px;
 }
 
-.personalDataTitle{
-  text-align: start;
-  margin: 5px 30px 20px 40px;
+.personalDataListFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: yellow;
 }
 
 .btnClosePersonalData{
@@ -79,14 +88,6 @@ span{
   background: none;
 }
 
-.btnAllDayRecBlockClose {
-  position: absolute;
-  right: 3px;
-  top: 3px;
-  border: none 1px #f6dbff;
-  cursor: pointer;
-  background: none;
-}
 
 .btnChangeRoleClass {
   margin-left: 15px;
@@ -125,11 +126,11 @@ span{
     height: 70px;
     color: #0221c0;
   }
+}
 
 
-  .dataRecordsBlockSelectedUser {
-    margin-top: 20px;
-    margin-left: -29px;
-    width: 280px;
+@media (max-width: 450px) {
+  .selectedUserClass {
+    max-width: 300px;
   }
 }

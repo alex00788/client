@@ -170,8 +170,8 @@
 </div>
 
 
-<div class="modalDataSelectUser" *ngIf="modalService.isVisible$ | async">
-  <app-modal-window-for-person-page>
+<div *ngIf="modalService.isVisible$ | async">
+  <app-modal-window-for-person-page class="contentForModal">
     <app-data-person-modal *ngIf="modalService.clientListBlock | async"></app-data-person-modal>
     <app-modal-rename *ngIf="modalService.modalRenameUser | async"></app-modal-rename>
     <app-data-about-rec *ngIf="modalService.recordsBlock | async"></app-data-about-rec>

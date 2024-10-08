@@ -10,7 +10,7 @@
 
 .modalContent {
   position: sticky;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 5px;
   border-radius: 10px;
 }

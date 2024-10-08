@@ -12,6 +12,13 @@
   flex-direction: column;
 }
 
+.contentForModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+}
+
 .btnSettingsRecords:disabled {
   opacity: 50%;
 }

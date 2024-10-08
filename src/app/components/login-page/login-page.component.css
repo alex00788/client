@@ -3,7 +3,7 @@
   margin: 10px 20px;
   width: 450px;
   height: 250px;
-  background: #aefaae;
+  background: #040404;
   border-radius: 20px;
 }
 
@@ -61,7 +61,7 @@ label {
   padding-top: 5px;
   padding-left: 15px;
   font-size: 30px;
-  color: blue;
+  color: #ffffff;
   white-space: nowrap;
 }
 
@@ -85,7 +85,7 @@ input {
   margin: 15px;
   display: flex;
   cursor: pointer;
-  color: blue;
+  color: #ffffff;
   font-size: 15px;
 }
 
