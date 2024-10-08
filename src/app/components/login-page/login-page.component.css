@@ -10,7 +10,7 @@
 .btnResend {
   cursor: pointer;
   position: absolute;
-  top: 300px;
+  top: 320px;
   border: none;
   border-radius: 5px;
   background: #93b9fd;
@@ -137,6 +137,7 @@ input {
 
   .btnResend {
     width: 320px;
+    top: 260px;
     font-size: 20px;
   }
 

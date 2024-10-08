@@ -4,7 +4,12 @@
         (click)="resendLink()"
 > отправить ссылку повторно
 </button>
-<button *ngIf="modalService.rememberPas | async" class="btnResend" (click)="rememberPas()">Напомнить пароль</button>
+<button *ngIf="modalService.rememberPas | async"
+        class="btnResend"
+        (click)="rememberPas()"
+>
+  Напомнить пароль
+</button>
 <form [formGroup]="form" (submit)="submit()">
   <span class="titleModal">  {{title}}  </span>
   <div class="form">

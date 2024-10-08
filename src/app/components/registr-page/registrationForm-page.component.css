@@ -12,9 +12,11 @@
 
 .registerAgain {
   position: absolute;
+  top: 277px;
   font-size: 30px;
   border-radius: 10px;
   cursor: pointer;
+  background: #00e2ff
 }
 
 .registerAgain:hover {
