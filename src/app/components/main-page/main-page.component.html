@@ -4,6 +4,7 @@
     <div class="title" routerLink="/personal-page">
       <p class="compVersion">{{mainTitle}}</p>
       <p class="adaptive">{{mainTitleComp}}</p>
+      <p class="adaptive">{{dateService.nameOrganizationWhereItCameFrom | async}}</p>
     </div>
 
     <div class="errorModal">

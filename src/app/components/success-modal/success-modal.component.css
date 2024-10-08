@@ -1,8 +1,8 @@
 .modalSuccessClass {
   border-radius: 10px;
-  background: #aefaae;
-  margin: 15px auto;
+  background: #11f5ba;
   color: #5238fd;
+  max-width: 95%;
 }
 
 .titleSuccessModal {
@@ -19,10 +19,4 @@
   display: flex;
   justify-content: center;
   margin: 15px;
-}
-
-@media (max-width: 600px) {
-  .modalSuccessClass {
-    max-width: 360px;
-  }
 }

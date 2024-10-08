@@ -13,12 +13,13 @@
 }
 
 .successModal {
-  background: rgba(246, 243, 243, 0.5);
   border-radius: 10px;
-  text-align: center;
+  width: 100%;
+  padding: 0 10px;
   position: fixed;
-  top: 200px;
-  left: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 111;
 }
 
@@ -165,11 +166,6 @@ h3 {
     left: 100px;
   }
 
-  .successModal {
-    top: 150px;
-    left: 10%;
-  }
-
   .contactsBlock {
     top: 350px;
   }
@@ -179,10 +175,5 @@ h3 {
 @media (max-width: 450px) {
   .enter {
     font-size: 20px;
-  }
-
-  .successModal {
-    top: 150px;
-    left: 1%;
   }
 }

@@ -111,13 +111,15 @@
 
 
 .errorModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   position: fixed;
-  top: 470px;
+  top: 215px;
   font-size: 30px;
-  background: #f13885;
   border-radius: 10px;
   height: auto;
-  width: 500px;
   z-index: 111;
 }
 
@@ -130,15 +132,5 @@
   .wrapper{
     background: url('app/shared/img/1.jpg');
     background-size: cover;
-  }
-}
-
-@media (max-width: 600px) {
-
-
-  .errorModal {
-    width: 360px;
-    display: flex;
-    justify-content: center;
   }
 }

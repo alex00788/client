@@ -1,6 +1,10 @@
 
 .modalErrorClass {
   margin: 10px;
+  background: #d01a1a;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 92%;
 }
 
 .titleErrModal {
@@ -18,4 +22,10 @@
   border-radius: 5px;
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 500px) {
+       .modalErrorClass {
+         max-width: 90%;
+       }
 }
