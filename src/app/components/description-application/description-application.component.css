@@ -50,8 +50,11 @@ a {
 }
 
 h2 {
-  color: #5238fd;
-  margin: 20px 50px;
+  color: black;
+  margin: 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .titleDescription:hover {
