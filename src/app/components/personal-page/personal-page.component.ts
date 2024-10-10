@@ -113,7 +113,8 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroyed$))
         .subscribe()
     }
-    if (m.format('D') !== '1' && m.format('DD') !== '15') {
+    if (m.format('D') !== '1') {
+    // if (m.format('D') !== '1' && m.format('DD') !== '15') {
       this.dateService.youCanSendRequestToClearDatabase.next(true);
     }
   }
