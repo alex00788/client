@@ -44,8 +44,8 @@ import {DownloadAppComponent} from "../download-app/download-app.component";
 })
 
 export class MainPageComponent implements OnInit, OnDestroy{
-  mainTitle = 'Online запись в любую организацию'
-  mainTitleComp = 'Online запись'
+  mainTitle = 'Личный Кабинет для любого сайта'
+  mainTitleComp = 'Личный Кабинет'
   modalTitle = 'ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ'
   private destroyed$: Subject<void> = new Subject();
 

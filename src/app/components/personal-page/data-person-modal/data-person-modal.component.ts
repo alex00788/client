@@ -10,6 +10,7 @@ import {DataCalendarService} from "../calendar-components/data-calendar-new/data
 import moment from "moment";
 import {FormControl, FormGroup, ReactiveFormsModule,} from "@angular/forms";
 import {SuccessService} from "../../../shared/services/success.service";
+import {WebSocketService} from "../../../shared/services/web-socket.service";
 
 @Component({
   selector: 'app-data-person-modal',
@@ -31,6 +32,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
     public dataCalendarService: DataCalendarService,
     public modalService: ModalService,
     public apiService: ApiService,
+    public webSocketService: WebSocketService,
     public successService: SuccessService
   ) {
   }
@@ -58,6 +60,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.webSocketUpdateAllConnected();   //оповещение всех кто сейчас на сайте если админ нажал кнопку запретить или разрешить запись
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)
@@ -80,6 +83,29 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
     this.dateService.allEntrySelectedUserInSelectMonth.next(allEntrySelectedUser);
   }
 
+  webSocketUpdateAllConnected() {
+    //ждем когда придет сообщение // которое отправляем при нажатии кнопки разрешить или заблокировать запись
+    this.webSocketService.socket.onmessage = (mes)=> {
+      const dataParse= JSON.parse(JSON.parse(mes.data))
+      //проверка нажимал ли админ на кнопку
+      if ( Object.keys(dataParse)[0] === 'recAllowed') {
+        this.overwriteChangedData(dataParse)
+      }
+    };
+  }
+
+  overwriteChangedData (recAllowed: any) {
+    const changeData: any[] = [];
+    this.dateService.allUsersSelectedOrg.value.forEach((el:any)=> {
+      if (el.id == this.selectedUser.id) {
+        el.recAllowed = this.recAllowed = recAllowed.recAllowed
+        changeData.push(el)
+      } else {
+        changeData.push(el)
+      }
+    })
+    this.dateService.allUsersSelectedOrg.next(changeData)
+  }
 
   dataAboutSelectedUser() {
     const selectedUser = this.selectedUser;
@@ -150,8 +176,9 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
     this.apiService.changeAllowed(data)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any)=>{
-       this.recAllowed = res.allowed;
+       this.recAllowed = data.recAllowed = data.selectedUser.recAllowed = res.allowed;
        this.refreshData();
+       this.webSocketService.socket.send(JSON.stringify(data))
       })
   }
 
