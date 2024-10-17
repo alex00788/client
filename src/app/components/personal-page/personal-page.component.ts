@@ -37,6 +37,7 @@ import {ModalRenameComponent} from "./modal-rename/modal-rename.component";
 import {RenameOrgComponent} from "../rename-org/rename-org.component";
 import {SuccessService} from "../../shared/services/success.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {WebSocketService} from "../../shared/services/web-socket.service";
 
 
 @Component({
@@ -81,6 +82,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     public modalService: ModalService,
     public recordingService: RecordingService,
     public dataCalendarService: DataCalendarService,
+    public webSocketService: WebSocketService,
     public personalBlockService: PersonalBlockService,
   ) {
   }
@@ -96,6 +98,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.getAllOrg();
     this.clearTableRec();    //вызывается 1 раз при входе 2 раза в месяц
     this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.webSocketService.socket.onopen;     //соединился с webSocket servera
   }
 
 

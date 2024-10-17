@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule,} from "@angular/forms";
 import {FilterClientListPipe} from "../../../../shared/pipe/filter-client-list.pipe";
 import {ModalService} from "../../../../shared/services/modal.service";
 import {ErrorResponseService} from "../../../../shared/services/error.response.service";
+import {WebSocketService} from "../../../../shared/services/web-socket.service";
 
 @Component({
   selector: 'app-data-calendar-new',
@@ -32,6 +33,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
     public recordingService: RecordingService,
     public apiService: ApiService,
     public modalService: ModalService,
+    public webSocketService: WebSocketService,
     private errorResponseService: ErrorResponseService
   ) {  }
 
@@ -56,6 +58,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
   // })
 
   ngOnInit(): void {
+    this.webSocketUpdateAllConnectedAboutBlockedUser();
     this.currentDate = moment().format('DD.MM.YYYY');
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
 
@@ -86,6 +89,30 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
       })
   }
 
+
+  webSocketUpdateAllConnectedAboutBlockedUser() {
+//ждем когда придет сообщение // которое отправляем при нажатии кнопки разрешить или заблокировать запись
+    this.webSocketService.socket.onmessage = (mes)=> {
+      const dataParse= JSON.parse(JSON.parse(mes.data))
+      //проверка нажимал ли админ на кнопку
+      if ( Object.keys(dataParse)[0] === 'recAllowed') {
+        this.overwriteChangedData(dataParse)
+      }
+    };
+  }
+
+  overwriteChangedData (dataParse: any) {
+    const changeData: any[] = [];
+    this.dateService.allUsersSelectedOrg.value.forEach((el:any)=> {
+      if (el.id == this.dateService.currentUserId.value) {
+        el.recAllowed = dataParse.recAllowed
+        changeData.push(el)
+      } else {
+        changeData.push(el)
+      }
+    })
+    this.dateService.allUsersSelectedOrg.next(changeData)
+  }
 
   getDataOrg() {
     //как тока приходит все записи с бек... формируем массив для показа дня недели или месяца
