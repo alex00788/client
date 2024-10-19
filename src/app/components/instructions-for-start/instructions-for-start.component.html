@@ -1,0 +1,29 @@
+<div class="coverInstruction">
+  <div class="downloadAppBtnBlock">
+    <button (click)="switchInstruction('client')" class="instructionBtn"> Клиент </button>
+    <button (click)="switchInstruction('admin')" class="instructionBtn"> Админ </button>
+  </div>
+  <div class="instructionBlock" *ngIf="client">
+    <div class="instructionDescriptionBlock">
+      <div class="instructionDescription">
+        1 Зарегистрироваться выбрав организацию
+        <br>
+        2 Подтвердить свой email
+        <br>
+        3 Зайти в личный кабинет
+      </div>
+    </div>
+  </div>
+  <div class="downloadAppPhoneBlock" *ngIf="admin">
+    <div class="instructionDescriptionBlock">
+      <div class="instructionDescription">
+        1 Зарегистрировать свою организацию
+        <br>
+        2 Зарегистрироваться самому выбрав свою организацию
+        <br>
+        3 У себя на сайте или странице сделать кнопку войти
+        в личный кабинет или записаться онлайн
+      </div>
+    </div>
+  </div>
+</div>

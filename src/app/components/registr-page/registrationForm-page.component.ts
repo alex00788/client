@@ -44,7 +44,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
   permissionChB = false;
   loading = false;
   form = new FormGroup({
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl('',  [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.minLength(4)]),
     nameUser: new FormControl(null, Validators.required),
     surnameUser: new FormControl(null, Validators.required),
@@ -101,6 +101,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+    this.form.value.email = this.form.value.email!.slice(0, 1).toLowerCase() + this.form.value.email!.slice(1);
     //тут записываем данные орг с которой пришли или которую выбрали при регистрации
     this.form.value.sectionOrOrganization = this.dateService.nameOrganizationWhereItCameFrom.value?
     this.dateService.nameOrganizationWhereItCameFrom.value : this.dateService.selectOrgForReg.value[0].name;

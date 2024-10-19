@@ -26,7 +26,7 @@ export class RegFormNewOrgComponent implements OnDestroy{
   private destroyed$: Subject<void> = new Subject();
   form = new FormGroup({
     nameSupervisor: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl(null, Validators.required),
     nameSectionOrOrganization: new FormControl(null, Validators.required),
   })
@@ -38,7 +38,7 @@ export class RegFormNewOrgComponent implements OnDestroy{
     if (this.form.invalid) {
       return;
     }
-
+    this.form.value.email = this.form.value.email!.slice(0, 1).toLowerCase() + this.form.value.email!.slice(1);
     this.apiService.addNewOrgSend(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any) => {

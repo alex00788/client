@@ -17,6 +17,7 @@ import {SupportDevelopmentComponent} from "../support-development/support-develo
 import {Subject, takeUntil} from "rxjs";
 import {DateService} from "../personal-page/calendar-components/date.service";
 import {DownloadAppComponent} from "../download-app/download-app.component";
+import {InstructionsForStartComponent} from "../instructions-for-start/instructions-for-start.component";
 
 @Component({
   selector: 'main-page',
@@ -37,7 +38,8 @@ import {DownloadAppComponent} from "../download-app/download-app.component";
     ContactsComponent,
     SupportDevelopmentComponent,
     NgOptimizedImage,
-    DownloadAppComponent
+    DownloadAppComponent,
+    InstructionsForStartComponent
   ],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css'

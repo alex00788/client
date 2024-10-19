@@ -32,7 +32,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject();
   form = new FormGroup({
     phoneNumber: new FormControl(null),
-    email: new FormControl(null, Validators.required),
+    email: new FormControl('', Validators.required),
     password: new FormControl(null, Validators.required),
   })
 
@@ -82,6 +82,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       return;
     }
     this.dateService.pasForLink.next(this.form.value.password);
+    this.form.value.email = this.form.value.email!.slice(0, 1).toLowerCase() + this.form.value.email!.slice(1);
     this.loginSub = this.apiService.login(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(userData => {

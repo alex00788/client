@@ -28,6 +28,10 @@
       <button class="btnDetailsClass"> Скачать приложение </button>
     </div>
 
+    <div class="appDescription" (click)="modalService.instructionsForStart()">
+      <button class="btnDetailsClass"> Инструкция для старта </button>
+    </div>
+
     <div class="modal" *ngIf="modalService.isVisible$ | async">
       <app-modal-page>
         <app-login-page *ngIf="modalService.loginForm$ | async"></app-login-page>
@@ -36,6 +40,7 @@
         <app-registrationForm-page *ngIf="modalService.registrationForm$ | async"></app-registrationForm-page>
         <app-description-application *ngIf="modalService.appDescription$ | async"></app-description-application>
         <app-download-app *ngIf="modalService.downloadApp$ | async"></app-download-app>
+        <app-instructions-for-start *ngIf="modalService.instructions$ | async"></app-instructions-for-start>
         <app-contacts *ngIf="modalService.appContacts$ | async"></app-contacts>
         <app-support-development *ngIf="modalService.appSupport$ | async"></app-support-development>
       </app-modal-page>
