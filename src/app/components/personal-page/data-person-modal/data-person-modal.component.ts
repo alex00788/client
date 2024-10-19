@@ -60,7 +60,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.webSocketUpdateAllConnected();   //оповещение всех кто сейчас на сайте если админ нажал кнопку запретить или разрешить запись
+    this.webSocketUpdateAllConnected();   //оповещение все открытые окна
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)
@@ -84,17 +84,17 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   }
 
   webSocketUpdateAllConnected() {
-    //ждем когда придет сообщение // которое отправляем при нажатии кнопки разрешить или заблокировать запись
     this.webSocketService.socket.onmessage = (mes)=> {
       const dataParse= JSON.parse(JSON.parse(mes.data))
       //проверка нажимал ли админ на кнопку
-      if ( Object.keys(dataParse)[0] === 'recAllowed') {
+      // if ( Object.keys(dataParse)[0] === 'recAllowed') {
         this.overwriteChangedData(dataParse)
-      }
+      // }
     };
   }
 
   overwriteChangedData (recAllowed: any) {
+    // 4 изменяем данные в исходном массиве
     const changeData: any[] = [];
     this.dateService.allUsersSelectedOrg.value.forEach((el:any)=> {
       if (el.id == this.selectedUser.id) {

@@ -90,8 +90,8 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
   }
 
 
+  //функция перезаписывает данные если открыто два окна и нажимается кнопка разрешить или заблокировать запись
   webSocketUpdateAllConnectedAboutBlockedUser() {
-//ждем когда придет сообщение // которое отправляем при нажатии кнопки разрешить или заблокировать запись
     this.webSocketService.socket.onmessage = (mes)=> {
       const dataParse= JSON.parse(JSON.parse(mes.data))
       //проверка нажимал ли админ на кнопку
@@ -321,6 +321,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
 
   //определение кликнули один или два раза чтоб обычн пользователь не кликнул дважды
   currentUserRec(time: any, date:any,) {
+    this.refreshData();  // вызываем, чтоб обновить данные, если вдруг админ, что-то изменил, поэтому в консоле дважды идет вызов запроса
     time = time <= 9 && time >=0 && time !== '00' && time.length < 1? '0' + time : time;
     this.clickCount++;
     setTimeout(() => {
