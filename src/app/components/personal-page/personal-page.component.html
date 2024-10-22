@@ -83,45 +83,57 @@
   </div>
 
   <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
-    <div class="btnMainMenu" *ngIf="!personalBlockService.windowAddingNewOrgIsOpen">
-      <button class="btnSettingsRecords" (click)="personalBlockService.addNewOrgSettings()">
-        Добавить ORG
-      </button>
-    </div>
-    <div class="bodyCalendarElementClass" *ngIf="personalBlockService.windowAddingNewOrgIsOpen">
-      <app-add-new-org (emitForOrgUpdatesAfterAddingNew)="getAllOrg()"></app-add-new-org>
-    </div>
-  </div>
-
-  <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
-    <div class="btnMainMenu" *ngIf="!personalBlockService.windowRenameOrgIsOpen">
-      <button class="btnSettingsRecords" (click)="personalBlockService.renameCurrentOrg()">
-        Переименовать ORG
-      </button>
-    </div>
-    <div class="bodyCalendarElementClass" *ngIf="personalBlockService.windowRenameOrgIsOpen">
-      <app-rename-org (nameOrgChanged)="getAllOrg()"></app-rename-org>
-    </div>
-  </div>
-
-  <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
     <div class="btnMainMenu">
-      <button class="btnSettingsRecords" (click)="forcedCleaning()">
-        Принудительная чистка БД
+      <button class="btnSettingsRecords" (click)="openSettingsOrg()">
+        <p style="color: red">
+          ORG settings
+        </p>
       </button>
     </div>
   </div>
 
-  <div *ngIf="dateService.currentUserIsTheMainAdmin | async"  >
-    <div class="btnMainMenu">
-      <button class="btnSettingsRecords" (click)="deleteTestDataSwitch()">
-        Удалить тест данные
-      </button>
+  <div class="settingsOrg" *ngIf="settingsOrg" >
+    <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
+      <div class="btnMainMenu" *ngIf="!personalBlockService.windowAddingNewOrgIsOpen">
+        <button class="btnSettingsRecords" (click)="personalBlockService.addNewOrgSettings()">
+          Добавить ORG
+        </button>
+      </div>
+      <div class="bodyCalendarElementClass" *ngIf="personalBlockService.windowAddingNewOrgIsOpen">
+        <app-add-new-org (emitForOrgUpdatesAfterAddingNew)="getAllOrg()"></app-add-new-org>
+      </div>
     </div>
-    <form [formGroup]="formDeleteData" (submit)="removeTestData()" *ngIf="deleteData" class="deleteTestData">
-      <input type="text" style="margin: 10px" (input)="clearTrim($event)" formControlName="dataEmail" placeholder="email">
-      <button class="btnSettingsRecords" type="submit"  *ngIf="formDeleteData.valid">!!!Удалить безвозвратно!!!</button>
-    </form>
+
+    <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
+      <div class="btnMainMenu" *ngIf="!personalBlockService.windowRenameOrgIsOpen">
+        <button class="btnSettingsRecords" (click)="personalBlockService.renameCurrentOrg()">
+          Переименовать ORG
+        </button>
+      </div>
+      <div class="bodyCalendarElementClass" *ngIf="personalBlockService.windowRenameOrgIsOpen">
+        <app-rename-org (nameOrgChanged)="getAllOrg()"></app-rename-org>
+      </div>
+    </div>
+
+    <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
+      <div class="btnMainMenu">
+        <button class="btnSettingsRecords" (click)="forcedCleaning()">
+          Принудительная чистка БД
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="dateService.currentUserIsTheMainAdmin | async"  >
+      <div class="btnMainMenu">
+        <button class="btnSettingsRecords" (click)="deleteTestDataSwitch()">
+          Удалить тест данные
+        </button>
+      </div>
+      <form [formGroup]="formDeleteData" (submit)="removeTestData()" *ngIf="deleteData" class="deleteTestData">
+        <input type="text" style="margin: 10px" (input)="clearTrim($event)" formControlName="dataEmail" placeholder="email">
+        <button class="btnSettingsRecords" type="submit"  *ngIf="formDeleteData.valid">!!!Удалить безвозвратно!!!</button>
+      </form>
+    </div>
   </div>
 
   <div class="btnMainMenu">

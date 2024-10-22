@@ -92,6 +92,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject();
   inputValue = '';
   deleteData = false;
+  settingsOrg = false;
 
   ngOnInit(): void {
     this.dateService.getCurrentUser(); // заполняет блок мои данные
@@ -196,5 +197,9 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
         this.successService.localHandler(res.message);
         this.getAllOrg();
       })
+  }
+
+  openSettingsOrg() {
+    this.settingsOrg = !this.settingsOrg;
   }
 }
