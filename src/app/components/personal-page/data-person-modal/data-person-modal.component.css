@@ -11,6 +11,34 @@
   align-items: center;
 }
 
+.employeesBlock {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.employeesBtnAssign {
+  height: 20px;
+  margin-top: 25px;
+  margin-right: 10px;
+}
+
+.removeFromOffice {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 0 10px;
+}
+
+.btnRemoveFromOffice {
+  max-width: 80px;
+}
+
+.removeFromOfficeTitle {
+  margin-top: 10px ;
+  white-space: nowrap;
+}
+
 .btnAddEnt {
   display: flex;
 }
@@ -131,6 +159,6 @@ span{
 
 @media (max-width: 450px) {
   .selectedUserClass {
-    max-width: 300px;
+    max-width: 305px;
   }
 }

@@ -92,6 +92,8 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject();
   inputValue = '';
   deleteData = false;
+  // меняем при деплое  тут понять как проити по текущем сотрудникам и понять сотрудники они или нет
+  currentOrgHasEmployee = false;
   settingsOrg = false;
 
   ngOnInit(): void {
@@ -201,5 +203,9 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
 
   openSettingsOrg() {
     this.settingsOrg = !this.settingsOrg;
+  }
+
+  switchCurrentOrgHasEmployee(e: boolean) {
+    this.currentOrgHasEmployee = e;
   }
 }

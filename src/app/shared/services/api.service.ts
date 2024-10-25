@@ -212,6 +212,16 @@ export class ApiService {
       .pipe(catchError(this.errHandler.bind(this)))
   }
 
+  changeJobTitleSelectedUser(data: any) : Observable<any> {
+    return this.http.post<any>('/api/user/changeJobTitle' , data)
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
+  fireFromOrg(dataId: any) {
+    return this.http.put<any>('/api/user/fireFromOrg', dataId )
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
   resendLink(email: any) : Observable<any> {
     return this.http.post<any>('/api/user/resendLink', email )
       .pipe(catchError(this.errHandler.bind(this)))

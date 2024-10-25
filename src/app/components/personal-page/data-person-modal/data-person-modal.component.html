@@ -35,18 +35,10 @@
       </div>
       <span> {{remainingFunds}} </span>
     </div>
-    <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
-      <div>
-        <strong *ngIf="!recAllowed"> Запись разрешена: </strong>
-        <strong *ngIf="recAllowed" style="color: red"> Запись запрещена: </strong>
-      </div>
-      <button *ngIf="recAllowed" (click)="changeAllowed()" style="background: #03f303"> Разрешить </button>
-      <button *ngIf="!recAllowed" (click)="changeAllowed()" style="background: salmon"> Запретить </button>
-    </div>
     <div  *ngIf="!hideBtnForCurrentAdmin">
       <form [formGroup]="form" (submit)="submit()" class="selectedUserClass">
       <div>
-          <strong class="subscription"> Абонемент  </strong>
+          <strong class="subscription"> Абонемент:  </strong>
 <!--          <small class="numOfRec"> (сколько раз клиент может записаться) </small>-->
          <!-- <div class="tooltipForSubscription">
             <small> (сколько раз клиент может записаться) </small>
@@ -60,6 +52,14 @@
         </div>
       </form>
     </div>
+    <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
+      <div>
+        <strong *ngIf="!recAllowed"> Запись разрешена: </strong>
+        <strong *ngIf="recAllowed" style="color: red"> Запись запрещена: </strong>
+      </div>
+      <button *ngIf="recAllowed" (click)="changeAllowed()" style="background: #03f303"> Разрешить </button>
+      <button *ngIf="!recAllowed" (click)="changeAllowed()" style="background: salmon"> Запретить </button>
+    </div>
     <!--<div *ngIf="!hideBtnForCurrentAdmin">
       <div class="selectedUserClass" *ngIf="!showBtnAdminAndUser">
         <div>
@@ -72,6 +72,43 @@
         </button>
       </div>
     </div>-->
+
+
+    <div  *ngIf="!hideBtnForCurrentAdmin">
+      <div *ngIf="employeeCurrentOrganization" class="removeFromOffice">
+        <div class="removeFromOfficeTitle">
+          <strong> {{selectedUser.jobTitle}} </strong>
+        </div>
+        <button class="btnRemoveFromOffice" (click)="fireFromOrg()">
+          Снять с должности
+        </button>
+      </div>
+      <div *ngIf="!employeeCurrentOrganization" (click)="switchFormEmployees()" class="selectedUserClass">
+        <strong class="btnShowDayRec" *ngIf="!stateFormEmployees"> Назначить </strong>
+        <strong class="btnShowDayRec" *ngIf="stateFormEmployees"> Отменить </strong>
+      </div>
+    </div>
+
+    <form *ngIf="stateFormEmployees"
+          [formGroup]="formEmployees"
+          (submit)="submitAssign()"
+          class="selectedUserClass"
+    >
+      <div class="employeesBlock">
+        <div class="employeesBlockInput">
+          <div class="selectedUserClass">
+            <input type="text" placeholder="Направление" formControlName="direction">
+          </div>
+          <div class="selectedUserClass">
+            <input type="text" placeholder="Должность" formControlName="jobTitle">
+          </div>
+        </div>
+        <button type="submit" class="employeesBtnAssign" [disabled]="formEmployees.invalid">
+          Назначить
+        </button>
+      </div>
+    </form>
+
     <div class="selectedUserClass" *ngIf="!hideBtnForCurrentAdmin">
       <div (click)="showOrHideDaysRec()">
         <strong class="btnShowDayRec" *ngIf="!blockRecordsSelectedUser"> Показать дни записи... </strong>

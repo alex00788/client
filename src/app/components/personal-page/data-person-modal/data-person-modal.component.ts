@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {DateService} from "../calendar-components/date.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Subject, takeUntil} from "rxjs";
@@ -8,7 +8,7 @@ import {TranslateMonthPipe} from "../../../shared/pipe/translate-month.pipe";
 import {RecordsBlockComponent} from "../calendar-components/current-user-data/records-block/records-block.component";
 import {DataCalendarService} from "../calendar-components/data-calendar-new/data-calendar.service";
 import moment from "moment";
-import {FormControl, FormGroup, ReactiveFormsModule,} from "@angular/forms";
+import {FormControl, FormGroup, ReactiveFormsModule, Validators,} from "@angular/forms";
 import {SuccessService} from "../../../shared/services/success.service";
 import {WebSocketService} from "../../../shared/services/web-socket.service";
 
@@ -37,8 +37,13 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   ) {
   }
 
+  @Output() currentOrgHasEmployee : EventEmitter<boolean> = new EventEmitter<boolean>()
   form = new FormGroup({
     subscription: new FormControl(1),
+  })
+  formEmployees = new FormGroup({
+    direction: new FormControl('', Validators.required),
+    jobTitle: new FormControl('', Validators.required),
   })
   nameUser = 'Имя'
   roleUser = 'Роль'
@@ -46,6 +51,8 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   sectionOrOrganization = 'Секция || Организация'
   showBtnUser: boolean;
   showBtnAdmin: boolean;
+  employeeCurrentOrganization: boolean;
+  stateFormEmployees: boolean = false;
   showBtnAdminAndUser: boolean;
   hideBtnForCurrentAdmin: boolean;
   private destroyed$: Subject<void> = new Subject();
@@ -65,6 +72,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
     this.dataCalendarService.getAllUsersCurrentOrganization();
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)
     this.hideBtnForCurrentAdmin = this.selectedUser.userId == this.dateService.currentUserId.value;
+    this.employeeCurrentOrganization = this.selectedUser.jobTitle.length > 1
     this.recAllowed = this.selectedUser.recAllowed;
     this.roleUser = this.selectedUser.role;
     this.newUser = moment(this.selectedUser.created).add(7 ,'day') >= moment(); //если дата создания строки неделя то добавляем new в карточку клиента
@@ -213,5 +221,69 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
     }
     this.modalService.currentDataAboutSelectedUser.next(this.selectedUser);
     this.modalService.openModalRenameUser();
+  }
+
+  submitAssign() {
+    const dataSelectedUser = {
+     userId: this.selectedUser.id,
+     idOrg: this.selectedUser.idOrg,
+     jobTitle: this.formEmployees.value.jobTitle,
+     direction: this.formEmployees.value.direction,
+    };
+    this.apiService.changeJobTitleSelectedUser(dataSelectedUser)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(newJobTitleUser => {
+        this.formEmployees.reset()
+        this.stateFormEmployees = false;
+        this.employeeCurrentOrganization = true;
+        this.selectedUser.jobTitle = newJobTitleUser.jobTitle;
+        this.updateData(newJobTitleUser.jobTitle, newJobTitleUser.direction );
+        this.checkingOrgHasEmployees();
+      });
+  }
+
+
+  // перезаписываем данные, при назначении или уволнение сотрудников
+  updateData(newJobTitleUser: string, direction: string) {
+    const newAllUser:any[] = [];
+    this.dateService.allUsersSelectedOrg.value.forEach((el: any)=> {
+      if (el.id === this.selectedUser.userId) {
+        el.jobTitle = newJobTitleUser;
+        el.direction = direction;
+      }
+      newAllUser.push(el);
+    })
+    this.dateService.allUsersSelectedOrg.next(newAllUser)
+  }
+
+
+
+  //Функция, которая проверит есть ли в этой организации сотрудники, чтоб показывать направления орг или нет
+  checkingOrgHasEmployees () {
+    const employees = this.dateService.allUsersSelectedOrg.value.filter((el: any) => el.jobTitle.length >= 1)
+    if (employees.length >= 1) {
+      this.currentOrgHasEmployee.emit(true);
+    } else {
+      this.currentOrgHasEmployee.emit(false);
+    }
+  }
+
+  switchFormEmployees() {
+      this.stateFormEmployees = !this.stateFormEmployees;
+  }
+
+  fireFromOrg() {
+    const dataId = {
+      userId: this.selectedUser.id,
+      orgId: this.selectedUser.idOrg
+    }
+    this.apiService.fireFromOrg(dataId)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res: any) => {
+        this.selectedUser.jobTitle = "";
+        this.employeeCurrentOrganization = false;
+        this.updateData('', '')
+        this.checkingOrgHasEmployees();
+      })
   }
 }

@@ -10,6 +10,9 @@
     </div>
   </div>
 
+  <div *ngIf="currentOrgHasEmployee"  style="color: white">
+    тут будет новый компонент выбрать направление
+  </div>
 
   <div class="errorModal insideClass">
     <app-error-modal></app-error-modal>
@@ -184,7 +187,9 @@
 
 <div *ngIf="modalService.isVisible$ | async">
   <app-modal-window-for-person-page class="contentForModal">
-    <app-data-person-modal *ngIf="modalService.clientListBlock | async"></app-data-person-modal>
+    <app-data-person-modal *ngIf="modalService.clientListBlock | async"
+                           (currentOrgHasEmployee)=" switchCurrentOrgHasEmployee($event)"
+    ></app-data-person-modal>
     <app-modal-rename *ngIf="modalService.modalRenameUser | async"></app-modal-rename>
     <app-data-about-rec *ngIf="modalService.recordsBlock | async"></app-data-about-rec>
   </app-modal-window-for-person-page>
