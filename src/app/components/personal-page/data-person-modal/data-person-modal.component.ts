@@ -258,14 +258,9 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
 
 
 
-  //Функция, которая проверит есть ли в этой организации сотрудники, чтоб показывать направления орг или нет
+  //Функция, проверит есть ли в этой организации сотрудники, чтоб показывать их или нет
   checkingOrgHasEmployees () {
-    const employees = this.dateService.allUsersSelectedOrg.value.filter((el: any) => el.jobTitle.length >= 1)
-    if (employees.length >= 1) {
-      this.currentOrgHasEmployee.emit(true);
-    } else {
-      this.currentOrgHasEmployee.emit(false);
-    }
+      this.currentOrgHasEmployee.emit(this.dataCalendarService.checkingOrgHasEmployees());
   }
 
   switchFormEmployees() {

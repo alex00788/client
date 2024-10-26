@@ -1,9 +1,9 @@
 import {
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   HostListener,
   OnDestroy,
-  OnInit,
+  OnInit, Output,
   ViewChild
 } from '@angular/core';
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -36,6 +36,7 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject();
   searchOrgForRec = '';
   showSelectedOrg = false;
+  @Output() currentOrgHasEmployee : EventEmitter<boolean> = new EventEmitter<boolean>()
   @ViewChild('inputSearchOrg') inputSearchOrgRef: ElementRef;
 //оределяем, что кликнули за пределом блока div закрыть при потери фокуса
   @HostListener('document:click', ['$event']) onClick(event: Event) {
@@ -63,10 +64,19 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
     this.dateService.currentOrg.next(org.name)
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
-    setTimeout(() => {
-      this.refreshDataAboutOrg();
-    }, 50)
+    this.whenSwitchOrgCheckHasEmployees();
   }
+
+
+  whenSwitchOrgCheckHasEmployees () {
+    this.dateService.allUsersSelectedOrg  //когда пройдет запрос данные меняються подписываюсь на это событие, чтоб перерисовать сотрудников текущей организации
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(()=> {
+        this.refreshDataAboutOrg();
+        this.currentOrgHasEmployee.emit(this.dataCalendarService.checkingOrgHasEmployees()); // проверка есть ли сотрудники у орг на котор переключились
+      })
+  }
+
 
 //При обновлении оставаться на выбранной организации//  чтоб изменить при логине нужно придумать метод который будет перезаписывать в таблице юзер организации и ее id
   refreshDataAboutOrg() {

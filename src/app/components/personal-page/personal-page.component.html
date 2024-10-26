@@ -1,7 +1,9 @@
 <div class="personalPageStyle">
 
   <div class="currentSelectedOrg">
-    <app-select-org-to-display></app-select-org-to-display>
+    <app-select-org-to-display
+      (currentOrgHasEmployee)=" switchCurrentOrgHasEmployee($event)"
+    ></app-select-org-to-display>
     <div class="cowerTitlePersonal">
       <div class="btnOutAndText">
         <strong class="btnLogoutSystemsClass" (click)="logoutSystems()"> &times; </strong>
@@ -11,7 +13,7 @@
   </div>
 
   <div *ngIf="currentOrgHasEmployee"  style="color: white">
-    тут будет новый компонент выбрать направление
+    <app-select-org-direction></app-select-org-direction>
   </div>
 
   <div class="errorModal insideClass">
@@ -154,13 +156,6 @@
       <app-body-calendar></app-body-calendar>
     </div>
   </div>
-
-<!--  <div class="btnMainMenu" *ngIf="!recordingService.recordsBlock.value">-->
-<!--    <button class="btnSettingsRecords" (click)="recordingService.openRecordsBlock()">-->
-<!--&lt;!&ndash;      Расписание выбранной организации {{dateService.currentOrg.value}}&ndash;&gt;-->
-<!--      Расписание-->
-<!--    </button>-->
-<!--  </div>-->
 
   <div class="showRecCurrentOrg" *ngIf="recordingService.recordsBlock.value">
     <div class="dateNowAndSelected">

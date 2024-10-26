@@ -38,6 +38,9 @@ import {RenameOrgComponent} from "../rename-org/rename-org.component";
 import {SuccessService} from "../../shared/services/success.service";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {WebSocketService} from "../../shared/services/web-socket.service";
+import {
+  SelectOrgDirectionComponent
+} from "./calendar-components/current-user-data/select-org-direction/select-org-direction.component";
 
 
 @Component({
@@ -69,6 +72,7 @@ import {WebSocketService} from "../../shared/services/web-socket.service";
     RenameOrgComponent,
     FormsModule,
     ReactiveFormsModule,
+    SelectOrgDirectionComponent,
   ],
   templateUrl: './personal-page.component.html',
   styleUrl: './personal-page.component.css'
@@ -92,16 +96,25 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject();
   inputValue = '';
   deleteData = false;
-  // меняем при деплое  тут понять как проити по текущем сотрудникам и понять сотрудники они или нет
   currentOrgHasEmployee = false;
   settingsOrg = false;
 
   ngOnInit(): void {
+    this.webSocketService.socket.onopen;     //соединился с webSocket servera
     this.dateService.getCurrentUser(); // заполняет блок мои данные
     this.getAllOrg();
     this.clearTableRec();    //вызывается 1 раз при входе 2 раза в месяц
     this.dataCalendarService.getAllUsersCurrentOrganization();
-    this.webSocketService.socket.onopen;     //соединился с webSocket servera
+    this.whenLoggingCheckOrgHasEmployees()
+  }
+
+  //при логине проверка есть ли сотрудники
+  whenLoggingCheckOrgHasEmployees () {
+    this.dateService.allUsersSelectedOrg  //когда пройдет запрос данные меняються подписываюсь на это событие, чтоб перерисовать сотрудников текущей организации
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(()=> {
+        this.currentOrgHasEmployee = this.dataCalendarService.checkingOrgHasEmployees();
+      })
   }
 
 
