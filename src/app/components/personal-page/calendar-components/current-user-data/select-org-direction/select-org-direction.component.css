@@ -1,8 +1,63 @@
-.ttt {
+.directionTitleWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.directionTitle {
   border: solid 1px red;
   border-radius: 8px;
-  margin: 10px 40px;
+  margin: 10px 100px;
+}
+
+.directionBody {
+  margin: 10px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  max-width: 260px;
+  max-height: 280px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.directionBody::-webkit-scrollbar {
+  display: none;
+}
+
+.choiceEmployee:hover {
+  cursor: pointer;
+  color: #c2f1e5;
+}
+
+.infoAboutEmployee {
+  position: relative;
+  cursor: pointer;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btnCloseEmp {
+  position: absolute;
+  top: 1px;
+  right: 3px;
+  background: none;
+  border: none;
+  color: white;
+}
+
+h4 {
+  cursor: pointer;
+  font-size: 15px;
+  margin: 8px;
+}
+
+.imgPerson {
+  margin: 10px;
+  border-radius: 10px;
+  height: 170px;
+  width: 200px;
 }

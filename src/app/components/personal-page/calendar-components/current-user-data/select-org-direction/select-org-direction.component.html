@@ -1,16 +1,36 @@
-<div class="ttt">
-
-  <div class="">
-    Выбрать направление
-
-
-    <div class="" *ngFor="let emp of employees">
-      <div class="">
-       {{emp.direction}}
-     </div>
-      {{emp.jobTitle}} {{ emp.nameUser }}
-    </div>
-
+<div class="directionTitleWrapper">
+  <div class="directionTitle"
+       *ngIf="showEmployees; else employeesBlock"
+       (click)="switchDirection()"
+  >
+    <h4>Выбрать направление</h4>
   </div>
 
+  <ng-template #employeesBlock>
+   <div class="directionBody">
+
+
+
+     <div *ngFor="let employee of employees">
+
+       <div class="infoAboutEmployee">
+         <button class="btnCloseEmp" (click)="showEmployees = true"> &times; </button>
+         <div>
+           {{employee.direction}}
+         </div>
+
+         <div class="choiceEmployee" (click)="choiceEmployee(employee)">
+           <img class="imgPerson" src="assets/img/mySelf.png" height="170" width="200">
+         </div>
+
+         <div class="choiceEmployee" (click)="choiceEmployee(employee)">
+           {{employee.jobTitle}}: {{ employee.nameUser }}
+         </div>
+
+       </div>
+
+
+     </div>
+   </div>
+  </ng-template>
 </div>

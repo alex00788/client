@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DateService} from "../../date.service";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Subject, takeUntil} from "rxjs";
 
 @Component({
@@ -8,13 +8,16 @@ import {Subject, takeUntil} from "rxjs";
   standalone: true,
   imports: [
     NgForOf,
-    AsyncPipe
+    AsyncPipe,
+    NgIf,
+    NgOptimizedImage
   ],
   templateUrl: './select-org-direction.component.html',
   styleUrl: './select-org-direction.component.css'
 })
 export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   employees: any;
+  showEmployees: boolean = true;
   private destroyed$: Subject<void> = new Subject();
 
   constructor(public dateService: DateService,) {}
@@ -28,6 +31,7 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
     this.dateService.allUsersSelectedOrg
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
+        this.showEmployees = true;
         this.employees = this.dateService.allUsersSelectedOrg.value.filter((el: any)=> el.jobTitle.length > 1)
       })
   }
@@ -36,6 +40,15 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+
+  switchDirection() {
+    this.showEmployees = !this.showEmployees;
+  }
+
+  choiceEmployee(employee: any) {
+    console.log('50', employee)
   }
 
 
