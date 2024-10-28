@@ -120,8 +120,8 @@ export class ApiService {
   }
 
 //эндпоинт для отправки фоток на сервер
-  loadFiles(formData: any): Observable<any> {
-    return this.http.post<any>('/api/user/loadPhoto', formData)
+  loadPhotoEmployee(formData: any): Observable<any> {
+    return this.http.post<any>('/api/user/loadPhotoEmployee', formData)
       .pipe(catchError(this.errHandler.bind(this)))
   }
 

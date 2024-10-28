@@ -39,6 +39,24 @@
   white-space: nowrap;
 }
 
+.addPhotoEmployee {
+  margin-top: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.inputPhotoEmployee {
+  display: none;
+}
+
+.uploadEmployeePhoto {
+  border: solid 1px red;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+
 .btnAddEnt {
   display: flex;
 }

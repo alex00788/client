@@ -60,4 +60,5 @@ h4 {
   border-radius: 10px;
   height: 170px;
   width: 200px;
+  object-fit: cover;
 }

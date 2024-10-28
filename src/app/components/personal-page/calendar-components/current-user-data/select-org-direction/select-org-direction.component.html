@@ -20,7 +20,9 @@
          </div>
 
          <div class="choiceEmployee" (click)="choiceEmployee(employee)">
-           <img class="imgPerson" src="assets/img/mySelf.png" height="170" width="200">
+<!--           меняем при деплое-->
+<!--           <img class="imgPerson" src="http://62.76.90.163:63420/{{employee.photoEmployee}}" height="170" width="200">-->
+           <img class="imgPerson" src="http://localhost:3000/{{employee.photoEmployee}}" height="170" width="200">
          </div>
 
          <div class="choiceEmployee" (click)="choiceEmployee(employee)">

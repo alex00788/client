@@ -89,6 +89,19 @@
       </div>
     </div>
 
+    <div *ngIf="employeeCurrentOrganization" class="addPhotoEmployee">
+      <label for="inputPhotoEmployee" class="input_file-button">
+        <span class="uploadEmployeePhoto">Загрузить фото</span>
+      </label>
+      <input class="inputPhotoEmployee"
+             name="file"
+             type="file"
+             id="inputPhotoEmployee"
+             accept="image/png, image/jpeg"
+             (change)="loadFile($event)"
+      />
+    </div>
+
     <form *ngIf="stateFormEmployees"
           [formGroup]="formEmployees"
           (submit)="submitAssign()"

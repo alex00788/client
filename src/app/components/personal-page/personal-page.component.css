@@ -19,6 +19,12 @@
   width: 95%;
 }
 
+
+/*сохранение фото при растягивании блока*/
+.imgOrg {
+  object-fit: cover;
+}
+
 .btnSettingsRecords:disabled {
   opacity: 50%;
 }

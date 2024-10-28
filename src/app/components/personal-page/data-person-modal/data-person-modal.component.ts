@@ -64,6 +64,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   selectedUser = this.dateService.dataSelectedUser.value;
   newUser = true;
   recAllowed = false;
+  private formData: FormData;
 
 
   ngOnInit(): void {
@@ -279,6 +280,27 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
         this.employeeCurrentOrganization = false;
         this.updateData('', '')
         this.checkingOrgHasEmployees();
+      })
+  }
+
+  loadFile(event: any) {
+    this.createFormData(event.target.files);
+  }
+
+  private createFormData(files: FileList): void {
+    this.formData = new FormData();
+    this.formData.append('file', files[0], files[0].name);
+    this.formData.append('userId', this.selectedUser.userId);
+    this.formData.append('orgId', this.selectedUser.idOrg);
+    this.postFiles();
+  }
+
+  private postFiles(): void {
+    this.apiService
+      .loadPhotoEmployee(this.formData)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res)=> {
+        this.refreshData();
       })
   }
 }
