@@ -230,6 +230,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
      idOrg: this.selectedUser.idOrg,
      jobTitle: this.formEmployees.value.jobTitle,
      direction: this.formEmployees.value.direction,
+     photoEmployee: this.selectedUser.photoEmployee,
     };
     this.apiService.changeJobTitleSelectedUser(dataSelectedUser)
       .pipe(takeUntil(this.destroyed$))
