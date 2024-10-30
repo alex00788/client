@@ -35,9 +35,17 @@
     <div class="modal" *ngIf="modalService.isVisible$ | async">
       <app-modal-page>
         <app-login-page *ngIf="modalService.loginForm$ | async"></app-login-page>
-        <app-reg-form-choice-organization *ngIf="modalService.regFormChoiceOrg$ | async"></app-reg-form-choice-organization>
+        <app-reg-form-choice-organization
+          (idOrg) = recIdOrg($event)
+          (nameSelectedOrg) = recNameSelectedOrg($event)
+          *ngIf="modalService.regFormChoiceOrg$ | async"
+        ></app-reg-form-choice-organization>
         <app-reg-form-new-org *ngIf="modalService.regFormAddNewOrg$ | async"></app-reg-form-new-org>
-        <app-registrationForm-page *ngIf="modalService.registrationForm$ | async"></app-registrationForm-page>
+        <app-registrationForm-page
+          [idOrgPush]="idOrgForReg"
+          [nameSelectedOrgOrgPush]="nameSelectedOrgForReg"
+          *ngIf="modalService.registrationForm$ | async"
+        ></app-registrationForm-page>
         <app-description-application *ngIf="modalService.appDescription$ | async"></app-description-application>
         <app-download-app *ngIf="modalService.downloadApp$ | async"></app-download-app>
         <app-instructions-for-start *ngIf="modalService.instructions$ | async"></app-instructions-for-start>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {ModalService} from "../../shared/services/modal.service";
 import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {Subject, takeUntil} from "rxjs";
@@ -22,6 +22,8 @@ import {DateService} from "../personal-page/calendar-components/date.service";
   styleUrl: './reg-form-choice-organization.component.css'
 })
 export class RegFormChoiceOrganizationComponent implements OnInit, OnDestroy {
+  @Output() idOrg: EventEmitter<any> = new EventEmitter<any>()
+  @Output() nameSelectedOrg: EventEmitter<any> = new EventEmitter<any>()
   constructor(
               private apiService: ApiService,
               public modalService: ModalService,
@@ -42,24 +44,12 @@ export class RegFormChoiceOrganizationComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroyed$))
         .subscribe(org=> {
           this.allOrgForReset = org.allOrg;
-          this.dateService.allOrgNameAndId.next(org.allOrg)
-          this.dateService.allOrgForReg.next(org.allOrg);
         })
   }
 
   choiceOrg(org: any) {
-    this.dateService.idSelectedOrg.next(org.id)
-    this.dateService.allOrgForReg.next([org])
-    this.openRegistrationPage();
-  }
-
-  resetOrg() {
-    this.dateService.allOrgForReg.next(this.allOrgForReset);
-  }
-
-
-  openRegistrationPage() {
-    this.dateService.selectOrgForReg.next(this.dateService.allOrgForReg.value)
+    this.idOrg.emit(org.id)
+    this.nameSelectedOrg.emit(org.name)
     this.modalService.openRegistrationForm$();
   }
 

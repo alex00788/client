@@ -49,6 +49,8 @@ export class MainPageComponent implements OnInit, OnDestroy{
   mainTitle = 'Личный Кабинет для любого сайта'
   mainTitleComp = 'Личный Кабинет'
   modalTitle = 'ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ'
+  idOrgForReg: string;
+  nameSelectedOrgForReg: string;
   private destroyed$: Subject<void> = new Subject();
 
 
@@ -81,5 +83,13 @@ export class MainPageComponent implements OnInit, OnDestroy{
   ngOnDestroy(): void {
     this.destroyed$.next();
     this.destroyed$.complete();
+  }
+
+  recIdOrg(idOrg: any) {
+    this.idOrgForReg = idOrg
+  }
+
+  recNameSelectedOrg(nameSelectedOrg: any) {
+    this.nameSelectedOrgForReg = nameSelectedOrg;
   }
 }

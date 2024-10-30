@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit,} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
@@ -24,7 +24,8 @@ import {SuccessService} from "../../shared/services/success.service";
   styleUrl: './registrationForm-page.component.css'
 })
 export class RegistrationFormPageComponent implements OnInit, OnDestroy {
-
+@Input() idOrgPush: any;
+@Input() nameSelectedOrgOrgPush: any;
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -104,9 +105,9 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
     this.form.value.email = this.form.value.email!.slice(0, 1).toLowerCase() + this.form.value.email!.slice(1);
     //тут записываем данные орг с которой пришли или которую выбрали при регистрации
     this.form.value.sectionOrOrganization = this.dateService.nameOrganizationWhereItCameFrom.value?
-    this.dateService.nameOrganizationWhereItCameFrom.value : this.dateService.selectOrgForReg.value[0].name;
+    this.dateService.nameOrganizationWhereItCameFrom.value : this.nameSelectedOrgOrgPush;
     this.form.value.idOrg = this.dateService.nameOrganizationWhereItCameFrom.value?
-    this.dateService.idOrganizationWhereItCameFrom.value : this.dateService.idSelectedOrg.value;
+    this.dateService.idOrganizationWhereItCameFrom.value : this.idOrgPush;
     this.loginSub = this.apiService.registration(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(userData => {

@@ -52,7 +52,7 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dateService.currentOrgWasRenamed
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((v: any) => {
+      .subscribe(() => {
         this.refreshDataAboutOrg();
       })
   }
