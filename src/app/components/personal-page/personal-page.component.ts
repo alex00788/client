@@ -95,9 +95,12 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   })
   private destroyed$: Subject<void> = new Subject();
   inputValue = '';
+  photoCurrentOrg = '';
   deleteData = false;
+  hidePhotoCurrentOrg = false;
   currentOrgHasEmployee = false;
   settingsOrg = false;
+  hideFromAdmin = false;
 
   ngOnInit(): void {
     this.webSocketService.socket.onopen;     //соединился с webSocket servera
@@ -158,9 +161,22 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe(org=> {
         this.dateService.allOrganization.next(org.allOrg);
+        this.getPhotoForOrg();
       })
   }
 
+
+  public getPhotoForOrg() {
+      const currentOrg = this.dateService.allOrganization.value
+        .find((org:any)=> +org.id ===  +this.dateService.idSelectedOrg.value)
+        ?.photoOrg
+      if (currentOrg) {
+        this.hidePhotoCurrentOrg = currentOrg.length >=1;
+        this.photoCurrentOrg = currentOrg;
+      } else {
+        this.hidePhotoCurrentOrg = false;
+      }
+  }
 
   mainePage() {
     this.router.navigate(['/'])
@@ -185,6 +201,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.dateService.currentOrg.next(data.user.initialValueSectionOrOrganization)
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.getAllOrg();
 //ниже две строки для того чтобы перекидывать на страницу входа без разлогинивания
     // this.router.navigate(['/']);
     // this.modalService.showTitle();
@@ -220,5 +237,9 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
 
   switchCurrentOrgHasEmployee(e: boolean) {
     this.currentOrgHasEmployee = e;
+  }
+
+  hidePhoto(event: boolean) {
+    this.hidePhotoCurrentOrg = event;
   }
 }

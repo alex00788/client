@@ -49,10 +49,19 @@
   color: white;
 }
 
+.returnToOrg {
+  position: absolute;
+  top: -3px;
+  left: 1px;
+  background: none;
+  border: none;
+}
+
 h4 {
   cursor: pointer;
   font-size: 15px;
   margin: 8px;
+  max-width: 180px;
 }
 
 .imgPerson {

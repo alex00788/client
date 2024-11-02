@@ -125,6 +125,12 @@ export class ApiService {
       .pipe(catchError(this.errHandler.bind(this)))
   }
 
+  //эндпоинт для отправки logo-фоток-org на сервер
+  loadPhotoLabelOrg(formData: any): Observable<any> {
+    return this.http.post<any>('/api/user/loadPhotoLabelOrg', formData)
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
   getAllEntryCurrentUser(dataForGetAllEntryCurrentUsersThisMonth: any): Observable<any> {
     return this.http.get<any>('/api/user/getAllEntryCurrentUser', {
       params: new HttpParams()

@@ -12,6 +12,19 @@
     <span> {{dateService.currentUserNameAndSurname | async}} </span>
   </div>
 
+  <div class="addPhotoOrg" *ngIf="dateService.currentUserIsTheAdminOrg | async">
+    <label for="inputPhotoOrgLabel">
+      <span class="uploadEmployeePhoto">Добавить фото моей организации</span>
+    </label>
+    <input class="inputPhotoOrgLabel"
+           name="file"
+           type="file"
+           id="inputPhotoOrgLabel"
+           accept="image/png, image/jpeg"
+           (change)="loadLabelOrg($event)"
+    >
+  </div>
+
   <div class="currentUser" *ngIf="dateService.currentUserSimpleUser.value">
     <div>
       <strong> Баланс: </strong>

@@ -36,6 +36,7 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
   private destroyed$: Subject<void> = new Subject();
   searchOrgForRec = '';
   showSelectedOrg = false;
+  @Output() orgWasChange : EventEmitter<any> = new EventEmitter()
   @Output() currentOrgHasEmployee : EventEmitter<boolean> = new EventEmitter<boolean>()
   @ViewChild('inputSearchOrg') inputSearchOrgRef: ElementRef;
 //оределяем, что кликнули за пределом блока div закрыть при потери фокуса
@@ -60,11 +61,14 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
 
   choiceOrgForRec(org: any) {
     this.showSelectedOrg = false;
-    this.dateService.idSelectedOrg.next(org.id)
-    this.dateService.currentOrg.next(org.name)
+    this.dateService.idSelectedOrg.next(org.id);
+    this.dateService.currentOrg.next(org.name);
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
     this.whenSwitchOrgCheckHasEmployees();
+    this.dateService.switchOrg.next(true);
+    console.log('70')
+    this.orgWasChange.emit();
   }
 
 

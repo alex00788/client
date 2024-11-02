@@ -302,6 +302,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res)=> {
         this.refreshData();
+        this.successService.localHandler(`Фото добавлено`);
       })
   }
 }

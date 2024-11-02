@@ -3,6 +3,7 @@
   <div class="currentSelectedOrg">
     <app-select-org-to-display
       (currentOrgHasEmployee)=" switchCurrentOrgHasEmployee($event)"
+      (orgWasChange)=" getAllOrg()"
     ></app-select-org-to-display>
     <div class="cowerTitlePersonal">
       <div class="btnOutAndText">
@@ -12,10 +13,17 @@
     </div>
   </div>
 
-  <img class="imgOrg" src="assets/img/mySelf.png" height="170" width="100%">
+
+  <!--           меняем при деплое-->
+  <!--           <img class="imgPerson" src="http://62.76.90.163:63420/{{photoCurrentOrg}}" height="170" width="200">-->
+  <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="http://localhost:3000/{{photoCurrentOrg}}" height="170" width="100%">
+<!--  <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="assets/img/mySelf.png" height="170" width="100%">-->
 
   <div *ngIf="currentOrgHasEmployee"  style="color: white">
-    <app-select-org-direction></app-select-org-direction>
+    <app-select-org-direction
+      (adminClickedOnEmployee)="hideFromAdmin = !$event"
+      (hidePhotoOrg)="hidePhoto($event)"
+    ></app-select-org-direction>
   </div>
 
   <div class="errorModal insideClass">
@@ -26,7 +34,7 @@
     <app-success-modal></app-success-modal>
   </div>
 
-  <div class="btnMainMenu">
+  <div class="btnMainMenu" *ngIf="!hideFromAdmin">
     <div class="mainBtnNav">
       <span class="btnHome" (click)="routerLinkMain()">
       <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -48,34 +56,42 @@
   </div>
 
   <div class="bodyCalendarElementClass" >
-    <app-personal-data-block *ngIf="personalBlockService.personalData"></app-personal-data-block>
+    <app-personal-data-block
+      *ngIf="personalBlockService.personalData"
+      (photoAdded)="getAllOrg()"
+    ></app-personal-data-block>
   </div>
 
 
-  <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
-    <button class="btnSettingsRecords"
-            *ngIf="!personalBlockService.clientListBlock"
-            (click)="personalBlockService.openClientList()"
-    > Мои клиенты
-    </button>
-  </div>
-  <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
-    <app-clients-list></app-clients-list>
+  <div *ngIf="!hideFromAdmin">
+    <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
+      <button class="btnSettingsRecords"
+              *ngIf="!personalBlockService.clientListBlock"
+              (click)="personalBlockService.openClientList()"
+      > Мои клиенты
+      </button>
+    </div>
+    <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
+      <app-clients-list></app-clients-list>
+    </div>
   </div>
 
 
-  <div class="btnMainMenu">
-    <button class="btnSettingsRecords"
-            *ngIf="!personalBlockService.recordsBlock"
-            (click)="personalBlockService.openRecordsBlock()"
-    >
-      Мои записи
-      в {{dateService.date.value.format('M') | translateMonth}}
-    </button>
+  <div *ngIf="!hideFromAdmin">
+    <div class="btnMainMenu">
+      <button class="btnSettingsRecords"
+              *ngIf="!personalBlockService.recordsBlock"
+              (click)="personalBlockService.openRecordsBlock()"
+      >
+        Мои записи
+        в {{dateService.date.value.format('M') | translateMonth}}
+      </button>
+    </div>
+    <div>
+      <app-records-block></app-records-block>
+    </div>
   </div>
-  <div>
-    <app-records-block></app-records-block>
-  </div>
+
 
 
   <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
@@ -89,13 +105,15 @@
     <app-settings-block *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
   </div>
 
-  <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
-    <div class="btnMainMenu">
-      <button class="btnSettingsRecords" (click)="openSettingsOrg()">
-        <p style="color: red">
-          ORG settings
-        </p>
-      </button>
+  <div *ngIf="!hideFromAdmin">
+    <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
+      <div class="btnMainMenu">
+        <button class="btnSettingsRecords" (click)="openSettingsOrg()">
+          <p style="color: red">
+            ORG settings
+          </p>
+        </button>
+      </div>
     </div>
   </div>
 

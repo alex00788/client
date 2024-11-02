@@ -3,7 +3,7 @@
        *ngIf="showEmployees; else employeesBlock"
        (click)="switchDirection()"
   >
-    <h4>Выбрать направление</h4>
+    <h4>Направления </h4>
   </div>
 
   <ng-template #employeesBlock>
@@ -12,9 +12,29 @@
 
 
      <div *ngFor="let employee of employees">
-
        <div class="infoAboutEmployee">
-         <button class="btnCloseEmp" (click)="showEmployees = true"> &times; </button>
+         <button class="returnToOrg"
+                 *ngIf="showBtnForReturnToOrg"
+                 (click)="returnToOrg()"
+         >
+           <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.98 1.984l7 6h-2.003v6H9.96V10.97H5.997v3.016H2.982v-6H.979l7-6z" fill="red"></path>
+           </svg>
+         </button>
+         <button class="btnCloseEmp"
+                 style="border-radius: 100%; border: red solid 1px"
+                 *ngIf="!hideForAdmins"
+                 (click)="showEmployees = true"
+         >
+           &times;
+         </button>
+         <button class="btnCloseEmp"
+                 *ngIf="hideForUsers"
+                 (click)="showAgainEmployeesCurrentOrg()"
+         >
+           &times;
+         </button>
+
          <div>
            {{employee.direction}}
          </div>
@@ -26,7 +46,7 @@
          </div>
 
          <div class="choiceEmployee" (click)="choiceEmployee(employee)">
-           {{employee.jobTitle}}: {{ employee.nameUser }}
+           {{employee.jobTitle}}: {{ employee.nameUser }} {{ employee.surnameUser }}
          </div>
 
        </div>
