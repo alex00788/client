@@ -23,6 +23,13 @@
 /*сохранение фото при растягивании блока*/
 .imgOrg {
   object-fit: cover;
+  max-width: 380px;
+}
+
+.imgOrgCower {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .btnSettingsRecords:disabled {
@@ -237,6 +244,10 @@
 @media (max-width: 600px) {
   .currentSelectedOrg {
     padding-left: 0;
+  }
+
+  .imgOrg {
+    max-width: 100%;
   }
 
   .successModalPersonalPage{

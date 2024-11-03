@@ -49,7 +49,7 @@ export class DataCalendarService {
       .pipe(take(1))
       .subscribe(allUsersOrganization => {
         this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
-        if (allUsersOrganization.length) {
+        if (allUsersOrganization?.length) {
           const currentUser = allUsersOrganization.find((user: any)=> +user.id == this.dateService.currentUserId.value)
           this.dateService.currentUserId.next(currentUser.id);
           this.dateService.currentUserRole.next(currentUser.role);
@@ -158,8 +158,8 @@ export class DataCalendarService {
   //Функция, проверяет есть сотрудники у орг или нет!
   // которая смотрит всех сотрудников и если хоть у кого то есть jobTitle, возвращает true и показывается блок направления организации
   checkingOrgHasEmployees () {
-    const employees = this.dateService.allUsersSelectedOrg.value.filter((el: any) => el.jobTitle.length >= 1)
-    return employees.length >= 1 ;
+    const employees = this.dateService.allUsersSelectedOrg.value?.filter((el: any) => el.jobTitle.length >= 1)
+    return employees?.length >= 1 ;
   }
 
 }

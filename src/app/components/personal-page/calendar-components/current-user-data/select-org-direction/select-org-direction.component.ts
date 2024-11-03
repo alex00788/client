@@ -75,7 +75,7 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   }
 
   choiceEmployee(employee: any) {
-    console.log('77')
+    console.log('77', employee)
     this.hidePhotoOrg.emit(false)
     this.hideForUsers = true;
     this.hideForAdmins = true;
