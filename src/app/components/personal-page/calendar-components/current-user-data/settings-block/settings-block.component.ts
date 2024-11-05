@@ -132,7 +132,7 @@ export class SettingsBlockComponent implements OnInit{
 
   refreshData () {
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.dateService.recordingDaysChanged.next(true);
   }
 

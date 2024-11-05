@@ -64,7 +64,7 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
     this.dateService.idSelectedOrg.next(org.id);
     this.dateService.currentOrg.next(org.name);
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.whenSwitchOrgCheckHasEmployees();
     this.dateService.switchOrg.next(true);
     console.log('70')

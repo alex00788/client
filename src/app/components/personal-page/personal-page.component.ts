@@ -107,7 +107,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.dateService.getCurrentUser(); // заполняет блок мои данные
     this.getAllOrg();
     this.clearTableRec();    //вызывается 1 раз при входе 2 раза в месяц
-    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.whenLoggingCheckOrgHasEmployees()
   }
 
@@ -200,7 +200,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.dateService.idSelectedOrg.next(data.user.initialValueIdOrg)
     this.dateService.currentOrg.next(data.user.initialValueSectionOrOrganization)
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.getAllOrg();
 //ниже две строки для того чтобы перекидывать на страницу входа без разлогинивания
     // this.router.navigate(['/']);

@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core'
 import {DateService} from "../../date.service";
 import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Subject, takeUntil} from "rxjs";
+import {DataCalendarService} from "../../data-calendar-new/data-calendar.service";
 
 @Component({
   selector: 'app-select-org-direction',
@@ -25,7 +26,9 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   showEmployees: boolean = true;
   private destroyed$: Subject<void> = new Subject();
 
-  constructor(public dateService: DateService,) {}
+  constructor(public dateService: DateService,
+              public dataCalendarService: DataCalendarService,
+              ) {}
 
   ngOnInit(): void {
     this.showEmployeesCurrentOrg();
@@ -80,10 +83,13 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
     this.hideForUsers = true;
     this.hideForAdmins = true;
     this.employees = [this.dateService.allUsersSelectedOrg.value.find((el: any)=> el.id === employee.id)]
-    if (this.dateService.currentUserIsTheAdminOrg.value) {
+    if (this.dateService.currentUserIsTheAdminOrg.value) {   //если кликает по работнику админ организациии показываем это
       this.adminClickedOnEmployee.emit(false);
       this.showBtnForReturnToOrg = true;
     }
+    this.dateService.idSelectedOrg.next(employee.idRec);
+    // this.dataCalendarService.getAllEntryAllUsersForTheMonth();
+    // this.dataCalendarService.getAllUsersCurrentOrganization(true);
   }
 
 

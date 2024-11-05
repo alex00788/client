@@ -395,7 +395,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
   //обновление после добавления или удаление записи
   refreshData () {
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.dateService.recordingDaysChanged.next(true);
   }
 

@@ -43,11 +43,12 @@ export class DataCalendarService {
 
 
   //получаем всех пользователей выбранной организации
-  getAllUsersCurrentOrganization() {
-    this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value)
-      // .pipe(takeUntil(this.destroyed$))
+  getAllUsersCurrentOrganization(employee: boolean) {
+    const clickedByAdmin = this.dateService.currentUserIsTheAdminOrg.value
+    this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value, employee, clickedByAdmin)
       .pipe(take(1))
       .subscribe(allUsersOrganization => {
+        console.log('5', allUsersOrganization)
         this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
         if (allUsersOrganization?.length) {
           const currentUser = allUsersOrganization.find((user: any)=> +user.id == this.dateService.currentUserId.value)
@@ -56,6 +57,7 @@ export class DataCalendarService {
           this.dateService.remainingFunds.next(currentUser.remainingFunds);
           this.dateService.currentUserSimpleUser.next(currentUser.role === "USER");
           this.dateService.currentUserIsTheAdminOrg.next(currentUser.role === "ADMIN");
+          this.dateService.currentUserIsTheAdminOrgAndOpenedEmployee.next(currentUser.openEmployee && currentUser.clickedByAdmin);
           this.dateService.currentUserNameAndSurname.next(currentUser.nameUser + ' ' + currentUser.surnameUser);
           this.getDataSetting(allUsersOrganization);
         }
@@ -148,7 +150,7 @@ export class DataCalendarService {
       .pipe(take(1))
       .subscribe(() => {
         this.getAllEntryAllUsersForTheMonth();
-        this.getAllUsersCurrentOrganization();
+        this.getAllUsersCurrentOrganization(false);
         this.dateService.recordingDaysChanged.next(true);
       })
   }

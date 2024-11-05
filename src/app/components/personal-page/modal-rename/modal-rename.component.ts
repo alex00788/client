@@ -52,7 +52,7 @@ export class ModalRenameComponent implements OnInit, OnDestroy{
 
   refreshData () {
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization();
+    this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.dateService.recordingDaysChanged.next(true);
   }
 
