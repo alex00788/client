@@ -37,7 +37,6 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
   searchOrgForRec = '';
   showSelectedOrg = false;
   @Output() orgWasChange : EventEmitter<any> = new EventEmitter()
-  @Output() currentOrgHasEmployee : EventEmitter<boolean> = new EventEmitter<boolean>()
   @ViewChild('inputSearchOrg') inputSearchOrgRef: ElementRef;
 //оределяем, что кликнули за пределом блока div закрыть при потери фокуса
   @HostListener('document:click', ['$event']) onClick(event: Event) {
@@ -60,15 +59,16 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
 
 
   choiceOrgForRec(org: any) {
+    this.dateService.switchOrg.next(true);
     this.showSelectedOrg = false;
     this.dateService.idSelectedOrg.next(org.id);
     this.dateService.currentOrg.next(org.name);
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization(false);
     this.whenSwitchOrgCheckHasEmployees();
-    this.dateService.switchOrg.next(true);
-    console.log('70')
-    this.orgWasChange.emit();
+    this.orgWasChange.emit();  // нужно чтоб при переключении на др орг фотка менялась
+    this.dateService.idOrgWhereSelectedEmployee.next(this.dateService.idSelectedOrg.value);
+    this.dateService.nameOrgWhereSelectedEmployee.next(org.name);
   }
 
 
@@ -76,8 +76,7 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
     this.dateService.allUsersSelectedOrg  //когда пройдет запрос данные меняються подписываюсь на это событие, чтоб перерисовать сотрудников текущей организации
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
-        this.refreshDataAboutOrg();
-        this.currentOrgHasEmployee.emit(this.dataCalendarService.checkingOrgHasEmployees()); // проверка есть ли сотрудники у орг на котор переключились
+        this.dataCalendarService.checkingOrgHasEmployees();
       })
   }
 

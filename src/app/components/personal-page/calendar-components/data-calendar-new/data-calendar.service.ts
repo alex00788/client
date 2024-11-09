@@ -43,30 +43,38 @@ export class DataCalendarService {
 
 
   //получаем всех пользователей выбранной организации
-  getAllUsersCurrentOrganization(employee: boolean) {
-    const clickedByAdmin = this.dateService.currentUserIsTheAdminOrg.value
-    this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value, employee, clickedByAdmin)
+  getAllUsersCurrentOrganization(openEmployee: boolean) {
+    const clickedByAdmin = this.dateService.currentUserIsTheAdminOrg.value // чтоб понять кто кликнул по сотруднику
+    this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value, openEmployee, clickedByAdmin)
       .pipe(take(1))
       .subscribe(allUsersOrganization => {
         console.log('5', allUsersOrganization)
-        this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
         if (allUsersOrganization?.length) {
           const currentUser = allUsersOrganization.find((user: any)=> +user.id == this.dateService.currentUserId.value)
-          this.dateService.currentUserId.next(currentUser.id);
-          this.dateService.currentUserRole.next(currentUser.role);
-          this.dateService.remainingFunds.next(currentUser.remainingFunds);
-          this.dateService.currentUserSimpleUser.next(currentUser.role === "USER");
-          this.dateService.currentUserIsTheAdminOrg.next(currentUser.role === "ADMIN");
-          this.dateService.currentUserIsTheAdminOrgAndOpenedEmployee.next(currentUser.openEmployee && currentUser.clickedByAdmin);
-          this.dateService.currentUserNameAndSurname.next(currentUser.nameUser + ' ' + currentUser.surnameUser);
-          this.getDataSetting(allUsersOrganization);
+          if (currentUser.openEmployee) {
+            console.log('56 open employee')
+            this.dateService.remainingFunds.next(currentUser.remainingFunds);
+            this.getDataSetting(allUsersOrganization, currentUser.openEmployee);
+          } else {
+            this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
+            console.log('61 open admin')
+            this.dateService.currentUserId.next(currentUser.id);
+            this.dateService.currentUserRole.next(currentUser.role);
+            this.dateService.remainingFunds.next(currentUser.remainingFunds);
+            this.dateService.currentUserSimpleUser.next(currentUser.role === "USER");
+            this.dateService.currentUserIsTheAdminOrg.next(currentUser.role === "ADMIN");
+            this.dateService.currentUserNameAndSurname.next(currentUser.nameUser + ' ' + currentUser.surnameUser);
+            this.getDataSetting(allUsersOrganization, currentUser.openEmployee);
+          }
         }
       });
   }
 
 // заполняет данные настроек из бд...
-  getDataSetting(allUsersOrganization: any) {
-    const dataSettings = allUsersOrganization.find((admin: any)=> admin.role === 'ADMIN')
+  getDataSetting(allUsersOrganization: any, openEmployee: boolean) {
+    const dataSettings = openEmployee?
+      allUsersOrganization.find((admin: any)=> admin.role === 'EMPLOYEE'):
+      allUsersOrganization.find((admin: any)=> admin.role === 'ADMIN')
     if (dataSettings) {
       this.dateService.timeStartRecord.next(dataSettings.timeStartRec);
       this.dateService.timeMinutesRec.next(dataSettings.timeMinutesRec);
@@ -164,4 +172,26 @@ export class DataCalendarService {
     return employees?.length >= 1 ;
   }
 
+  // Функция редиректит на главную страницу профиля
+  routerLinkMain(returnToYourPage: boolean) {
+    //повторяю логику выбора организации тока подставляю данные указанные при регистрации которые беру из localStorage
+    const data = JSON.parse(localStorage.getItem('userData') as string)
+    if (returnToYourPage) {
+      this.dateService.idOrgWhereSelectedEmployee.next(data.user.initialValueIdOrg);
+      this.dateService.nameOrgWhereSelectedEmployee.next(this.dateService.sectionOrOrganization.value);
+    }
+    const nameOrg =
+      returnToYourPage ||
+      !returnToYourPage && !this.dateService.idOrgWhereSelectedEmployee.value?
+      data.user.initialValueSectionOrOrganization :  this.dateService.nameOrgWhereSelectedEmployee.value;
+    const idSelectedOrg =
+      returnToYourPage ||
+      !returnToYourPage && !this.dateService.idOrgWhereSelectedEmployee.value?
+      data.user.initialValueIdOrg : this.dateService.idOrgWhereSelectedEmployee.value;
+
+    this.dateService.idSelectedOrg.next(idSelectedOrg)
+    this.dateService.currentOrg.next(nameOrg)
+    this.getAllEntryAllUsersForTheMonth();
+    this.getAllUsersCurrentOrganization(false);
+  }
 }

@@ -17,11 +17,9 @@ import {DataCalendarService} from "../../data-calendar-new/data-calendar.service
   styleUrl: './select-org-direction.component.css'
 })
 export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
-  @Output() adminClickedOnEmployee: EventEmitter<boolean> = new EventEmitter<boolean>()
-  @Output() hidePhotoOrg: EventEmitter<boolean> = new EventEmitter<boolean>()
-  hideForAdmins: boolean = false;
-  hideForUsers: boolean = false;
-  showBtnForReturnToOrg: boolean = false;
+  @Output() clickedOnEmployee: EventEmitter<boolean> = new EventEmitter<boolean>();
+  btnCloseEmployee: boolean = false;
+  btnHomeMenu: boolean = false;
   employees: any;
   showEmployees: boolean = true;
   private destroyed$: Subject<void> = new Subject();
@@ -32,7 +30,6 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.showEmployeesCurrentOrg();
-    this.resetBtnToInitialState();
   }
 
 
@@ -40,32 +37,15 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
     this.dateService.allUsersSelectedOrg
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
-        this.showEmployees = true;
-        this.showBtnForReturnToOrg = false;
-        this.employees = this.dateService.allUsersSelectedOrg.value.filter((el: any)=> el.jobTitle.length > 1)
+        this.getEmployeesList(false, null);
       })
   }
 
-
-  showAgainEmployeesCurrentOrg() {
-    this.hidePhotoOrg.emit(true);
-    this.adminClickedOnEmployee.emit(true);
-    this.hideForAdmins = false;
-    this.hideForUsers = false;
-    this.showBtnForReturnToOrg = false;
-    this.employees = this.dateService.allUsersSelectedOrg.value.filter((el: any)=> el.jobTitle.length > 1)
+  getEmployeesList(employeeSelected: boolean, employeeId: string | null): void {
+    this.employees = employeeSelected && employeeId?
+      [this.dateService.allUsersSelectedOrg.value.find((el: any)=> el.id === employeeId)] :
+      this.dateService.allUsersSelectedOrg.value.filter((el: any)=> el.jobTitle.length > 1);
   }
-
-
-  //если выбрано направление и пользователь нажал переключение организации сначала включаются кнопки потом переход
-  resetBtnToInitialState() {
-    this.dateService.switchOrg
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(()=> {
-        this.returnToOrg();
-      })
-  }
-
 
   ngOnDestroy(): void {
     this.destroyed$.next();
@@ -78,29 +58,25 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   }
 
   choiceEmployee(employee: any) {
-    console.log('77', employee)
-    this.hidePhotoOrg.emit(false)
-    this.hideForUsers = true;
-    this.hideForAdmins = true;
-    this.employees = [this.dateService.allUsersSelectedOrg.value.find((el: any)=> el.id === employee.id)]
-    if (this.dateService.currentUserIsTheAdminOrg.value) {   //если кликает по работнику админ организациии показываем это
-      this.adminClickedOnEmployee.emit(false);
-      this.showBtnForReturnToOrg = true;
-    }
+    this.btnCloseEmployee = true;
+    this.btnHomeMenu = true;
+    this.clickedOnEmployee.emit(true);
+    this.getEmployeesList(true, employee.id);
     this.dateService.idSelectedOrg.next(employee.idRec);
     // this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    // this.dataCalendarService.getAllUsersCurrentOrganization(true);
+    this.dataCalendarService.getAllUsersCurrentOrganization(true);
   }
 
-
   returnToOrg() {
-    this.hidePhotoOrg.emit(true);
-    if (this.dateService.currentUserIsTheAdminOrg.value) {
-      this.adminClickedOnEmployee.emit(true);
-      this.hideForAdmins = false;
-      this.showBtnForReturnToOrg = false;
-      this.showEmployees = true;
-      this.employees = this.dateService.allUsersSelectedOrg.value.filter((el: any)=> el.jobTitle.length > 1)
-    }
+    this.btnCloseEmployee = false;
+    this.btnHomeMenu = false;
+    this.clickedOnEmployee.emit(false);
+    this.getEmployeesList(false, null);
+    this.dataCalendarService.routerLinkMain(false);
+  }
+
+  returnToOrgAndCloseEmployees() {
+    this.returnToOrg();  // делает тоже что и returnToOrg тока еще прячет сотрудников
+    this.showEmployees = true;
   }
 }

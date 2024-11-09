@@ -240,7 +240,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
         this.employeeCurrentOrganization = true;
         this.selectedUser.jobTitle = newJobTitleUser.jobTitle;
         this.updateData(newJobTitleUser.jobTitle, newJobTitleUser.direction );
-        this.checkingOrgHasEmployees();
+        this.dataCalendarService.checkingOrgHasEmployees();
         this.successService.localHandler(`Сотрудник ${newJobTitleUser.jobTitle} добавлен `);
       });
   }
@@ -260,12 +260,6 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   }
 
 
-
-  //Функция, проверит есть ли в этой организации сотрудники, чтоб показывать их или нет
-  checkingOrgHasEmployees () {
-      this.currentOrgHasEmployee.emit(this.dataCalendarService.checkingOrgHasEmployees());
-  }
-
   switchFormEmployees() {
       this.stateFormEmployees = !this.stateFormEmployees;
   }
@@ -281,7 +275,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
         this.selectedUser.jobTitle = "";
         this.employeeCurrentOrganization = false;
         this.updateData('', '')
-        this.checkingOrgHasEmployees();
+        this.dataCalendarService.checkingOrgHasEmployees();
       })
   }
 

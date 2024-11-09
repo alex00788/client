@@ -8,29 +8,19 @@
 
   <ng-template #employeesBlock>
    <div class="directionBody">
-
-
-
      <div *ngFor="let employee of employees">
        <div class="infoAboutEmployee">
          <button class="returnToOrg"
-                 *ngIf="showBtnForReturnToOrg"
-                 (click)="returnToOrg()"
+                 *ngIf="btnHomeMenu"
+                 (click)="returnToOrgAndCloseEmployees()"
          >
            <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
              <path fill-rule="evenodd" clip-rule="evenodd" d="M7.98 1.984l7 6h-2.003v6H9.96V10.97H5.997v3.016H2.982v-6H.979l7-6z" fill="red"></path>
            </svg>
          </button>
          <button class="btnCloseEmp"
-                 style="border-radius: 100%; border: red solid 1px"
-                 *ngIf="!hideForAdmins"
-                 (click)="showEmployees = true"
-         >
-           &times;
-         </button>
-         <button class="btnCloseEmp"
-                 *ngIf="hideForUsers"
-                 (click)="showAgainEmployeesCurrentOrg()"
+                 *ngIf="btnCloseEmployee"
+                 (click)="returnToOrg()"
          >
            &times;
          </button>

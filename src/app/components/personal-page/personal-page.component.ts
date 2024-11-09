@@ -98,9 +98,9 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   photoCurrentOrg = '';
   deleteData = false;
   hidePhotoCurrentOrg = false;
-  currentOrgHasEmployee = false;
+  currentOrgHasEmployees = false;
   settingsOrg = false;
-  hideFromAdmin = false;
+  hideBtn = true;
 
   ngOnInit(): void {
     this.webSocketService.socket.onopen;     //соединился с webSocket servera
@@ -113,10 +113,10 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
 
   //при логине проверка есть ли сотрудники
   whenLoggingCheckOrgHasEmployees () {
-    this.dateService.allUsersSelectedOrg  //когда пройдет запрос данные меняються подписываюсь на это событие, чтоб перерисовать сотрудников текущей организации
+    this.dateService.allUsersSelectedOrg  //когда пройдет запрос данные меняются, подписываюсь на это событие, чтоб перерисовать сотрудников текущей организации
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
-        this.currentOrgHasEmployee = this.dataCalendarService.checkingOrgHasEmployees();
+        this.currentOrgHasEmployees = this.dataCalendarService.checkingOrgHasEmployees();
       })
   }
 
@@ -175,6 +175,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
         this.photoCurrentOrg = currentOrg;
       } else {
         this.hidePhotoCurrentOrg = false;
+        this.photoCurrentOrg = '';
       }
   }
 
@@ -195,12 +196,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   }
 
   routerLinkMain() {
-    //повторяю логику выбора организации тока подставляю данные указанные при регистрации которые беру из localStorage
-    const data = JSON.parse(localStorage.getItem('userData') as string)
-    this.dateService.idSelectedOrg.next(data.user.initialValueIdOrg)
-    this.dateService.currentOrg.next(data.user.initialValueSectionOrOrganization)
-    this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.routerLinkMain(true);
     this.getAllOrg();
 //ниже две строки для того чтобы перекидывать на страницу входа без разлогинивания
     // this.router.navigate(['/']);
@@ -235,11 +231,13 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.settingsOrg = !this.settingsOrg;
   }
 
-  switchCurrentOrgHasEmployee(e: boolean) {
-    this.currentOrgHasEmployee = e;
+  clickedOnEmployee(event: boolean) {
+    this.hideBtn = !event;
+    this.hidePhotoCurrentOrg = !event;
   }
 
-  hidePhoto(event: boolean) {
-    this.hidePhotoCurrentOrg = event;
+  switchOrg() {
+    this.getAllOrg()
+    this.hideBtn = true;
   }
 }

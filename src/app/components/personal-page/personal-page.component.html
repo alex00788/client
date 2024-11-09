@@ -2,8 +2,7 @@
 
   <div class="currentSelectedOrg">
     <app-select-org-to-display
-      (currentOrgHasEmployee)=" switchCurrentOrgHasEmployee($event)"
-      (orgWasChange)=" getAllOrg()"
+      (orgWasChange)=" switchOrg()"
     ></app-select-org-to-display>
     <div class="cowerTitlePersonal">
       <div class="btnOutAndText">
@@ -20,10 +19,9 @@
     <!--  <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="assets/img/mySelf.png" height="170" width="100%">-->
   </div>
 
-  <div *ngIf="currentOrgHasEmployee"  style="color: white">
+  <div *ngIf="currentOrgHasEmployees"  style="color: white">
     <app-select-org-direction
-      (adminClickedOnEmployee)="hideFromAdmin = !$event"
-      (hidePhotoOrg)="hidePhoto($event)"
+      (clickedOnEmployee)="clickedOnEmployee($event)"
     ></app-select-org-direction>
   </div>
 
@@ -35,7 +33,7 @@
     <app-success-modal></app-success-modal>
   </div>
 
-  <div class="btnMainMenu" *ngIf="!hideFromAdmin">
+  <div class="btnMainMenu" *ngIf="hideBtn">
     <div class="mainBtnNav">
       <span class="btnHome" (click)="routerLinkMain()">
       <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +62,7 @@
   </div>
 
 
-  <div *ngIf="!hideFromAdmin">
+  <div *ngIf="hideBtn">
     <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
       <button class="btnSettingsRecords"
               *ngIf="!personalBlockService.clientListBlock"
@@ -78,7 +76,7 @@
   </div>
 
 
-  <div *ngIf="!hideFromAdmin">
+  <div *ngIf="hideBtn">
     <div class="btnMainMenu">
       <button class="btnSettingsRecords"
               *ngIf="!personalBlockService.recordsBlock"
@@ -106,7 +104,7 @@
     <app-settings-block *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
   </div>
 
-  <div *ngIf="!hideFromAdmin">
+  <div *ngIf="hideBtn">
     <div *ngIf="dateService.currentUserIsTheMainAdmin | async">
       <div class="btnMainMenu">
         <button class="btnSettingsRecords" (click)="openSettingsOrg()">
@@ -203,9 +201,7 @@
 
 <div *ngIf="modalService.isVisible$ | async">
   <app-modal-window-for-person-page class="contentForModal">
-    <app-data-person-modal *ngIf="modalService.clientListBlock | async"
-                           (currentOrgHasEmployee)=" switchCurrentOrgHasEmployee($event)"
-    ></app-data-person-modal>
+    <app-data-person-modal *ngIf="modalService.clientListBlock | async"></app-data-person-modal>
     <app-modal-rename *ngIf="modalService.modalRenameUser | async"></app-modal-rename>
     <app-data-about-rec *ngIf="modalService.recordsBlock | async"></app-data-about-rec>
   </app-modal-window-for-person-page>
