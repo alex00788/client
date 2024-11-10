@@ -234,6 +234,11 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   clickedOnEmployee(event: boolean) {
     this.hideBtn = !event;
     this.hidePhotoCurrentOrg = !event;
+    this.getPhotoForOrg();
+    if (event) {
+      this.successService.localHandler('Вы выбрали одно из направлений. \n' +
+        'Чтобы его изменить нажмите x \n Чтоб закрыть направления нажмите на домик');
+    }
   }
 
   switchOrg() {

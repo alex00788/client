@@ -2,7 +2,6 @@
   border-radius: 10px;
   background: #11f5ba;
   color: #5238fd;
-  max-width: 95%;
 }
 
 .titleSuccessModal {
@@ -13,6 +12,8 @@
 
 .successMessage {
   margin: 15px;
+  white-space: pre;
+  line-height: 24px;
 }
 
 .btnSuccessModal {

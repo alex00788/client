@@ -99,13 +99,20 @@
   margin-top: 10px;
 }
 
+.wrapSuccessModalPersonalPage {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .successModalPersonalPage{
   border-radius: 10px;
   text-align: center;
   position: fixed;
+  width: 380px;
+  max-height: 300px;
   top: 50px;
-  left: 65%;
   z-index: 111;
 }
 
@@ -251,9 +258,7 @@
   }
 
   .successModalPersonalPage{
-    width: 100%;
-    left: 1%;
-    right: 1%;
+    width: 90%;
   }
 
   .btnOut {
