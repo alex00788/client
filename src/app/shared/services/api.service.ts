@@ -17,10 +17,10 @@ export class ApiService {
 
   //перехват и показ ошибки
   public errHandler(err: HttpErrorResponse) {
-    if (err.error.message === 'Пользователь с таким email уже существует') {
+    if (err.error?.message === 'Пользователь с таким email уже существует') {
       this.modalService.registrationError.next(true); //показываем кнопку для сброса регистрации
     }
-    if (err.error.message === 'Указан неверный пароль') {
+    if (err.error?.message === 'Указан неверный пароль') {
       this.modalService.rememberPas.next(true); //показываем кнопку для напоминания
     }
     if (!err.error?.message) {
