@@ -76,6 +76,7 @@ export class DataCalendarService {
       allUsersOrganization.find((admin: any)=> admin.role === 'EMPLOYEE'):
       allUsersOrganization.find((admin: any)=> admin.role === 'ADMIN')
     if (dataSettings) {
+      console.log('79', dataSettings)
       this.dateService.timeStartRecord.next(dataSettings.timeStartRec);
       this.dateService.timeMinutesRec.next(dataSettings.timeMinutesRec);
       this.dateService.timeFinishRecord.next(dataSettings.timeLastRec);
