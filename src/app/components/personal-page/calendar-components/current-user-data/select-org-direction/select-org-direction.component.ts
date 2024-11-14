@@ -41,6 +41,7 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
       })
   }
 
+  //Функция фильтрует и показывает сотрудников организации или одного сотрудника
   getEmployeesList(employeeSelected: boolean, employeeId: string | null): void {
     this.employees = employeeSelected && employeeId?
       [this.dateService.allUsersSelectedOrg.value.find((el: any)=> el.id === employeeId)] :

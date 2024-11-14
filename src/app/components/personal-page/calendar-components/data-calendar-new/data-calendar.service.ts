@@ -48,16 +48,16 @@ export class DataCalendarService {
     this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value, openEmployee, clickedByAdmin)
       .pipe(take(1))
       .subscribe(allUsersOrganization => {
-        console.log('5', allUsersOrganization)
+        // console.log('5', allUsersOrganization)
         if (allUsersOrganization?.length) {
           const currentUser = allUsersOrganization.find((user: any)=> +user.id == this.dateService.currentUserId.value)
           if (currentUser.openEmployee) {
-            console.log('56 open employee')
+            // console.log('56 open employee')
             this.dateService.remainingFunds.next(currentUser.remainingFunds);
             this.getDataSetting(allUsersOrganization, currentUser.openEmployee);
           } else {
             this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
-            console.log('61 open admin')
+            // console.log('61 open admin')
             this.dateService.currentUserId.next(currentUser.id);
             this.dateService.currentUserRole.next(currentUser.role);
             this.dateService.remainingFunds.next(currentUser.remainingFunds);
