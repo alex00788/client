@@ -65,7 +65,6 @@ export class MainPageComponent implements OnInit, OnDestroy{
     this.activateRouter.queryParams
       .pipe(takeUntil(this.destroyed$))
       .subscribe(params => {
-        console.log('60', params);
         if (params && Object.keys(params)[0] === 'organization') {
           //записываем данные орг из которой пришел человек
           this.dateService.nameOrganizationWhereItCameFrom.next(Object.values(params)[0])

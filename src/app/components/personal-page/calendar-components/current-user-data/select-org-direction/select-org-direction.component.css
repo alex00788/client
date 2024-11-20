@@ -50,11 +50,18 @@
 }
 
 .returnToOrg {
+  color: white;
   position: absolute;
-  top: -3px;
+  font-size: 30px;
+  top: -12px;
   left: 1px;
   background: none;
   border: none;
+  cursor: pointer;
+}
+
+.returnToOrg:hover {
+  color: #03f303;
 }
 
 h4 {

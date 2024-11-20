@@ -12,20 +12,16 @@
      </div>
      <div class="btnRecSitings">
        <div class="btnSFilterClass">
-         <!--<span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"
-           [class]="{
-              leftAndRightBtnWithoutMargin: dataCalendarService.allEntryCurrentUserThisMonth.value.length &&
-               dataCalendarService.filterByDate.value
-               }"
-           (click)="changeDay(-1)"
-         >
-           &#8592;
-         </span>-->
-         Фильтр по:
+         <svg width="15px" height="15px" viewBox="0 0 58 65"  xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+           <g id="Page-1" stroke="none" stroke-width="1" fill="red" >
+             <g id="Filter" sketch:type="MSLayerGroup"  stroke="blue" stroke-width="2">
+               <path d="M54,0 L2,0 C0.9,0 0,0.9 0,2 L21,33 C21,33.7 21.4,34.4 22,34.7 L22,62 L34,55 L34,34.7 C34.6,34.4 35,33.7 35,33 L56,2 C56,0.9 55.1,0 54,0 L54,0 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+             </g>
+           </g>
+         </svg>
          <button
            *ngIf="!showBtnFilter"
            class="btnFilterRec"
-
            (click)="openFilterBtn()"
          > &crarr;
          </button>
@@ -57,13 +53,6 @@
               btnFilterRecNotSelected: !dataCalendarService.showAll.value}"
            (click)="dataCalendarService.showAllRec()"
          > Все
-         </button>
-
-         <button
-           *ngIf="showBtnFilter"
-           class="btnFilterRec"
-           (click)="openFilterBtn()"
-         > &times;
          </button>
 
          <!--<span *ngIf="dataCalendarService.allEntryCurrentUserThisMonth.value.length && dataCalendarService.filterByDate.value"

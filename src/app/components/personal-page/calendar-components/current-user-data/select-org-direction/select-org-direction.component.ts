@@ -18,6 +18,8 @@ import {DataCalendarService} from "../../data-calendar-new/data-calendar.service
 })
 export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   @Output() clickedOnEmployee: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() dataAboutEmployee: EventEmitter<any> = new EventEmitter<any>();
+  @Output() idSelectedOrg: EventEmitter<any> = new EventEmitter<any>();
   btnCloseEmployee: boolean = false;
   btnHomeMenu: boolean = false;
   employees: any;
@@ -59,19 +61,23 @@ export class SelectOrgDirectionComponent implements OnInit, OnDestroy{
   }
 
   choiceEmployee(employee: any) {
+    this.idSelectedOrg.emit(this.dateService.idSelectedOrg.value); //передаю id в компонент записи чтоб при открытии сотрудника на беке взять еще email еще и админа
     this.btnCloseEmployee = true;
     this.btnHomeMenu = true;
     this.clickedOnEmployee.emit(true);
+    this.dataAboutEmployee.emit(employee);
+    this.dateService.openEmployee.next(true);
     this.getEmployeesList(true, employee.id);
     this.dateService.idSelectedOrg.next(employee.idRec);
-    // this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(true);
+    this.dataCalendarService.getAllEntryAllUsersForTheMonth();
+    this.dataCalendarService.getAllUsersCurrentOrganization();
   }
 
   returnToOrg() {
+    this.clickedOnEmployee.emit(false);
+    this.dateService.openEmployee.next(false);
     this.btnCloseEmployee = false;
     this.btnHomeMenu = false;
-    this.clickedOnEmployee.emit(false);
     this.getEmployeesList(false, null);
     this.dataCalendarService.routerLinkMain(false);
   }

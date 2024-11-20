@@ -43,21 +43,21 @@ export class DataCalendarService {
 
 
   //получаем всех пользователей выбранной организации
-  getAllUsersCurrentOrganization(openEmployee: boolean) {
+  getAllUsersCurrentOrganization() {
     const clickedByAdmin = this.dateService.currentUserIsTheAdminOrg.value // чтоб понять кто кликнул по сотруднику
-    this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value, openEmployee, clickedByAdmin)
+    this.apiService.getAllUsersCurrentOrganization(this.dateService.idSelectedOrg.value, this.dateService.currentUserId.value, this.dateService.openEmployee.value, clickedByAdmin)
       .pipe(take(1))
       .subscribe(allUsersOrganization => {
-        // console.log('5', allUsersOrganization)
         if (allUsersOrganization?.length) {
           const currentUser = allUsersOrganization.find((user: any)=> +user.id == this.dateService.currentUserId.value)
+          const nameSelectedOrg = currentUser.sectionOrOrganization.length > 17?
+            currentUser.sectionOrOrganization.slice(0, 17) + '...' : currentUser.sectionOrOrganization;
+          this.dateService.nameSelectedOrg.next(nameSelectedOrg)
           if (currentUser.openEmployee) {
-            // console.log('56 open employee')
             this.dateService.remainingFunds.next(currentUser.remainingFunds);
             this.getDataSetting(allUsersOrganization, currentUser.openEmployee);
           } else {
             this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
-            // console.log('61 open admin')
             this.dateService.currentUserId.next(currentUser.id);
             this.dateService.currentUserRole.next(currentUser.role);
             this.dateService.remainingFunds.next(currentUser.remainingFunds);
@@ -76,7 +76,6 @@ export class DataCalendarService {
       allUsersOrganization.find((admin: any)=> admin.role === 'EMPLOYEE'):
       allUsersOrganization.find((admin: any)=> admin.role === 'ADMIN')
     if (dataSettings) {
-      console.log('79', dataSettings)
       this.dateService.timeStartRecord.next(dataSettings.timeStartRec);
       this.dateService.timeMinutesRec.next(dataSettings.timeMinutesRec);
       this.dateService.timeFinishRecord.next(dataSettings.timeLastRec);
@@ -159,7 +158,7 @@ export class DataCalendarService {
       .pipe(take(1))
       .subscribe(() => {
         this.getAllEntryAllUsersForTheMonth();
-        this.getAllUsersCurrentOrganization(false);
+        this.getAllUsersCurrentOrganization();
         this.dateService.recordingDaysChanged.next(true);
       })
   }
@@ -193,6 +192,6 @@ export class DataCalendarService {
     this.dateService.idSelectedOrg.next(idSelectedOrg)
     this.dateService.currentOrg.next(nameOrg)
     this.getAllEntryAllUsersForTheMonth();
-    this.getAllUsersCurrentOrganization(false);
+    this.getAllUsersCurrentOrganization();
   }
 }

@@ -15,13 +15,15 @@
   <div class="imgOrgCower">
     <!--           меняем при деплое-->
     <!--           <img class="imgPerson" src="http://62.76.90.163:63420/{{photoCurrentOrg}}" height="170" width="200">-->
-    <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="http://localhost:3000/{{photoCurrentOrg}}" height="170" width="100%">
-    <!--  <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="assets/img/mySelf.png" height="170" width="100%">-->
+    <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="http://localhost:3000/{{photoCurrentOrg}}" alt="Загрузите фото" height="170" width="100%">
+<!--      <img *ngIf="hidePhotoCurrentOrg" class="imgOrg" src="assets/img/mySelf.png" height="170" width="100%">-->
   </div>
 
   <div *ngIf="currentOrgHasEmployees"  style="color: white">
     <app-select-org-direction
       (clickedOnEmployee)="clickedOnEmployee($event)"
+      (dataAboutEmployee)="handOverData($event)"
+      (idSelectedOrg)="getIdSelectedOrg($event)"
     ></app-select-org-direction>
   </div>
 
@@ -101,7 +103,9 @@
     </button>
   </div>
   <div class="bodyCalendarElementClass" >
-    <app-settings-block *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
+    <app-settings-block
+      [dataAboutEmployee] = "dataAboutEmployee"
+      *ngIf="dateService.currentUserIsTheAdminOrg.value"></app-settings-block>
   </div>
 
   <div *ngIf="hideBtn">
@@ -191,7 +195,8 @@
 
     <div class="dateNowAndSelected">
       <div class="dataCalendar">
-        <app-data-calendar-new></app-data-calendar-new>
+        <app-data-calendar-new [idSelectedOrgForRecInEmployee]="idSelectedOrgForRecInEmployee"
+        ></app-data-calendar-new>
       </div>
     </div>
   </div>

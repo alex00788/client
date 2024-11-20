@@ -41,6 +41,10 @@
   margin: 10px;
 }
 
+.currentUserNameOrg {
+  text-align: end;
+}
+
 .inputPhotoOrgLabel {
   display: none;
 }

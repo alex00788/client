@@ -60,11 +60,12 @@ export class SelectOrgToDisplayComponent implements OnInit, OnDestroy {
 
   choiceOrgForRec(org: any) {
     this.dateService.switchOrg.next(true);
+    this.dateService.openEmployee.next(false);
     this.showSelectedOrg = false;
     this.dateService.idSelectedOrg.next(org.id);
     this.dateService.currentOrg.next(org.name);
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.getAllUsersCurrentOrganization();
     this.whenSwitchOrgCheckHasEmployees();
     this.orgWasChange.emit();  // нужно чтоб при переключении на др орг фотка менялась
     this.dateService.idOrgWhereSelectedEmployee.next(this.dateService.idSelectedOrg.value);

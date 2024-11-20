@@ -27,13 +27,19 @@
 
   <div class="currentUser" *ngIf="dateService.currentUserSimpleUser.value">
     <div>
+      <strong> Выбрано: </strong>
+    </div>
+    <span class="currentUserNameOrg"> {{dateService.nameSelectedOrg | async }} </span>
+  </div>
+  <div class="currentUser" *ngIf="dateService.currentUserSimpleUser.value">
+    <div>
       <strong> Баланс: </strong>
     </div>
     <span> 0 руб </span>
   </div>
   <div class="currentUser" *ngIf="dateService.currentUserSimpleUser.value">
     <div>
-      <strong> Баланс записей, осталось: </strong>
+      <strong> Остаток записей: </strong>
     </div>
     <span> {{dateService.remainingFunds | async}} </span>
   </div>

@@ -101,13 +101,15 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   currentOrgHasEmployees = false;
   settingsOrg = false;
   hideBtn = true;
+  dataAboutEmployee: any;
+  idSelectedOrgForRecInEmployee: any;
 
   ngOnInit(): void {
     this.webSocketService.socket.onopen;     //соединился с webSocket servera
     this.dateService.getCurrentUser(); // заполняет блок мои данные
     this.getAllOrg();
     this.clearTableRec();    //вызывается 1 раз при входе 2 раза в месяц
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.getAllUsersCurrentOrganization();
     this.whenLoggingCheckOrgHasEmployees()
   }
 
@@ -196,6 +198,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   }
 
   routerLinkMain() {
+    this.dateService.openEmployee.next(false);
     this.dataCalendarService.routerLinkMain(true);
     this.getAllOrg();
 //ниже две строки для того чтобы перекидывать на страницу входа без разлогинивания
@@ -232,13 +235,12 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   }
 
   clickedOnEmployee(event: boolean) {
+    this.hidePhotoCurrentOrg = false;
     if (this.dateService.currentUserIsTheAdminOrg.value) {
       this.hideBtn = !event;
     }
     this.hidePhotoCurrentOrg = !event;
-    setTimeout(()=> {
-      this.getPhotoForOrg();
-    }, 150)
+    setTimeout(()=> this.getPhotoForOrg())
     // if (event) {
     //   this.successService.localHandler('Вы выбрали одно из направлений. \n' +
     //     'Чтобы его изменить нажмите x \n Чтоб закрыть направления нажмите на домик');
@@ -248,5 +250,13 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   switchOrg() {
     this.getAllOrg()
     this.hideBtn = true;
+  }
+
+  handOverData(event: any) {
+    this.dataAboutEmployee = event
+  }
+
+  getIdSelectedOrg(id: any) {
+    this.idSelectedOrgForRecInEmployee = id
   }
 }

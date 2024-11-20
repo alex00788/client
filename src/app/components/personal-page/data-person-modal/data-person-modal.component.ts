@@ -70,7 +70,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.webSocketUpdateAllConnected();   //оповещение все открытые окна
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.getAllUsersCurrentOrganization();
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)
     this.hideBtnForCurrentAdmin = this.selectedUser.userId == this.dateService.currentUserId.value;
     this.employeeCurrentOrganization = this.selectedUser.jobTitle.length > 1
@@ -193,7 +193,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
 
   refreshData () {
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.getAllUsersCurrentOrganization();
     this.dateService.recordingDaysChanged.next(true);
   }
 

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import moment from "moment";
 import {DataCalendarService} from "./data-calendar.service";
 import {DateService} from "../date.service";
@@ -52,7 +52,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
   recordComplete: boolean = false;
   currentHour: any = new Date().getHours();
   state = 'closed'
-
+  @Input() idSelectedOrgForRecInEmployee: any;
   // form = new FormGroup({
   //   newEntry: new FormControl(null, Validators.required),
   // })
@@ -349,6 +349,8 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
       return;
     }
     const workStatus = this.dateService.maxPossibleEntries.value <= this.dateService.howMuchRecorded.value +1? 0 : 1; //0 = closed 1 = open
+    const openEmployeeForRec = this.dateService.openEmployee.value;
+    const orgIdAdminForEmployee = this.idSelectedOrgForRecInEmployee;
     const year = date.substring(date.length - 4);
     const month = date.substring(3,5);
     const dateNum = date.slice(0,2);
@@ -367,7 +369,9 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
       idOrg: this.dateService.idSelectedOrg.value,
       workStatus: workStatus,
       recAllowed: user.recAllowed,
-      created: user.created
+      created: user.created,
+      openEmployeeForRec,
+      orgIdAdminForEmployee
     }
     this.apiService.addEntry(newUserAccount)
       .pipe(takeUntil(this.destroyed$))
@@ -395,7 +399,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
   //обновление после добавления или удаление записи
   refreshData () {
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.getAllUsersCurrentOrganization();
     this.dateService.recordingDaysChanged.next(true);
   }
 

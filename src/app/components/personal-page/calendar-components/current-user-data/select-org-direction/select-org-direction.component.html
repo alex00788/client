@@ -14,9 +14,7 @@
                  *ngIf="btnHomeMenu"
                  (click)="returnToOrgAndCloseEmployees()"
          >
-           <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.98 1.984l7 6h-2.003v6H9.96V10.97H5.997v3.016H2.982v-6H.979l7-6z" fill="red"></path>
-           </svg>
+           &larr;
          </button>
          <button class="btnCloseEmp"
                  *ngIf="btnCloseEmployee"
@@ -32,7 +30,7 @@
          <div class="choiceEmployee" (click)="choiceEmployee(employee)">
 <!--           меняем при деплое-->
 <!--           <img class="imgPerson" src="http://62.76.90.163:63420/{{employee.photoEmployee}}" height="170" width="200">-->
-           <img class="imgPerson" src="http://localhost:3000/{{employee.photoEmployee}}" height="170" width="200">
+           <img class="imgPerson" src="http://localhost:3000/{{employee.photoEmployee}}"  alt="Загрузите фото сотрудника" height="170" width="200">
          </div>
 
          <div class="choiceEmployee" (click)="choiceEmployee(employee)">

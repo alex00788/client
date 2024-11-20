@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PersonalBlockService} from "../../personal-block.service";
 import {DateService} from "../../date.service";
 import {ApiService} from "../../../../../shared/services/api.service";
@@ -28,6 +28,7 @@ export class SettingsBlockComponent implements OnInit{
     public apiService: ApiService,
     public successService: SuccessService
   ) {  }
+  @Input() dataAboutEmployee: any;
   private destroyed$: Subject<void> = new Subject();
   // dataSettings:  any;
   timesForRec : any = [''];
@@ -96,10 +97,12 @@ export class SettingsBlockComponent implements OnInit{
       '0' + +this.form.value.timeFinishRec : this.form.value.timeFinishRec;
     this.form.value.timeStartRec = timeSt
     this.dateService.changeSettingsRec(this.form.value)
+    const openEmployee = this.dateService.openEmployee.value
     const dataSettings = {
-      nameUser: currentUser.nameUser,
-      surnameUser: currentUser.surnameUser,
-      userId: this.dateService.currentUserId.value,
+      openEmployee,
+      nameUser: openEmployee? this.dataAboutEmployee.nameUser : currentUser.nameUser,
+      surnameUser: openEmployee? this.dataAboutEmployee.surnameUser : currentUser.surnameUser,
+      userId:  openEmployee? this.dataAboutEmployee.id : this.dateService.currentUserId.value,
       orgId: this.dateService.idSelectedOrg.value,
       nameOrg: this.dateService.sectionOrOrganization.value,
       roleSelectedOrg: this.dateService.currentUserRole.value,
@@ -123,16 +126,18 @@ export class SettingsBlockComponent implements OnInit{
         this.dateService.location.next(set.newSettings.location);
         this.dateService.phoneOrg.next(set.newSettings.phoneOrg);
         this.dateService.changedSettingsOrg.next(true);
-        this.refreshData()
         this.successService.localHandler('Настройки сохранены');
+        if (!openEmployee) {
+          this.refreshData()
+        }
       });
 
-    this.dataCalendarService.getAllEntryAllUsersForTheMonth();
+    // this.dataCalendarService.getAllEntryAllUsersForTheMonth();
   }
 
   refreshData () {
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
-    this.dataCalendarService.getAllUsersCurrentOrganization(false);
+    this.dataCalendarService.getAllUsersCurrentOrganization();
     this.dateService.recordingDaysChanged.next(true);
   }
 
