@@ -365,7 +365,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
       user: user.surnameUser + ' ' + user.nameUser,
       userId: user.id,
       remainingFunds: user.remainingFunds,
-      sectionOrOrganization: user.sectionOrOrganization,
+      sectionOrOrganization: openEmployeeForRec? this.dateService.nameSelectedOrg.value  : user.sectionOrOrganization,
       idOrg: this.dateService.idSelectedOrg.value,
       workStatus: workStatus,
       recAllowed: user.recAllowed,
@@ -431,6 +431,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
 
 
   currentHourTime(time: any, date: any) {
+    this.refreshData(); // вызываем, чтоб обновить данные, если вдруг админ, что-то изменил, поэтому в консоле дважды идет вызов запроса
     time = time <= 9 && time >=0 && time !== '00' && time.length < 1? '0' + time : time;
     this.dateService.userSignedHimself.next(false);
     setTimeout(() => {
