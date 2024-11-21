@@ -104,7 +104,7 @@ export class SettingsBlockComponent implements OnInit{
       surnameUser: openEmployee? this.dataAboutEmployee.surnameUser : currentUser.surnameUser,
       userId:  openEmployee? this.dataAboutEmployee.id : this.dateService.currentUserId.value,
       orgId: this.dateService.idSelectedOrg.value,
-      nameOrg: this.dateService.sectionOrOrganization.value,
+      nameOrg: openEmployee? this.dateService.nameSelectedOrg.value : this.dateService.sectionOrOrganization.value,
       roleSelectedOrg: this.dateService.currentUserRole.value,
       remainingFunds: this.dateService.remainingFunds.value,
       maxiPeople: this.form.value.maxiPeople,
