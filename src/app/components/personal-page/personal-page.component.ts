@@ -118,7 +118,10 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
     this.dateService.allUsersSelectedOrg  //когда пройдет запрос данные меняются, подписываюсь на это событие, чтоб перерисовать сотрудников текущей организации
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
-        this.currentOrgHasEmployees = this.dataCalendarService.checkingOrgHasEmployees();
+        if (!this.dateService.openEmployee.value) {
+          //проверку сотрудников делаем тока у админской орг
+          this.currentOrgHasEmployees = this.dataCalendarService.checkingOrgHasEmployees();
+        }
       })
   }
 

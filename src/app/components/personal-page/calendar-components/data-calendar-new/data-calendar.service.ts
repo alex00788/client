@@ -56,6 +56,8 @@ export class DataCalendarService {
           if (currentUser.openEmployee) {
             this.dateService.remainingFunds.next(currentUser.remainingFunds);
             this.getDataSetting(allUsersOrganization, currentUser.openEmployee);
+            this.dateService.allUsersSelectedOrg.next(allUsersOrganization);
+            this.dateService.currentUserId.next(currentUser.id);
           } else {
             this.dateService.allUsersSelectedOrg.next(allUsersOrganization);     // пользователи выбранной организации
             this.dateService.currentUserId.next(currentUser.id);
@@ -168,6 +170,7 @@ export class DataCalendarService {
   //Функция, проверяет есть сотрудники у орг или нет!
   // которая смотрит всех сотрудников и если хоть у кого то есть jobTitle, возвращает true и показывается блок направления организации
   checkingOrgHasEmployees () {
+    // console.log('177')
     const employees = this.dateService.allUsersSelectedOrg.value?.filter((el: any) => el.jobTitle.length >= 1)
     return employees?.length >= 1 ;
   }

@@ -64,17 +64,15 @@
   </div>
 
 
-  <div *ngIf="hideBtn">
-    <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
-      <button class="btnSettingsRecords"
-              *ngIf="!personalBlockService.clientListBlock"
-              (click)="personalBlockService.openClientList()"
-      > Мои клиенты
-      </button>
-    </div>
-    <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
-      <app-clients-list></app-clients-list>
-    </div>
+  <div class="btnMainMenu" *ngIf="dateService.currentUserIsTheAdminOrg.value">
+    <button class="btnSettingsRecords"
+            *ngIf="!personalBlockService.clientListBlock"
+            (click)="personalBlockService.openClientList()"
+    > Мои клиенты
+    </button>
+  </div>
+  <div *ngIf="personalBlockService.clientListBlock && dateService.currentUserIsTheAdminOrg.value ">
+    <app-clients-list></app-clients-list>
   </div>
 
 
