@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {DateService} from "../calendar-components/date.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {Subject, takeUntil} from "rxjs";
+import {BehaviorSubject, Subject, takeUntil} from "rxjs";
 import {ApiService} from "../../../shared/services/api.service";
 import {ModalService} from "../../../shared/services/modal.service";
 import {TranslateMonthPipe} from "../../../shared/pipe/translate-month.pipe";
@@ -11,6 +11,7 @@ import moment from "moment";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators,} from "@angular/forms";
 import {SuccessService} from "../../../shared/services/success.service";
 import {WebSocketService} from "../../../shared/services/web-socket.service";
+import {ReductionAddressPipe} from "../../../shared/pipe/reduction-address.pipe";
 
 @Component({
   selector: 'app-data-person-modal',
@@ -21,7 +22,8 @@ import {WebSocketService} from "../../../shared/services/web-socket.service";
     TranslateMonthPipe,
     RecordsBlockComponent,
     NgForOf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ReductionAddressPipe
   ],
   templateUrl: './data-person-modal.component.html',
   styleUrl: './data-person-modal.component.css'
@@ -60,11 +62,13 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   currentHour: any = new Date().getHours();
   blockRepeat: boolean = false;
   clickCount = 0;
-  blockRecordsSelectedUser = true;
+  blockRecordsSelectedUser = false;
   selectedUser = this.dateService.dataSelectedUser.value;
   newUser = true;
   recAllowed = false;
   private formData: FormData;
+  showRemainderInDirections = true;
+  dataAboutDirection: BehaviorSubject<any> = new BehaviorSubject([])
 
 
   ngOnInit(): void {
@@ -299,6 +303,19 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
       .subscribe((res)=> {
         this.refreshData();
         this.successService.localHandler(`Фото добавлено`);
+      })
+  }
+
+  showRestInDirections() {
+    this.apiService.getAllDataAboutResetSelectedUser(this.dateService.idSelectedOrg.value, this.selectedUser.userId)
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((res)=> {
+        this.showRemainderInDirections = !this.showRemainderInDirections;
+        if (!this.showRemainderInDirections) {
+          this.dataAboutDirection.next(res);
+        } else {
+          this.dataAboutDirection.next([]);
+        }
       })
   }
 }

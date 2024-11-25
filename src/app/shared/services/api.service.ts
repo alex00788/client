@@ -171,6 +171,15 @@ export class ApiService {
       .pipe(catchError(this.errHandler.bind(this)))
   }
 
+  getAllDataAboutResetSelectedUser(idOrg: any, userId:any,) {
+    return this.http.get<any>('/api/user/getAllDataAboutResetSelectedUser', {
+      params: new HttpParams()
+        .append('idOrg', idOrg)
+        .append('userId', userId)
+    })
+      .pipe(catchError(this.errHandler.bind(this)))
+  }
+
 
   getPhoneClient(userId: any): Observable<any> {
     return this.http.get<any>('/api/user/getPhoneClient', {
