@@ -73,19 +73,20 @@
       </div>
     </div>-->
 
-
-    <div  *ngIf="!hideBtnForCurrentAdmin">
-      <div *ngIf="employeeCurrentOrganization" class="removeFromOffice">
-        <div class="removeFromOfficeTitle">
-          <strong> {{selectedUser.jobTitle}} </strong>
+    <div *ngIf="!dateService.openEmployee.value">
+      <div  *ngIf="!hideBtnForCurrentAdmin">
+        <div *ngIf="employeeCurrentOrganization" class="removeFromOffice">
+          <div class="removeFromOfficeTitle">
+            <strong> {{selectedUser.jobTitle}} </strong>
+          </div>
+          <button class="btnRemoveFromOffice" (click)="fireFromOrg()">
+            Снять с должности
+          </button>
         </div>
-        <button class="btnRemoveFromOffice" (click)="fireFromOrg()">
-          Снять с должности
-        </button>
-      </div>
-      <div *ngIf="!employeeCurrentOrganization" (click)="switchFormEmployees()" class="selectedUserClass">
-        <strong class="btnShowDayRec" *ngIf="!stateFormEmployees"> Назначить </strong>
-        <strong class="btnShowDayRec" *ngIf="stateFormEmployees"> Отменить </strong>
+        <div *ngIf="!employeeCurrentOrganization" (click)="switchFormEmployees()" class="selectedUserClass">
+          <strong class="btnShowDayRec" *ngIf="!stateFormEmployees"> Назначить </strong>
+          <strong class="btnShowDayRec" *ngIf="stateFormEmployees"> Отменить </strong>
+        </div>
       </div>
     </div>
 

@@ -1,6 +1,6 @@
 <div class="now">
   <div class="titleNow" (click)="personalBlockService.switchData()">
-    <strong class="clickBtn"> Мои данные </strong>
+
     <!--<button class="btnClosePersonalDataComponent" (click)="personalBlockService.switchData()">&times;</button>-->
   </div>
   <div class="currentUser">
@@ -12,8 +12,8 @@
     <span> {{dateService.currentUserNameAndSurname | async}} </span>
   </div>
 
-  <div class="addPhotoOrg" *ngIf="!dateService.openEmployee.value">
-    <div *ngIf="dateService.currentUserIsTheAdminOrg | async">
+  <div  *ngIf="!dateService.openEmployee.value">
+    <div class="addPhotoOrg" *ngIf="dateService.currentUserIsTheAdminOrg | async">
       <label for="inputPhotoOrgLabel">
         <span class="uploadEmployeePhoto">Добавить фото моей организации</span>
       </label>

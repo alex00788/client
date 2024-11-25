@@ -276,6 +276,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
         this.employeeCurrentOrganization = false;
         this.updateData('', '')
         this.dataCalendarService.checkingOrgHasEmployees();
+        this.selectedUser.photoEmployee = "";
       })
   }
 
