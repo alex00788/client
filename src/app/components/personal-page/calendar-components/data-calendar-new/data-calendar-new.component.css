@@ -186,12 +186,6 @@ li {
   }
 }
 
-@media (max-width: 1300px) {
-  .cowerRecordsBlock {
-    width: 500px;
-  }
-}
-
 
 @media (max-width: 950px) {
   .cowerRecordsBlock {
