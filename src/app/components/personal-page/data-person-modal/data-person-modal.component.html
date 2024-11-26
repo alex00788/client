@@ -113,12 +113,16 @@
           <strong class="btnShowHide closeLabelColor" *ngIf="!showRemainderInDirections">&times; Скрыть остаток в направлениях </strong>
         </button>
       </div>
-      <div class="remainingDirection" *ngFor="let row of dataAboutDirection | async">
-        <span> {{ row.sectionOrOrganization | reductionAddress}}</span>
-        <span> Остаток: {{ row.remainingFunds }}</span>
-        <button>Обнулить</button>
+      <div *ngIf="dataAboutDirection.value.length; else informationAvailable">
+        <div class="remainingDirection" *ngFor="let row of dataAboutDirection | async">
+          <span> {{ row.sectionOrOrganization | reductionAddress}}</span>
+          <span> Остаток: {{ row.remainingFunds }}</span>
+          <button>Обнулить</button>
+        </div>
       </div>
-
+      <ng-template #informationAvailable>
+        <span class="informationAvailableClass" *ngIf="!showRemainderInDirections">  Данных нет!</span>
+      </ng-template>
 
       <div *ngIf="!hideBtnForCurrentAdmin">
         <div *ngIf="!employeeCurrentOrganization">

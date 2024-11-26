@@ -41,6 +41,12 @@
   color: #0221c0;
 }
 
+.informationAvailableClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .removeFromOffice {
   display: flex;
   justify-content: space-between;

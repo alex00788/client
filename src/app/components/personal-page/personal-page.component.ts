@@ -201,6 +201,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   }
 
   routerLinkMain() {
+    this.currentOrgHasEmployees = false;
     this.dateService.openEmployee.next(false);
     this.dataCalendarService.routerLinkMain(true);
     this.getAllOrg();

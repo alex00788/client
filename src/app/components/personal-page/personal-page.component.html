@@ -152,7 +152,7 @@
     <div *ngIf="dateService.currentUserIsTheMainAdmin | async"  >
       <div class="btnMainMenu">
         <button class="btnSettingsRecords" (click)="deleteTestDataSwitch()">
-          Удалить тест данные
+          Удалить все связанное с email
         </button>
       </div>
       <form [formGroup]="formDeleteData" (submit)="removeTestData()" *ngIf="deleteData" class="deleteTestData">
