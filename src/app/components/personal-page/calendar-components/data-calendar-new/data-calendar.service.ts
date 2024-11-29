@@ -82,6 +82,7 @@ export class DataCalendarService {
       this.dateService.timeMinutesRec.next(dataSettings.timeMinutesRec);
       this.dateService.timeFinishRecord.next(dataSettings.timeLastRec);
       this.dateService.maxPossibleEntries.next(dataSettings.maxClients);
+      this.dateService.recordingDays.next(dataSettings.recordingDays);
       this.dateService.location.next(dataSettings.location);
       this.dateService.phoneOrg.next(dataSettings.phoneOrg);
       this.dateService.changedSettingsOrg.next(true);

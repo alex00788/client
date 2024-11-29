@@ -8,6 +8,33 @@
   padding: 10px;
 }
 
+.btnDisabled {
+  background: none;
+  border: none;
+}
+
+.blockDaysWhenThereIsARecording {
+  margin: 5px 10px;
+  padding: 5px;
+}
+
+.daysWhenShow {
+  margin: 5px;
+  padding:  1px 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: solid 1px red;
+}
+
+.selectedDays {
+  background: #e128f8;
+}
+
+.notSelectedDays {
+  background: none;
+}
+
+
 .addColor {
   color: #0221c0;
 }

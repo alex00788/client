@@ -33,6 +33,8 @@ export class SettingsBlockComponent implements OnInit{
   // dataSettings:  any;
   timesForRec : any = [''];
   timesForRecMinutes : any = [''];
+  nameDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
+  selDays: string[] = [];
   form = new FormGroup({
     maxiPeople: new FormControl(this.dateService.maxPossibleEntries.value, Validators.required),
     timeUntilBlock: new FormControl(this.dateService.timeUntilBlock.value, Validators.required),
@@ -58,6 +60,10 @@ export class SettingsBlockComponent implements OnInit{
     for (let i = 0 ; i <= 59; i++) {
       this.timesForRecMinutes.push(i)
     }
+    if (this.dateService.recordingDays.value.length) {
+      this.selDays = this.dateService.recordingDays.value.split(',')
+    }
+
   }
 
   dataForBlockShowCurrentSettings() {
@@ -112,6 +118,7 @@ export class SettingsBlockComponent implements OnInit{
       timeStartRec: timeSt,
       timeMinutesRec: timeMinutes,
       timeFinishRec: timeFn,
+      recordingDays: this.selDays.join(','),
       location: this.form.value.location,
       phoneOrg: this.form.value.phoneOrg,
     }
@@ -123,6 +130,7 @@ export class SettingsBlockComponent implements OnInit{
         this.dateService.timeFinishRecord.next(set.newSettings.timeLastRec);
         this.dateService.timeUntilBlock.next(set.newSettings.timeUntilBlock);
         this.dateService.maxPossibleEntries.next(set.newSettings.maxClients);
+        this.dateService.recordingDays.next(set.newSettings.recordingDays);
         this.dateService.location.next(set.newSettings.location);
         this.dateService.phoneOrg.next(set.newSettings.phoneOrg);
         this.dateService.changedSettingsOrg.next(true);
@@ -159,4 +167,13 @@ export class SettingsBlockComponent implements OnInit{
         val.target.value = '';
     }
   }
+
+  choiceDayRec(day: string) {
+    if (this.selDays.includes(day)) {
+      this.selDays = this.selDays.filter((e:string) => e !== day);
+    } else {
+      this.selDays.push(day);
+    }
+  }
+
 }

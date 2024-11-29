@@ -8,15 +8,15 @@
       <input type="number" maxlength="2" max="20" min="1" class="settingsInputClass" formControlName="maxiPeople">
     </div>
 
-    <div class="oneSitting">
+    <button class="oneSitting btnDisabled" [disabled]="true">
       <label>
         Отменить можно за сколько ч:
       </label>
       <input type="number" maxlength="2" max="20" min="1"
              (input)="inputVal($event)"
-             class="settingsInputClass" formControlName="timeUntilBlock"
+             class="settingsInputClass btnDisabled" formControlName="timeUntilBlock"
       >
-    </div>
+    </button>
 
     <div class="oneSitting">
       <label>
@@ -39,6 +39,21 @@
       <select class="settingsSelectClass" formControlName="timeFinishRec">
         <option *ngFor="let chEnd of timesForRec"> {{chEnd}}</option>
       </select>
+    </div>
+
+    <div class="oneSitting">
+      <label>
+        Дни когда есть запись:
+      </label>
+    </div>
+    <div class="blockDaysWhenThereIsARecording">
+      <span class="daysWhenShow" *ngFor="let day of nameDays" (click)="choiceDayRec(day)"
+            [class]="{
+              selectedDays : selDays.includes(day),
+              notSelectedDays: !selDays.includes(day)}"
+      >
+        {{day}}
+      </span>
     </div>
 
     <div class="oneSitting">
@@ -117,6 +132,16 @@
       </span>
         <span style="color: #5238fd">
           {{dateService.timeFinishRecord.value}} : {{ dateService.timeMinutesRec.value }}
+        </span>
+      </div>
+    </div>
+    <div class="sittingCurrentValue" (click)="personalBlockService.changeSettingsRecords()">
+      <div class="setSpaceBetween">
+        <span>
+       Дни записи:
+      </span>
+        <span style="color: #5238fd">
+          {{dateService.recordingDays.value}}
         </span>
       </div>
     </div>
