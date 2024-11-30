@@ -237,7 +237,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
     const en = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']             // смотрим индекс дня
     const ru = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']             //сравниваем с русским
     const indexDayOfWeek = en.indexOf(nameDayOfWeek)                 // определяем индекс пришедшего дня, чтоб взять такойже в ру массиве
-    return this.dateService.recordingDays.value.split(',').includes(ru[indexDayOfWeek])  // смотрим есть ли в настройках указанный день;
+    return this.dateService.recordingDays.value.replaceAll(', ', ',').split(',').includes(ru[indexDayOfWeek])  // смотрим есть ли в настройках указанный день;
   }
 
   getArrayOfDaysFromTheRequiredHours(week: any[]) {
