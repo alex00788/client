@@ -226,28 +226,29 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
     const res: any[] = [];
     for (let i = 0; i < currentWeek.length; i++) {
       let times = this.getAllRecOnThisWeek(currentWeek).filter((el:any)=> el.date === currentWeek[i])
-      res.push({date: currentWeek[i], times })
+      res.push({date: currentWeek[i], times , showThisDay: this.checkShowOrHiDay(currentWeek[i])})
     }
     return this.getArrayOfDaysFromTheRequiredHours(res);
   }
 
 
+   checkShowOrHiDay(date: any) {
+    const nameDayOfWeek = moment(date, 'DD MM YYYY').format('dd')   // определяем день нед
+    const en = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']             // смотрим индекс дня
+    const ru = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']             //сравниваем с русским
+    const indexDayOfWeek = en.indexOf(nameDayOfWeek)                 // определяем индекс пришедшего дня, чтоб взять такойже в ру массиве
+    return this.dateService.recordingDays.value.split(',').includes(ru[indexDayOfWeek])  // смотрим есть ли в настройках указанный день;
+  }
+
   getArrayOfDaysFromTheRequiredHours(week: any[]) {
     const addSetTime: any[] = []
     week.forEach((el:any)=> {
-
-      const nameDayOfWeek = moment(el.date, 'DD MM YYYY').format('dd')   // определяем день нед
-      const en = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']             // смотрим индекс дня
-      const ru = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']             //сравниваем с русским
-      const indexDayOfWeek = en.indexOf(nameDayOfWeek)                 // определяем индекс пришедшего дня, чтоб взять такойже в ру массиве
-      const showThisDay = this.dateService.recordingDays.value.split(',').includes(ru[indexDayOfWeek])  // смотрим есть ли в настройках указанный день
-
       if (el.times.length) {
         addSetTime.push(el)
       } else {
         let times: any[] = [];
         // times.push({date: el.date, time: '18', users: [] })    // было сделано чтоб хоть что то показывалось пользователю для записи
-        addSetTime.push({date: el.date, times, showThisDay})
+        addSetTime.push({date: el.date, times, showThisDay: this.checkShowOrHiDay(el.date)})
       }
     })
     return this.checkingTheSetTime(this.sortingByTime(addSetTime));

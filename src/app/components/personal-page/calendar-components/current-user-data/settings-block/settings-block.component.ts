@@ -32,6 +32,7 @@ export class SettingsBlockComponent implements OnInit{
   private destroyed$: Subject<void> = new Subject();
   // dataSettings:  any;
   timesForRec : any = [''];
+  showDayRec : string;
   timesForRecMinutes : any = [''];
   nameDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс']
   selDays: string[] = [];
@@ -63,8 +64,24 @@ export class SettingsBlockComponent implements OnInit{
     if (this.dateService.recordingDays.value.length) {
       this.selDays = this.dateService.recordingDays.value.split(',')
     }
-
+    this.showDayRecPipe();
   }
+
+  showDayRecPipe() { // функция сортирует дни недели по порядку если user нажал их в произвольном порядке
+    this.dateService.recordingDays
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe(()=> {
+        const res: any[] = [];
+        const days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+        this.dateService.recordingDays.value.split(',').forEach((el: any)=> res.push({name: el, id: days.indexOf(el)}))
+        this.showDayRec = res
+          .sort((a:any, b: any)=> a.id > b.id? 1 : -1)
+          .map((el: any) => el.name)
+          .join(',')
+          .replaceAll(',', ', ')
+      })
+  }
+
 
   dataForBlockShowCurrentSettings() {
     if (!this.dateService.timeStartRecord.value) {
