@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PersonalBlockService} from "../../personal-block.service";
 import {DateService} from "../../date.service";
 import {ApiService} from "../../../../../shared/services/api.service";
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DataCalendarService} from "../../data-calendar-new/data-calendar.service";
 import {Subject, takeUntil} from "rxjs";
@@ -15,7 +15,8 @@ import {SuccessService} from "../../../../../shared/services/success.service";
     FormsModule,
     ReactiveFormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    AsyncPipe
   ],
   templateUrl: './settings-block.component.html',
   styleUrl: './settings-block.component.css'
@@ -61,24 +62,11 @@ export class SettingsBlockComponent implements OnInit{
     for (let i = 0 ; i <= 59; i++) {
       this.timesForRecMinutes.push(i)
     }
-    if (this.dateService.recordingDays.value.length) {
-      this.selDays = this.dateService.recordingDays.value.split(',')
-    }
-    this.showDayRecPipe();
-  }
 
-  showDayRecPipe() { // функция сортирует дни недели по порядку если user нажал их в произвольном порядке
     this.dateService.recordingDays
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
-        const res: any[] = [];
-        const days = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
-        this.dateService.recordingDays.value.split(',').forEach((el: any)=> res.push({name: el, id: days.indexOf(el)}))
-        this.showDayRec = res
-          .sort((a:any, b: any)=> a.id > b.id? 1 : -1)
-          .map((el: any) => el.name)
-          .join(',')
-          .replaceAll(',', ', ')
+        this.selDays = this.dateService.recordingDays.value.replaceAll(', ', ',').split(',')
       })
   }
 
@@ -104,12 +92,19 @@ export class SettingsBlockComponent implements OnInit{
     }
   }
 
+  showDayRecPipe(arrDays: any) { // функция сортирует дни недели по порядку если user нажал их в произвольном порядке
+    const res: any[] = [];
+    arrDays.forEach((el: any)=> res.push({name: el, id: this.nameDays.indexOf(el)}))
+    res.sort((a:any, b: any)=> a.id > b.id? 1 : -1)
+    this.selDays = res.map((el: any) => el.name);
+  }
 
   submit() {
+    this.showDayRecPipe(this.selDays) // вернет сортированный массив
     const currentUser = this.dateService.allUsersSelectedOrg.value.find((us: any) => us.id == this.dateService.currentUserId.value)
     this.personalBlockService.closeSettings();
     this.personalBlockService.settingsRecords = false;
-    this.dateService.changeSettingsRec(this.form.value)
+    // this.dateService.changeSettingsRec(this.form.value) // дублирует 117
     const timeMinutes = +this.form.value.timeMinutesRec <= 9 && +this.form.value.timeMinutesRec >=0 && this.form.value.timeMinutesRec !== '00'?
       '0' + +this.form.value.timeMinutesRec : this.form.value.timeMinutesRec;
     const timeSt = +this.form.value.timeStartRec <= 9 && +this.form.value.timeStartRec >=0 && this.form.value.timeStartRec !== '00'?
@@ -135,7 +130,7 @@ export class SettingsBlockComponent implements OnInit{
       timeStartRec: timeSt,
       timeMinutesRec: timeMinutes,
       timeFinishRec: timeFn,
-      recordingDays: this.selDays.join(','),
+      recordingDays: this.selDays.join(', '),
       location: this.form.value.location,
       phoneOrg: this.form.value.phoneOrg,
     }
