@@ -24,7 +24,7 @@ export class ApiService {
       this.modalService.rememberPas.next(true); //показываем кнопку для напоминания
     }
     if (!err.error?.message) {
-      this.errorResponseService.localHandler('ошибка при запросе на серв')
+      this.errorResponseService.localHandler(`ошибка при запросе на серв ${err}   ${err.error}   ${err.error?.message}`)
       return throwError(() => err)
     } else {
       this.errorResponseService.handler(err.error?.message)
