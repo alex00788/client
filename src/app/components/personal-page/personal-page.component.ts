@@ -105,7 +105,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
   idSelectedOrgForRecInEmployee: any;
 
   ngOnInit(): void {
-    this.webSocketService.socket.onopen;     //соединился с webSocket servera
+    // this.webSocketService.socket.onopen;     //соединился с webSocket servera
     this.dateService.getCurrentUser(); // заполняет блок мои данные
     this.getAllOrg();
     this.clearTableRec();    //вызывается 1 раз при входе 2 раза в месяц

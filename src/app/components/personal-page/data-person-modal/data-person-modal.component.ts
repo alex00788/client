@@ -97,13 +97,13 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
   }
 
   webSocketUpdateAllConnected() {
-    this.webSocketService.socket.onmessage = (mes)=> {
-      const dataParse= JSON.parse(JSON.parse(mes.data))
-      //проверка нажимал ли админ на кнопку
-      // if ( Object.keys(dataParse)[0] === 'recAllowed') {
-        this.overwriteChangedData(dataParse)
-      // }
-    };
+    // this.webSocketService.socket.onmessage = (mes)=> {
+    //   const dataParse= JSON.parse(JSON.parse(mes.data))
+    //   //проверка нажимал ли админ на кнопку
+    //   // if ( Object.keys(dataParse)[0] === 'recAllowed') {
+    //     this.overwriteChangedData(dataParse)
+    //   // }
+    // };
   }
 
   overwriteChangedData (recAllowed: any) {
@@ -191,7 +191,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
       .subscribe((res: any)=>{
        this.recAllowed = data.recAllowed = data.selectedUser.recAllowed = res.allowed;
        this.refreshData();
-       this.webSocketService.socket.send(JSON.stringify(data))
+       // this.webSocketService.socket.send(JSON.stringify(data))
       })
   }
 

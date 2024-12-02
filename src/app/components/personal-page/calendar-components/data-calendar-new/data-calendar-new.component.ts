@@ -92,13 +92,13 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
 
   //функция перезаписывает данные если открыто два окна и нажимается кнопка разрешить или заблокировать запись
   webSocketUpdateAllConnectedAboutBlockedUser() {
-    this.webSocketService.socket.onmessage = (mes)=> {
-      const dataParse= JSON.parse(JSON.parse(mes.data))
-      //проверка нажимал ли админ на кнопку
-      if ( Object.keys(dataParse)[0] === 'recAllowed') {
-        this.overwriteChangedData(dataParse)
-      }
-    };
+    // this.webSocketService.socket.onmessage = (mes)=> {
+    //   const dataParse= JSON.parse(JSON.parse(mes.data))
+    //   //проверка нажимал ли админ на кнопку
+    //   if ( Object.keys(dataParse)[0] === 'recAllowed') {
+    //     this.overwriteChangedData(dataParse)
+    //   }
+    // };
   }
 
   overwriteChangedData (dataParse: any) {
