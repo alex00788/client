@@ -32,6 +32,7 @@ export class PersonalDataBlockComponent implements OnInit, OnDestroy{
 
 
   loadLabelOrg(event: any) {
+    console.log('1 нажали загруз')
     this.createFormData(event.target.files);
   }
 
@@ -39,14 +40,17 @@ export class PersonalDataBlockComponent implements OnInit, OnDestroy{
     this.formData = new FormData();
     this.formData.append('file', files[0], files[0].name);
     this.formData.append('orgId', this.dateService.idSelectedOrg.value);
+    console.log('2 дошли до запроса')
     this.loadPhotoLabelOrg();
   }
 
   private loadPhotoLabelOrg(): void {
+    console.log('3 запрос')
     this.apiService
       .loadPhotoLabelOrg(this.formData)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(()=> {
+        console.log('4 ответ сервера')
         this.photoAdded.emit()
       })
   }
