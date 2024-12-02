@@ -72,7 +72,7 @@ export class DataPersonModalComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.webSocketUpdateAllConnected();   //оповещение все открытые окна
+    // this.webSocketUpdateAllConnected();   //оповещение все открытые окна
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
     this.dataCalendarService.getAllUsersCurrentOrganization();
     this.selectedUser = this.dateService.allUsersSelectedOrg.value.find((us:any)=> us.id === this.dateService.dataSelectedUser.value.userId)

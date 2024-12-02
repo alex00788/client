@@ -58,7 +58,7 @@ export class DataCalendarNewComponent implements OnInit, OnDestroy {
   // })
 
   ngOnInit(): void {
-    this.webSocketUpdateAllConnectedAboutBlockedUser();
+    // this.webSocketUpdateAllConnectedAboutBlockedUser();
     this.currentDate = moment().format('DD.MM.YYYY');
     this.dataCalendarService.getAllEntryAllUsersForTheMonth();
 
