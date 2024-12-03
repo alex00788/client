@@ -57,4 +57,5 @@
   border: solid 1px red;
   padding: 5px;
   border-radius: 7px;
+  white-space: nowrap;
 }
