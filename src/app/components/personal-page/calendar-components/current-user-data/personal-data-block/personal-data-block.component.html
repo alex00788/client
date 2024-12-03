@@ -9,7 +9,7 @@
       <strong *ngIf="dateService.currentUserSimpleUser | async"> Клиент: </strong>
       <strong *ngIf="dateService.currentUserIsTheAdminOrg | async"> {{dateService.currentUserRole | async}}: </strong>
     </div>
-    <span> {{dateService.currentUserNameAndSurname | async}} </span>
+    <span class="currentUserNameOrg"> {{dateService.currentUserNameAndSurname | async}} </span>
   </div>
 
   <div  *ngIf="!dateService.openEmployee.value">

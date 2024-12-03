@@ -81,6 +81,7 @@
 
 .uploadEmployeePhoto {
   padding: 0 5px;
+  white-space: nowrap;
 }
 
 .btnAddEnt {
