@@ -204,6 +204,6 @@ span{
 
 @media (max-width: 450px) {
   .selectedUserClass {
-    max-width: 305px;
+    max-width: 315px;
   }
 }
