@@ -46,8 +46,8 @@ import {InstructionsForStartComponent} from "../instructions-for-start/instructi
 })
 
 export class MainPageComponent implements OnInit, OnDestroy{
-  mainTitle = 'Личный Кабинет для любого сайта'
-  mainTitleComp = 'Личный Кабинет'
+  mainTitle = 'Личный кабинет для любого сайта'
+  mainTitleComp = 'Личный кабинет'
   modalTitle = 'ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ'
   idOrgForReg: string;
   nameSelectedOrgForReg: string;
