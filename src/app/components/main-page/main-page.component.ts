@@ -51,7 +51,7 @@ export class MainPageComponent implements OnInit, OnDestroy{
   modalTitle = 'ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ'
   idOrgForReg: string;
   nameSelectedOrgForReg: string;
-  private destroyed$: Subject<void> = new Subject();
+  destroyed$: Subject<void> = new Subject();
 
 
   constructor(
