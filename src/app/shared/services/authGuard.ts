@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate , CanActivateChild {
         }
       })
       this.modalService.open();
-      this.modalService.openLoginForm$();
+      this.modalService.openLoginForm();
       return of(false)
     }
   }

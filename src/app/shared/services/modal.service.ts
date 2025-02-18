@@ -41,104 +41,55 @@ export class ModalService {
   }
 
 
+  private resetAllStates() {
+    this.registrationForm$.next(false);
+    this.loginForm$.next(false);
+    this.appDescription$.next(false);
+    this.regFormChoiceOrg$.next(false);
+    this.regFormAddNewOrg$.next(false);
+    this.appContacts$.next(false);
+    this.appSupport$.next(false);
+    this.downloadApp$.next(false);
+    this.instructions$.next(false);
+    this.hideTitle$.next(false);
+  }
+
+  private openState(stateSubject: BehaviorSubject<boolean>, needOpen: boolean = true) {
+    if (needOpen) this.open();
+    this.resetAllStates();
+    stateSubject.next(true);
+  }
+
   openRegFormChoiceOrganisation() {
-    this.open();
-    this.regFormChoiceOrg$.next(true);
-    this.registrationForm$.next(false);
-    this.loginForm$.next(false);
-    this.appDescription$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
-    this.downloadApp$.next(false);
-    this.instructions$.next(false);
+    this.openState(this.regFormChoiceOrg$);
   }
 
-  openRegistrationForm$ () {
-    this.registrationForm$.next(true);
-    this.loginForm$.next(false);
-    this.appDescription$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
+  openRegistrationForm() {
+    this.openState(this.registrationForm$, false);
   }
 
-  openLoginForm$ () {
-    this.registrationForm$.next(false);
-    this.loginForm$.next(true);
-    this.appDescription$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
+  openLoginForm() {
+    this.openState(this.loginForm$, false);
   }
 
-  openFormAddNewOrg$ () {
-    this.regFormAddNewOrg$.next(true);
-    this.registrationForm$.next(false);
-    this.loginForm$.next(false);
-    this.appDescription$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
+  openFormAddNewOrg() {
+    this.openState(this.regFormAddNewOrg$, false);
   }
 
-
-  openAppDescription$ () {
-    this.open();
-    this.appDescription$.next(true);
-    this.registrationForm$.next(false);
-    this.loginForm$.next(false);
-    this.hideTitle$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
-    this.downloadApp$.next(false);
-    this.instructions$.next(false);
+  openAppDescription() {
+    this.openState(this.appDescription$);
   }
 
-  downloadApplication () {
-    this.open();
-    this.downloadApp$.next(true);
-    this.appDescription$.next(false);
-    this.registrationForm$.next(false);
-    this.loginForm$.next(false);
-    this.hideTitle$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
-    this.instructions$.next(false);
+  downloadApplication() {
+    this.openState(this.downloadApp$);
   }
 
-  instructionsForStart () {
-    this.open();
-    this.instructions$.next(true);
-    this.downloadApp$.next(false);
-    this.appDescription$.next(false);
-    this.registrationForm$.next(false);
-    this.loginForm$.next(false);
-    this.hideTitle$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(false);
+  instructionsForStart() {
+    this.openState(this.instructions$);
   }
 
   openAppContacts() {
-    this.open();
-    this.appDescription$.next(false);
-    this.registrationForm$.next(false);
-    this.loginForm$.next(false);
-    this.hideTitle$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(true);
-    this.appSupport$.next(false);
-    this.downloadApp$.next(false);
-    this.instructions$.next(false);
+    this.openState(this.appContacts$);
   }
 
   closeContacts() {
@@ -147,22 +98,8 @@ export class ModalService {
   }
 
   openAppSupport() {
-    this.open();
-    this.registrationForm$.next(false);
-    this.appDescription$.next(false);
-    this.loginForm$.next(false);
-    this.hideTitle$.next(false);
-    this.regFormChoiceOrg$.next(false);
-    this.regFormAddNewOrg$.next(false);
-    this.appContacts$.next(false);
-    this.appSupport$.next(true);
-    this.downloadApp$.next(false);
-    this.instructions$.next(false);
+    this.openState(this.appSupport$);
   }
-
-  // closeAppDescription$() {
-  //   this.appDescription$.next(false);
-  // }
 
   openRecordsBlockWithData() {
     this.recordsBlock.next(true);

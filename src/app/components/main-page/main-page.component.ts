@@ -76,7 +76,7 @@ export class MainPageComponent implements OnInit, OnDestroy{
   openModal() {
     this.modalService.open()
     this.modalService.hideTitle()
-    this.modalService.openLoginForm$()
+    this.modalService.openLoginForm()
   }
 
   ngOnDestroy(): void {

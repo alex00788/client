@@ -158,7 +158,7 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
 
 
   openLoginPage() {
-    this.modalService.openLoginForm$();
+    this.modalService.openLoginForm();
   }
 
 

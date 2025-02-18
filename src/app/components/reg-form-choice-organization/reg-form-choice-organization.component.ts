@@ -50,15 +50,15 @@ export class RegFormChoiceOrganizationComponent implements OnInit, OnDestroy {
   choiceOrg(org: any) {
     this.idOrg.emit(org.id)
     this.nameSelectedOrg.emit(org.name)
-    this.modalService.openRegistrationForm$();
+    this.modalService.openRegistrationForm();
   }
 
   openLoginPage() {
-    this.modalService.openLoginForm$();
+    this.modalService.openLoginForm();
   }
 
   addNewOrg() {
-    this.modalService.openFormAddNewOrg$();
+    this.modalService.openFormAddNewOrg();
   }
 
   ngOnDestroy(): void {

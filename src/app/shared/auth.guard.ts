@@ -19,7 +19,7 @@ export const CanActivate = () => {
       }
     })
     modalService.open();
-    modalService.openLoginForm$();
+    modalService.openLoginForm();
     return of(false)
   }
 }

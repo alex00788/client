@@ -13,7 +13,7 @@ class MockModalService {
   isVisible$ = new Subject<boolean>();
   loginForm$ = new Subject<boolean>();
   hideTitle$ = of(true);
-  openAppDescription$ = jasmine.createSpy('openAppDescription$');
+  openAppDescription = jasmine.createSpy('openAppDescription');
   downloadApplication = jasmine.createSpy('downloadApplication');
   instructionsForStart = jasmine.createSpy('instructionsForStart');
 }
@@ -113,7 +113,7 @@ describe('MainPageComponent', () => {
 
     // 2. Первая кнопка
     buttons[0].nativeElement.click();
-    expect(modalService.openAppDescription$).toHaveBeenCalled();
+    expect(modalService.openAppDescription).toHaveBeenCalled();
 
     // 3. Вторая кнопка
     buttons[1].nativeElement.click();
