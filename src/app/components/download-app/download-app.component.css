@@ -26,7 +26,16 @@
   line-height: 20px;
 }
 
+.instDes {
+  margin: 10px;
+  height: 500px;
+  width: 250px;
+  object-fit: cover;
+}
 
+.installDesPTitle {
+  text-align: center;
+}
 
 @media (max-width: 550px) {
   .downloadAppPhoneDescriptionBlock {

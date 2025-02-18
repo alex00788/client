@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -15,7 +15,6 @@ export class DownloadAppComponent {
   Android = false;
 
   switchPhone(s: string) {
-    console.log(s)
     if (s === 'iPhone') {
       this.iPhone = true;
       this.Android = false;
