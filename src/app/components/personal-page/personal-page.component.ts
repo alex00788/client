@@ -190,7 +190,7 @@ export class PersonalPageComponent implements OnInit, OnDestroy {
 
 
   logoutSystems() {
-    this.modalService.showTitle();
+    this.modalService.close();
     this.router.navigate(['/'])
     this.apiService.logout()
   }

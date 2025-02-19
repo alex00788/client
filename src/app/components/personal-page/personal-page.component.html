@@ -202,7 +202,7 @@
 </div>
 
 
-<div *ngIf="modalService.isVisible$ | async">
+<div *ngIf="modalService.isVisible">
   <app-modal-window-for-person-page class="contentForModal">
     <app-data-person-modal *ngIf="modalService.clientListBlock | async"></app-data-person-modal>
     <app-modal-rename *ngIf="modalService.modalRenameUser | async"></app-modal-rename>

@@ -10,7 +10,7 @@ import {By} from "@angular/platform-browser";
 
 // Mock services
 class MockModalService {
-  isVisible$ = new Subject<boolean>();
+  isVisible : boolean;
   loginForm$ = new Subject<boolean>();
   hideTitle$ = of(true);
   openAppDescription = jasmine.createSpy('openAppDescription');
@@ -125,8 +125,8 @@ describe('MainPageComponent', () => {
   });
 
 
-  it('should show modal when isVisible$ emits true', () => {
-    (modalService.isVisible$ as Subject<boolean>).next(true);
+  it('should show modal when isVisible emits true', () => {
+    modalService.isVisible = true;
     fixture.detectChanges();
 
     const modal = fixture.debugElement.query(By.css('.modal'));

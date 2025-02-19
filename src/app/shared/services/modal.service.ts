@@ -3,8 +3,7 @@ import {BehaviorSubject} from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class ModalService {
-  isVisible$ = new BehaviorSubject<boolean>(false)
-  hideTitle$ = new BehaviorSubject<boolean>(true)
+  isVisible = false;
   registrationForm$ = new BehaviorSubject<boolean>(false)
   regFormChoiceOrg$ = new BehaviorSubject<boolean>(false)
   regFormAddNewOrg$ = new BehaviorSubject<boolean>(false)
@@ -22,24 +21,12 @@ export class ModalService {
   rememberPas = new BehaviorSubject<boolean>(false)
 
   open() {
-    this.isVisible$.next(true)
+    this.isVisible = true
   }
 
   close() {
-    this.isVisible$.next(false)
-    this.hideTitle$.next(true)
+    this.isVisible = false;
   }
-
-  hideTitle() {
-    this.hideTitle$.next(false)
-    this.downloadApp$.next(false)
-    this.instructions$.next(false);
-  }
-
-  showTitle() {
-    this.hideTitle$.next(true)
-  }
-
 
   private resetAllStates() {
     this.registrationForm$.next(false);
@@ -51,7 +38,6 @@ export class ModalService {
     this.appSupport$.next(false);
     this.downloadApp$.next(false);
     this.instructions$.next(false);
-    this.hideTitle$.next(false);
   }
 
   private openState(stateSubject: BehaviorSubject<boolean>, needOpen: boolean = true) {

@@ -18,7 +18,6 @@
     <div class="successModal">
       <app-success-modal></app-success-modal>
     </div>
-    <!--<button (click)="openModal()">войти заново</button>-->
 
     <div class="appDescription" (click)="modalService.openAppDescription()">
       <button class="btnDetailsClass"> Подробнее... </button>
@@ -32,7 +31,7 @@
       <button class="btnDetailsClass"> Инструкция для старта </button>
     </div>
 
-    <div class="modal" *ngIf="modalService.isVisible$ | async">
+    <div class="modal" *ngIf="modalService.isVisible">
       <app-modal-page>
         <app-login-page *ngIf="modalService.loginForm$ | async"></app-login-page>
         <app-reg-form-choice-organization
@@ -56,14 +55,14 @@
   </div>
   <div class="enterAndBtn">
     <div class="cowerEnter">
-      <strong *ngIf="modalService.hideTitle$ | async"
-              class="enter" (click)="modalService.hideTitle()"
+      <strong *ngIf="!modalService.isVisible"
+              class="enter"
               routerLink="/personal-page"
       >
         {{modalTitle}}
       </strong>
 
-      <div class="contactsBlock" *ngIf="modalService.hideTitle$ | async">
+      <div class="contactsBlock" *ngIf="!modalService.isVisible">
         <button class="btnContactClass" (click)="modalService.openAppContacts()"> Контакты </button>
         <button class="btnContactClass" (click)="modalService.openAppSupport()"> Поддержать разработку  </button>
       </div>
