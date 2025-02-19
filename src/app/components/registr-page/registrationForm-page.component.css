@@ -114,9 +114,6 @@ input {
 }
 
 .regFormBtn {
-  position: absolute;
-  top: 5px;
-  left: 20px;
   margin: 15px;
   display: flex;
   cursor: pointer;
