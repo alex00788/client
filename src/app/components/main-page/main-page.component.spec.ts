@@ -10,10 +10,16 @@ import {By} from "@angular/platform-browser";
 
 // Mock services
 class MockModalService {
-  isVisible : boolean;
-  loginForm$ = new Subject<boolean>();
+  isVisible = false;
+  appDescription$ = new BehaviorSubject<boolean>(false);
+  loginForm$ = new BehaviorSubject<boolean>(false);
+  registrationForm$ = new BehaviorSubject<boolean>(false);
+  downloadApp$ = new BehaviorSubject<boolean>(false);
   hideTitle$ = of(true);
-  openAppDescription = jasmine.createSpy('openAppDescription');
+  openAppDescription = jasmine.createSpy('openAppDescription').and.callFake(() => {
+    this.isVisible = true;
+    this.appDescription$.next(true);
+  });
   downloadApplication = jasmine.createSpy('downloadApplication');
   instructionsForStart = jasmine.createSpy('instructionsForStart');
 }
@@ -25,12 +31,12 @@ class MockDateService {
 
 describe('MainPageComponent', () => {
   let component : MainPageComponent
-  let fixture : ComponentFixture<MainPageComponent>
+  let fixture : ComponentFixture<MainPageComponent>  // внутрь передаем компонент который тестируем
   let modalService: ModalService;
   let dateService: DateService;
 
-  beforeEach(()=> {
-    TestBed.configureTestingModule({   // так создаеться инстанс компанента перед каждым тестом
+  beforeEach(()=> {                  //перед каждым тестом  со своим модулем
+    TestBed.configureTestingModule({   // создание похожего модуля который будет запускать все сущности автоматически
       imports: [MainPageComponent],              // standalone  заносяться в imports
       providers: [
         {provide: ModalService, useClass: MockModalService},
@@ -40,13 +46,14 @@ describe('MainPageComponent', () => {
           useValue: {queryParams: of({organization: 'testOrg', id: '123'})}
         }
       ],
-
-      schemas: [NO_ERRORS_SCHEMA]  // Ignore child components
+      schemas: [NO_ERRORS_SCHEMA]  // Игнорирование неизвестных элементов в шаблоне.
     }).compileComponents();
 
+    fixture = TestBed.createComponent(MainPageComponent)    //  приспособа для запуска компонента
+    component = fixture.componentInstance      // так получаем сам компонент
+    // еще часто используемые/fixture.debugElement корневой элемент/fixture.nativeElement
 
-    fixture = TestBed.createComponent(MainPageComponent)
-    component = fixture.componentInstance      // так получаем компонент  //еще часто используемые/fixture.debugElement/fixture.nativeElement
+    // Получение экземпляров сервисов.
     modalService = TestBed.inject(ModalService);
     dateService = TestBed.inject(DateService);
     fixture.detectChanges();    //чтобы изменения применились
@@ -155,6 +162,39 @@ describe('MainPageComponent', () => {
     component.ngOnDestroy();
     expect(destroySpy).toHaveBeenCalled();
   });
+
+  it('should open application description modal integration', fakeAsync(() => {
+    // 1. Проверяем начальное состояние
+    expect(modalService.isVisible).toBeFalse();
+    expect(modalService.appDescription$.getValue()).toBeFalse();
+    // 2. Находим и кликаем кнопку "Подробнее"
+    const buttons = fixture.debugElement.queryAll(By.css('.btnDetailsClass'));
+    const detailsButton = buttons[0];
+    detailsButton.nativeElement.click();
+    fixture.detectChanges();
+    tick();
+    // 3. Проверяем состояние сервиса после клика
+    expect(modalService.openAppDescription).toHaveBeenCalled();
+    expect(modalService.isVisible).toBeTrue();
+    expect(modalService.appDescription$.getValue()).toBeTrue();
+
+    // 4. Проверяем отображение модального окна
+    const modal = fixture.debugElement.query(By.css('.modal'));
+    expect(modal).toBeTruthy();
+
+    // 5. Проверяем наличие компонента описания приложения в модалке
+    const descriptionComponent = fixture.debugElement.query(
+      By.css('app-description-application')
+    );
+    expect(descriptionComponent).toBeTruthy();
+
+    // 6. Проверяем сброс других состояний
+    expect(modalService.loginForm$.getValue()).toBeFalse();
+    expect(modalService.registrationForm$.getValue()).toBeFalse();
+    expect(modalService.downloadApp$.getValue()).toBeFalse();
+  }));
+
+
 })
 
 
