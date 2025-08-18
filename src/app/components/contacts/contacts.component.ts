@@ -48,10 +48,16 @@ export class ContactsComponent implements OnDestroy {
     this.form.disable();
     this.apiService.sendInSupport(this.form.value)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe((res: any)=> {
-        this.form.reset();
-        this.modalService.close();
-        this.successService.localHandler(res.message);
+      .subscribe({
+        next: (res: any) => {
+          this.form.reset();
+          this.modalService.close();
+          this.successService.localHandler(res.message);
+        },
+        error: (error) => {
+          // При ошибке API форма остается заблокированной
+          console.error('API Error:', error);
+        }
       })
   }
 
