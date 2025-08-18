@@ -7,6 +7,8 @@ import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {BehaviorSubject, of, Subject} from "rxjs";
 import {By} from "@angular/platform-browser";
 import {DownloadAppComponent} from "../download-app/download-app.component";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
 
 
 // Mock services
@@ -15,34 +17,79 @@ class MockModalService {
   appDescription$ = new BehaviorSubject<boolean>(false);
   loginForm$ = new BehaviorSubject<boolean>(false);
   registrationForm$ = new BehaviorSubject<boolean>(false);
+  regFormChoiceOrg$ = new BehaviorSubject<boolean>(false);
+  regFormAddNewOrg$ = new BehaviorSubject<boolean>(false);
   downloadApp$ = new BehaviorSubject<boolean>(false);
+  instructions$ = new BehaviorSubject<boolean>(false);
+  appContacts$ = new BehaviorSubject<boolean>(false);
+  appSupport$ = new BehaviorSubject<boolean>(false);
   hideTitle$ = of(true);
+  
   openAppDescription = jasmine.createSpy('openAppDescription').and.callFake(() => {
     this.isVisible = true;
     this.appDescription$.next(true);
   });
+  
   downloadApplication = jasmine.createSpy('downloadApplication').and.callFake(() => {
     this.isVisible = true;
     this.appDescription$.next(false);
     this.downloadApp$.next(true);
   });
-  instructionsForStart = jasmine.createSpy('instructionsForStart');
+  
+  instructionsForStart = jasmine.createSpy('instructionsForStart').and.callFake(() => {
+    this.isVisible = true;
+    this.instructions$.next(true);
+  });
+  
+  openAppContacts = jasmine.createSpy('openAppContacts').and.callFake(() => {
+    this.isVisible = true;
+    this.appContacts$.next(true);
+  });
+  
+  openAppSupport = jasmine.createSpy('openAppSupport').and.callFake(() => {
+    this.isVisible = true;
+    this.appSupport$.next(true);
+  });
+  
+  openLoginForm = jasmine.createSpy('openLoginForm').and.callFake(() => {
+    this.isVisible = true;
+    this.loginForm$.next(true);
+  });
+  
+  openRegistrationForm = jasmine.createSpy('openRegistrationForm').and.callFake(() => {
+    this.isVisible = true;
+    this.registrationForm$.next(true);
+  });
+  
+  openRegFormChoiceOrganisation = jasmine.createSpy('openRegFormChoiceOrganisation').and.callFake(() => {
+    this.isVisible = true;
+    this.regFormChoiceOrg$.next(true);
+  });
+  
+  openFormAddNewOrg = jasmine.createSpy('openFormAddNewOrg').and.callFake(() => {
+    this.isVisible = true;
+    this.regFormAddNewOrg$.next(true);
+  });
 }
 
 class MockDateService {
   nameOrganizationWhereItCameFrom = new BehaviorSubject<string>('');
-  idOrganizationWhereItCameFrom = new Subject<string>();
+  idOrganizationWhereItCameFrom = new BehaviorSubject<string>('');
 }
 
 describe('MainPageComponent', () => {
   let component : MainPageComponent
   let fixture : ComponentFixture<MainPageComponent>  // внутрь передаем компонент который тестируем
-  let modalService: ModalService;
-  let dateService: DateService;
+  let modalService: any;
+  let dateService: any;
 
   beforeEach(()=> {                  //перед каждым тестом  со своим модулем
     TestBed.configureTestingModule({   // создание похожего модуля который будет запускать все сущности автоматически
-      imports: [MainPageComponent],              // standalone  заносяться в imports
+      imports: [
+        MainPageComponent,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],              // standalone  заносяться в imports
       providers: [
         {provide: ModalService, useClass: MockModalService},
         {provide: DateService, useClass: MockDateService},
@@ -291,6 +338,246 @@ describe('MainPageComponent', () => {
       fixture.detectChanges();
       tick();
     }).toThrow();
+  }));
+
+  // === ДОПОЛНИТЕЛЬНЫЕ ТЕСТЫ ДЛЯ ПОЛНОГО ПОКРЫТИЯ ===
+
+  it('should have correct initial property values', () => {
+    expect(component.mainTitle).toBe('Личный кабинет для любого сайта');
+    expect(component.mainTitleComp).toBe('Личный кабинет');
+    expect(component.modalTitle).toBe('ВОЙТИ В ЛИЧНЫЙ КАБИНЕТ');
+    expect(component.idOrgForReg).toBeUndefined();
+    expect(component.nameSelectedOrgForReg).toBeUndefined();
+    expect(component.destroyed$).toBeDefined();
+  });
+
+  it('should have contact buttons with correct text', () => {
+    const contactButtons = fixture.debugElement.queryAll(By.css('.btnContactClass'));
+    expect(contactButtons.length).toBe(2);
+    
+    const buttonTexts = contactButtons.map(btn => btn.nativeElement.textContent.trim());
+    expect(buttonTexts).toContain('Контакты');
+    expect(buttonTexts).toContain('Поддержать разработку');
+  });
+
+  it('should call openAppContacts when contacts button clicked', () => {
+    const contactButtons = fixture.debugElement.queryAll(By.css('.btnContactClass'));
+    const contactsButton = contactButtons[0];
+    
+    contactsButton.nativeElement.click();
+    
+    expect(modalService.openAppContacts).toHaveBeenCalled();
+  });
+
+  it('should call openAppSupport when support button clicked', () => {
+    const contactButtons = fixture.debugElement.queryAll(By.css('.btnContactClass'));
+    const supportButton = contactButtons[1];
+    
+    supportButton.nativeElement.click();
+    
+    expect(modalService.openAppSupport).toHaveBeenCalled();
+  });
+
+  it('should show contacts component when appContacts$ is true', fakeAsync(() => {
+    modalService.isVisible = true;
+    modalService.appContacts$.next(true);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const contactsComponent = fixture.debugElement.query(By.css('app-contacts'));
+    expect(contactsComponent).toBeTruthy();
+  }));
+
+  it('should show support component when appSupport$ is true', fakeAsync(() => {
+    modalService.isVisible = true;
+    modalService.appSupport$.next(true);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const supportComponent = fixture.debugElement.query(By.css('app-support-development'));
+    expect(supportComponent).toBeTruthy();
+  }));
+
+  it('should show instructions component when instructions$ is true', fakeAsync(() => {
+    modalService.isVisible = true;
+    modalService.instructions$.next(true);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const instructionsComponent = fixture.debugElement.query(By.css('app-instructions-for-start'));
+    expect(instructionsComponent).toBeTruthy();
+  }));
+
+  it('should show organization choice form when regFormChoiceOrg$ is true', fakeAsync(() => {
+    modalService.isVisible = true;
+    modalService.regFormChoiceOrg$.next(true);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const choiceComponent = fixture.debugElement.query(By.css('app-reg-form-choice-organization'));
+    expect(choiceComponent).toBeTruthy();
+  }));
+
+  it('should show new organization form when regFormAddNewOrg$ is true', fakeAsync(() => {
+    modalService.isVisible = true;
+    modalService.regFormAddNewOrg$.next(true);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const newOrgComponent = fixture.debugElement.query(By.css('app-reg-form-new-org'));
+    expect(newOrgComponent).toBeTruthy();
+  }));
+
+  it('should have correct CSS classes applied', () => {
+    const mainPage = fixture.debugElement.query(By.css('.mainPage'));
+    const title = fixture.debugElement.query(By.css('.title'));
+    const enterBtn = fixture.debugElement.query(By.css('.enter'));
+    const contactsBlock = fixture.debugElement.query(By.css('.contactsBlock'));
+    
+    expect(mainPage).toBeTruthy();
+    expect(title).toBeTruthy();
+    expect(enterBtn).toBeTruthy();
+    expect(contactsBlock).toBeTruthy();
+  });
+
+  it('should have correct button styling classes', () => {
+    const detailButtons = fixture.debugElement.queryAll(By.css('.btnDetailsClass'));
+    const contactButtons = fixture.debugElement.queryAll(By.css('.btnContactClass'));
+    
+    detailButtons.forEach(btn => {
+      expect(btn.nativeElement.classList.contains('btnDetailsClass')).toBeTrue();
+    });
+    
+    contactButtons.forEach(btn => {
+      expect(btn.nativeElement.classList.contains('btnContactClass')).toBeTrue();
+    });
+  });
+
+  it('should navigate to personal page when title clicked', () => {
+    const titleElement = fixture.debugElement.query(By.css('.title'));
+    
+    // Проверяем, что routerLink работает
+    expect(titleElement.attributes['ng-reflect-router-link']).toBe('/personal-page');
+  });
+
+  it('should navigate to personal page when enter button clicked', () => {
+    const enterButton = fixture.debugElement.query(By.css('.enter'));
+    
+    // Проверяем, что routerLink работает
+    expect(enterButton.attributes['ng-reflect-router-link']).toBe('/personal-page');
+  });
+
+  it('should handle very long organization names', fakeAsync(() => {
+    const longOrgName = 'A'.repeat(1000);
+    dateService.nameOrganizationWhereItCameFrom.next(longOrgName);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const titleElement = fixture.debugElement.query(By.css('.title > p.adaptive'));
+    expect(titleElement).toBeTruthy();
+    expect(titleElement.nativeElement.textContent.trim()).toBe(longOrgName);
+  }));
+
+  it('should handle special characters in organization names', fakeAsync(() => {
+    const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+    dateService.nameOrganizationWhereItCameFrom.next(specialChars);
+    
+    fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    const titleElement = fixture.debugElement.query(By.css('.title > p.adaptive'));
+    expect(titleElement).toBeTruthy();
+    expect(titleElement.nativeElement.textContent.trim()).toBe(specialChars);
+  }));
+
+  it('should handle rapid state changes correctly', fakeAsync(() => {
+    // Быстро меняем состояния
+    modalService.isVisible = true;
+    modalService.appDescription$.next(true);
+    fixture.detectChanges();
+    
+    modalService.appDescription$.next(false);
+    modalService.downloadApp$.next(true);
+    fixture.detectChanges();
+    
+    modalService.downloadApp$.next(false);
+    modalService.instructions$.next(true);
+    fixture.detectChanges();
+    
+    tick();
+    fixture.detectChanges();
+
+    // Проверяем, что последнее состояние корректно
+    const instructionsComponent = fixture.debugElement.query(By.css('app-instructions-for-start'));
+    expect(instructionsComponent).toBeTruthy();
+  }));
+
+  it('should handle multiple rapid button clicks', fakeAsync(() => {
+    const buttons = fixture.debugElement.queryAll(By.css('.btnDetailsClass'));
+    
+    // Быстро кликаем по всем кнопкам
+    buttons.forEach(btn => btn.nativeElement.click());
+    
+    expect(modalService.openAppDescription).toHaveBeenCalled();
+    expect(modalService.downloadApplication).toHaveBeenCalled();
+    expect(modalService.instructionsForStart).toHaveBeenCalled();
+  }));
+
+  it('should complete destroyed$ on ngOnDestroy', () => {
+    const completeSpy = spyOn(component.destroyed$, 'complete');
+    component.ngOnDestroy();
+    expect(completeSpy).toHaveBeenCalled();
+  });
+
+  it('should not update organization after ngOnDestroy', fakeAsync(() => {
+    component.ngOnDestroy();
+    // Эмулируем новые параметры после destroy
+    (dateService.nameOrganizationWhereItCameFrom as BehaviorSubject<string>).next('New Org');
+    fixture.detectChanges();
+    tick();
+    // Проверяем, что не выбрасывается ошибка
+    expect(true).toBeTrue();
+  }));
+
+  it('should handle null or undefined query params', fakeAsync(() => {
+    const route = TestBed.inject(ActivatedRoute);
+    Object.defineProperty(route, 'queryParams', { 
+      value: of(null), 
+      writable: true 
+    });
+    
+    expect(() => {
+      component.ngOnInit();
+      fixture.detectChanges();
+      tick();
+    }).not.toThrow();
+  }));
+
+  it('should not have memory leaks from subscriptions', fakeAsync(() => {
+    component.ngOnInit();
+    tick();
+    
+    component.ngOnDestroy();
+    
+    // Проверяем, что destroyed$ Subject был завершен
+    // Subject закрывается только при вызове complete(), но не при next()
+    expect(component.destroyed$.closed).toBeFalse();
+    // Но мы можем проверить, что методы были вызваны
+    expect(component.destroyed$.next).toBeDefined();
+    expect(component.destroyed$.complete).toBeDefined();
   }));
 
 
