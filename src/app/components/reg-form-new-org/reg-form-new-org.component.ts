@@ -25,10 +25,10 @@ export class RegFormNewOrgComponent implements OnDestroy{
   ) {}
   private destroyed$: Subject<void> = new Subject();
   form = new FormGroup({
-    nameSupervisor: new FormControl(null, Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl(null, Validators.required),
-    nameSectionOrOrganization: new FormControl(null, Validators.required),
+    nameSupervisor: new FormControl<string | null>(null, Validators.required),
+    email: new FormControl<string | null>('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl<string | null>(null, Validators.required),
+    nameSectionOrOrganization: new FormControl<string | null>(null, Validators.required),
   })
 
 
