@@ -43,13 +43,13 @@ export class RegFormChoiceOrganizationComponent implements OnInit, OnDestroy {
       this.apiService.getAllOrgFromDb()
         .pipe(takeUntil(this.destroyed$))
         .subscribe(org=> {
-          this.allOrgForReset = org.allOrg;
+          this.allOrgForReset = org?.allOrg || [];
         })
   }
 
   choiceOrg(org: any) {
-    this.idOrg.emit(org.id)
-    this.nameSelectedOrg.emit(org.name)
+    this.idOrg.emit(org?.id)
+    this.nameSelectedOrg.emit(org?.name)
     this.modalService.openRegistrationForm();
   }
 
