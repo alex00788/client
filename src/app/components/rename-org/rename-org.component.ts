@@ -42,12 +42,18 @@ export class RenameOrgComponent implements OnInit, OnDestroy{
     const dataForRenameOrg = {orgId, newNameOrg}
     this.apiService.renameSelectedOrg(dataForRenameOrg)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(res => {
-        this.dateService.currentOrg.next(res.newNameOrg);
-        this.personalBlockService.closeWindowRenameOrg();
-        this.nameOrgChanged.emit();
-        this.dateService.currentOrgWasRenamed.next(true);
-        this.successService.localHandler('Организация переименована');
+      .subscribe({
+        next: (res) => {
+          this.dateService.currentOrg.next(res.newNameOrg);
+          this.personalBlockService.closeWindowRenameOrg();
+          this.nameOrgChanged.emit();
+          this.dateService.currentOrgWasRenamed.next(true);
+          this.successService.localHandler('Организация переименована');
+        },
+        error: (error) => {
+          console.error('Error renaming organization:', error);
+          // При ошибке не выполняем действия успешного завершения
+        }
       })
   }
 
