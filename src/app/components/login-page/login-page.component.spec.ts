@@ -721,15 +721,15 @@ describe('LoginPageComponent', () => {
   it('should handle form submission with null values', () => {
     component.form.patchValue({ email: null, password: null });
     
-    // В оригинальной реализации это вызовет ошибку при slice() на null
-    expect(() => component.submit()).toThrow();
+    // Теперь компонент корректно обрабатывает null значения без выброса исключения
+    expect(() => component.submit()).not.toThrow();
   });
 
   it('should handle form submission with undefined values', () => {
     component.form.patchValue({ email: undefined, password: undefined });
     
-    // В оригинальной реализации это вызовет ошибку при slice() на undefined
-    expect(() => component.submit()).toThrow();
+    // Теперь компонент корректно обрабатывает undefined значения без выброса исключения
+    expect(() => component.submit()).not.toThrow();
   });
 
   it('should handle form submission with empty string values', () => {

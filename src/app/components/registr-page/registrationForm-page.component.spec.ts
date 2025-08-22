@@ -69,7 +69,6 @@ describe('RegistrationFormPageComponent', () => {
         RegistrationFormPageComponent,
         ReactiveFormsModule,
         FormsModule,
-        RouterTestingModule,
         HttpClientTestingModule
       ],
       providers: [

@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
+import { Location, LocationStrategy } from '@angular/common';
 
 import { RegistrationFormPageComponent } from './registrationForm-page.component';
 import { ApiService } from '../../shared/services/api.service';
@@ -13,6 +14,17 @@ import { ModalService } from '../../shared/services/modal.service';
 import { DateService } from '../personal-page/calendar-components/date.service';
 import { ErrorResponseService } from '../../shared/services/error.response.service';
 import { SuccessService } from '../../shared/services/success.service';
+
+class MockLocationStrategy {
+  path() { return ''; }
+  pushState() {}
+  replaceState() {}
+  forward() {}
+  back() {}
+  onPopState() {}
+  getBaseHref() { return ''; }
+  prepareExternalUrl() { return ''; }
+}
 
 describe('RegistrationFormPageComponent E2E Tests', () => {
   let component: RegistrationFormPageComponent;
@@ -34,7 +46,6 @@ describe('RegistrationFormPageComponent E2E Tests', () => {
         RegistrationFormPageComponent,
         ReactiveFormsModule,
         FormsModule,
-
         HttpClientTestingModule
       ],
       providers: [
@@ -43,7 +54,8 @@ describe('RegistrationFormPageComponent E2E Tests', () => {
         DateService,
         ErrorResponseService,
         { provide: SuccessService, useValue: successServiceSpy },
-        { provide: Router, useValue: routerSpy }
+        { provide: Router, useValue: routerSpy },
+        { provide: LocationStrategy, useClass: MockLocationStrategy }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();

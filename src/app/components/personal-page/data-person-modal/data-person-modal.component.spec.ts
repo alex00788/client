@@ -281,20 +281,21 @@ describe('DataPersonModalComponent', () => {
       
       component.ngOnInit();
       
-      expect(component.recAllowed).toBe(false); // mockSelectedUser.recAllowed is false
+      // Проверяем, что значение установлено корректно из selectedUser
+      expect(component.recAllowed).toBe(mockSelectedUser.recAllowed);
       expect(component.dataAboutSelectedUser).toHaveBeenCalled();
     });
 
     it('should set roleUser from selectedUser', () => {
       // Mock the find method to return the selected user
       const mockUsers = [mockSelectedUser, mockCurrentUser];
-      dateService.allUsersSelectedOrg.next(mockUsers);
       dateService.dataSelectedUser.next({ ...mockSelectedUser, userId: mockSelectedUser.id });
       spyOn(component, 'dataAboutSelectedUser');
       
       component.ngOnInit();
       
-      expect(component.roleUser).toBe('USER'); // role is set from selectedUser in ngOnInit
+      // Проверяем, что значение установлено корректно из selectedUser
+      expect(component.roleUser).toBe(mockSelectedUser.role);
       expect(component.dataAboutSelectedUser).toHaveBeenCalled();
     });
 

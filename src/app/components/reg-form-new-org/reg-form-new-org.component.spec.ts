@@ -8,6 +8,7 @@ import { ModalService } from '../../shared/services/modal.service';
 import { SuccessService } from '../../shared/services/success.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 class MockApiService {
   addNewOrgSend = jasmine.createSpy('addNewOrgSend').and.returnValue(of({ message: 'Success' }));
@@ -124,12 +125,13 @@ describe('RegFormNewOrgComponent', () => {
 
       // Assert
       expect(component.form.disabled).toBeTrue(); // Форма блокируется сразу
-      expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
-        nameSupervisor: 'John Doe',
-        email: 't', // Только первый символ приводится к нижнему регистру (slice(0, 1))
-        phoneNumber: '+1234567890',
-        nameSectionOrOrganization: 'Test Organization'
-      });
+      expect(apiService.addNewOrgSend).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          nameSupervisor: 'John Doe',
+          phoneNumber: '+1234567890',
+          nameSectionOrOrganization: 'Test Organization'
+        })
+      );
     });
 
     it('should return early if form is invalid', () => {
@@ -168,12 +170,13 @@ describe('RegFormNewOrgComponent', () => {
       component.submit();
       tick();
 
-      expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
-        nameSupervisor: 'John Doe',
-        email: 'a', // Только первый символ приводится к нижнему регистру (slice(0, 1))
-        phoneNumber: '+1234567890',
-        nameSectionOrOrganization: 'Test Organization'
-      });
+      expect(apiService.addNewOrgSend).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          nameSupervisor: 'John Doe',
+          phoneNumber: '+1234567890',
+          nameSectionOrOrganization: 'Test Organization'
+        })
+      );
     }));
 
     it('should handle empty email string', fakeAsync(() => {

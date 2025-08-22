@@ -38,7 +38,10 @@ export class RegFormNewOrgComponent implements OnDestroy{
     if (this.form.invalid) {
       return;
     }
-    this.form.value.email = this.form.value.email!.slice(0, 1).toLowerCase() + this.form.value.email!.slice(1);
+    const email = this.form.value.email!;
+    const modifiedEmail = email.slice(0, 1).toLowerCase() + email.slice(1);
+    this.form.patchValue({ email: modifiedEmail });
+    
     this.apiService.addNewOrgSend(this.form.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe((res: any) => {
