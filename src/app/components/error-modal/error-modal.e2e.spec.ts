@@ -274,12 +274,11 @@ describe('ErrorModalComponent E2E Tests', () => {
       
       // Assert - Component doesn't crash when services fail
       expect(() => {
-        try {
-          closeButton.nativeElement.click();
-        } catch (error) {
-          // Expected error due to service failure
-        }
+        closeButton.nativeElement.click();
       }).not.toThrow();
+      
+      // Reset the spy to avoid affecting other tests
+      errorResponseService.clear.and.callThrough();
     });
   });
 

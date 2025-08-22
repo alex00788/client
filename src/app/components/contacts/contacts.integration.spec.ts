@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -298,7 +298,7 @@ describe('ContactsComponent Integration Tests', () => {
 
   // ====== ИНТЕГРАЦИОННЫЕ ТЕСТЫ С ОБРАБОТКОЙ ОШИБОК ======
   describe('Error Handling Integration Tests', () => {
-    it('should integrate error handling with form state', () => {
+    it('should integrate error handling with form state', fakeAsync(() => {
       // Временно меняем mock для ошибки
       apiService.sendInSupport.and.returnValue(throwError(() => new Error('API Error')));
 
@@ -307,13 +307,14 @@ describe('ContactsComponent Integration Tests', () => {
       fixture.detectChanges();
 
       component.submit();
+      tick();
 
       // При ошибке форма включается обратно для повторной попытки
       expect(component.form.disabled).toBeFalse();
       
       // Восстанавливаем mock для успешного ответа
       apiService.sendInSupport.and.returnValue(of({ message: 'Success' }));
-    });
+    }));
 
     it('should handle missing DOM elements gracefully', () => {
       expect(() => {

@@ -4,7 +4,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {ModalPageComponent} from "../modal-page/modal-page.component";
 import {ApiService} from "../../shared/services/api.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {ModalService} from "../../shared/services/modal.service";
 import {ErrorResponseService} from "../../shared/services/error.response.service";
 import {DateService} from "../personal-page/calendar-components/date.service";
@@ -29,7 +29,6 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private router: Router,
-    private activateRouter: ActivatedRoute,
     public modalService: ModalService,
     private dateService: DateService,
     public errorResponseService: ErrorResponseService,
@@ -96,12 +95,12 @@ export class RegistrationFormPageComponent implements OnInit, OnDestroy {
 
 
   submit() {
-    this.loading = true;
-    // в зависимости от введеных данных присваиваеться роль и рисуеться интерфейс!!!
-    this.form.disable()          //блокировка формы чтоб не отправлять много запросов подряд
     if (this.form.invalid) {
       return;
     }
+    this.loading = true;
+    // в зависимости от введеных данных присваиваеться роль и рисуеться интерфейс!!!
+    this.form.disable()          //блокировка формы чтоб не отправлять много запросов подряд
     this.form.value.email = this.form.value.email!.slice(0, 1).toLowerCase() + this.form.value.email!.slice(1);
     //тут записываем данные орг с которой пришли или которую выбрали при регистрации
     this.form.value.sectionOrOrganization = this.dateService.nameOrganizationWhereItCameFrom.value?

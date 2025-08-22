@@ -198,12 +198,11 @@ describe('LoginPageComponent', () => {
     
     component.submit();
     
-    // В оригинальной реализации форма блокируется в начале submit,
-    // затем проверяется валидность, и если форма невалидна - возврат
-    // Но форма остается заблокированной
-    expect(component.form.disabled).toBeTrue();
-    // API может быть вызван, так как проверка валидности происходит после блокировки
-    // но с невалидными данными
+    // После исправления логики форма не блокируется, если она невалидна
+    // Форма должна остаться разблокированной для исправления ошибок
+    expect(component.form.disabled).toBeFalse();
+    // API не должен быть вызван для невалидной формы
+    expect(apiService.login).not.toHaveBeenCalled();
   });
 
   it('should disable form before submission', () => {

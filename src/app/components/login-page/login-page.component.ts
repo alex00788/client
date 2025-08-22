@@ -73,33 +73,40 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
 
   submit() {
+    if (this.form.invalid || this.form.disabled) {
+      return;
+    }
     //обноляем значения чтоб сбросить переход по ссылки из организации
     this.dateService.nameOrganizationWhereItCameFrom.next('');
     this.dateService.idOrganizationWhereItCameFrom.next('');
     // в зависимости от введеных данных присваиваеться роль и рисуеться интерфейс!!!
     this.form.disable()          //блокировка формы чтоб не отправлять много запросов подряд
-    if (this.form.invalid) {
-      return;
-    }
     this.dateService.pasForLink.next(this.form.value.password);
     if (this.form.value.email) {
       this.form.value.email = this.form.value.email.slice(0, 1).toLowerCase() + this.form.value.email.slice(1);
     }
     this.loginSub = this.apiService.login(this.form.value)
       .pipe(takeUntil(this.destroyed$))
-      .subscribe(userData => {
-        if (userData?.user.isActivated) {
-          this.form.reset();
-          this.router.navigate(['personal-page']);
-          this.modalService.close();
-          this.dateService.setUser(userData);
-          this.accountNotConfirmed = true;
-          this.dateService.currentOrg.next(userData)
-        } else {
-          this.errorResponseService.localHandler('активируйте аккаунт, пройдите по ссылке в почте...');
-          this.accountNotConfirmed = true;
-          this.router.navigate(['/']);
-          this.apiService.logout();
+      .subscribe({
+        next: userData => {
+          if (userData?.user.isActivated) {
+            this.form.reset();
+            this.router.navigate(['personal-page']);
+            this.modalService.close();
+            this.dateService.setUser(userData);
+            this.accountNotConfirmed = true;
+            this.dateService.currentOrg.next(userData)
+          } else {
+            this.errorResponseService.localHandler('активируйте аккаунт, пройдите по ссылке в почте...');
+            this.accountNotConfirmed = true;
+            this.router.navigate(['/']);
+            this.apiService.logout();
+            this.form.enable();
+          }
+        },
+        error: error => {
+          this.form.enable();
+          this.errorResponseService.localHandler(error.message || 'Ошибка входа');
         }
       })
   }

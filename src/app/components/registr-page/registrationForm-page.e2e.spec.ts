@@ -5,7 +5,7 @@ import { of, throwError, delay, BehaviorSubject } from 'rxjs';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy } from '@angular/common';
 
 import { RegistrationFormPageComponent } from './registrationForm-page.component';
@@ -46,7 +46,8 @@ describe('RegistrationFormPageComponent E2E Tests', () => {
         RegistrationFormPageComponent,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes([])
       ],
       providers: [
         { provide: ApiService, useValue: apiServiceSpy },
@@ -194,29 +195,27 @@ describe('RegistrationFormPageComponent E2E Tests', () => {
   describe('Form Validation E2E', () => {
     it('should prevent submission with invalid email', fakeAsync(() => {
       // Заполняем форму с невалидным email
-      const emailInput = fixture.debugElement.query(By.css('#email'));
-      emailInput.nativeElement.value = 'invalid-email';
-      emailInput.nativeElement.dispatchEvent(new Event('input'));
-      emailInput.nativeElement.dispatchEvent(new Event('blur'));
+      component.form.patchValue({
+        email: 'invalid-email',
+        password: 'password123',
+        nameUser: 'John',
+        surnameUser: 'Doe',
+        phoneNumber: '+71234567890',
+        permission: true
+      } as any);
 
-      const passwordInput = fixture.debugElement.query(By.css('#password'));
-      passwordInput.nativeElement.value = 'password123';
-      passwordInput.nativeElement.dispatchEvent(new Event('input'));
-
-      const nameInput = fixture.debugElement.query(By.css('#nameUser'));
-      nameInput.nativeElement.value = 'John';
-      nameInput.nativeElement.dispatchEvent(new Event('input'));
-
-      const surnameInput = fixture.debugElement.query(By.css('#surnameUser'));
-      surnameInput.nativeElement.value = 'Doe';
-      surnameInput.nativeElement.dispatchEvent(new Event('input'));
-
-      const phoneInput = fixture.debugElement.query(By.css('#phoneNumber'));
-      phoneInput.nativeElement.value = '+71234567890';
-      phoneInput.nativeElement.dispatchEvent(new Event('input'));
+      // Отмечаем поля как touched для активации валидации
+      component.email.markAsTouched();
+      component.password.markAsTouched();
+      component.nameUser.markAsTouched();
+      component.surnameUser.markAsTouched();
+      component.phoneNumber.markAsTouched();
 
       component.permissionChB = true;
       fixture.detectChanges();
+
+      // Проверяем, что форма невалидна
+      expect(component.form.invalid).toBeTrue();
 
       // Пытаемся отправить форму
       component.submit();
@@ -224,7 +223,8 @@ describe('RegistrationFormPageComponent E2E Tests', () => {
 
       // API не должен быть вызван из-за невалидной формы
       expect(apiService.registration).not.toHaveBeenCalled();
-      expect(component.form.disabled).toBeTrue();
+      // Форма не должна быть заблокирована, так как submit() вернулся рано
+      expect(component.form.disabled).toBeFalse();
     }));
 
     it('should show validation errors in UI', fakeAsync(() => {

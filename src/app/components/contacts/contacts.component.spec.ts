@@ -15,6 +15,11 @@ class MockApiService {
   setErrorResponse() {
     this.sendInSupport.and.returnValue(throwError(() => new Error('API Error')));
   }
+  
+  // Метод для сброса к успешному ответу
+  resetToSuccess() {
+    this.sendInSupport.and.returnValue(of({message: 'Success'}));
+  }
 }
 
 class MockModalService {
@@ -183,10 +188,13 @@ describe('ContactsComponent', () => {
 
     // При ошибке API форма включается обратно
     component.submit();
-    tick();
+    tick(100); // Даем время для обработки ошибки
 
     // Форма включается обратно после API error
     expect(component.form.enabled).toBeTrue();
+    
+    // Сбрасываем к успешному ответу для других тестов
+    apiService.resetToSuccess();
   }));
 
   it('should validate email field (optional field)', () => {

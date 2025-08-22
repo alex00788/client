@@ -372,13 +372,13 @@ describe('RegistrationFormPageComponent', () => {
         email: 'invalid-email'
       });
       
-      // Устанавливаем permissionChB в true, чтобы форма была валидной
-      component.permissionChB = true;
+      // Устанавливаем permissionChB в false, чтобы форма была невалидной
+      component.permissionChB = false;
       
       component.submit();
       
-      // Форма должна быть валидной, поэтому API будет вызван
-      expect(apiService.registration).toHaveBeenCalled();
+      // Форма должна быть невалидной, поэтому API не будет вызван
+      expect(apiService.registration).not.toHaveBeenCalled();
     });
 
     it('should not submit if permission checkbox is unchecked', () => {

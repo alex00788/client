@@ -380,23 +380,26 @@ describe('LoginPageComponent Integration Tests', () => {
 
   // ====== ОБРАБОТКА ОШИБОК И ГРАНИЧНЫХ СЛУЧАЕВ ======
   describe('Error Handling and Edge Cases', () => {
-         it('should handle API errors gracefully without breaking UI', fakeAsync(() => {
-       // Mock API error
-       apiService.login.and.returnValue(throwError(() => new Error('Network error')));
-       
-       // Fill and submit form
-       component.form.patchValue({ email: 'test@test.com', password: 'password123' as any });
-       component.submit();
-       tick();
-       
-       // Form should remain in a consistent state after error
-       const submitButton = fixture.debugElement.query(By.css('button[type="submit"]'));
-       expect(submitButton).toBeTruthy();
-       
-       // Component should not crash
-       expect(component).toBeTruthy();
-       expect(fixture.debugElement.query(By.css('form'))).toBeTruthy();
-     }));
+                 it('should handle API errors gracefully without breaking UI', fakeAsync(() => {
+      // Mock API error
+      apiService.login.and.returnValue(throwError(() => new Error('Network error')));
+      
+      // Fill and submit form
+      component.form.patchValue({ email: 'test@test.com', password: 'password123' as any });
+      component.submit();
+      tick();
+      
+      // Form should be re-enabled after error
+      expect(component.form.enabled).toBeTruthy();
+      
+      // Form should remain in a consistent state after error
+      const submitButton = fixture.debugElement.query(By.css('button[type="submit"]'));
+      expect(submitButton).toBeTruthy();
+      
+      // Component should not crash
+      expect(component).toBeTruthy();
+      expect(fixture.debugElement.query(By.css('form'))).toBeTruthy();
+    }));
 
          it('should handle rapid user interactions without state corruption', fakeAsync(() => {
        const emailInput = fixture.debugElement.query(By.css('#email'));
