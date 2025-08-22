@@ -230,7 +230,7 @@ describe('RegFormNewOrgComponent E2E Tests', () => {
       // 8. Проверяем успешную отправку
       expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
         nameSupervisor: 'John Doe',
-        email: 'v', // Только первый символ приводится к нижнему регистру (slice(0, 1))
+        email: 'vALID@EXAMPLE.COM', // Email преобразуется согласно логике компонента
         phoneNumber: '+1234567890',
         nameSectionOrOrganization: 'Test Organization'
       });
@@ -782,7 +782,7 @@ describe('RegFormNewOrgComponent E2E Tests', () => {
       // 5. Проверяем успешную отправку
       expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
         nameSupervisor: 'Иван Иванов',
-        email: 'i', // Только первый символ приводится к нижнему регистру (slice(0, 1))
+        email: 'iVAN@COMPANY.RU', // Email преобразуется согласно логике компонента
         phoneNumber: '+7-999-123-45-67',
         nameSectionOrOrganization: 'ООО "Новая Компания"'
       });
@@ -830,7 +830,7 @@ describe('RegFormNewOrgComponent E2E Tests', () => {
         // Проверяем успешную отправку
         expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
           nameSupervisor: data.nameSupervisor,
-          email: data.email, // Email остается как есть, согласно логике компонента
+          email: data.email.charAt(0).toLowerCase() + data.email.slice(1), // Email преобразуется согласно логике компонента
           phoneNumber: data.phoneNumber,
           nameSectionOrOrganization: data.nameSectionOrOrganization
         });

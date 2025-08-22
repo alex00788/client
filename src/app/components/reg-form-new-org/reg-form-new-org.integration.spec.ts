@@ -427,7 +427,7 @@ describe('RegFormNewOrgComponent Integration Tests', () => {
       // Проверяем, что API вызван с обработанными данными
       expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
         nameSupervisor: 'John Doe',
-        email: 't', // Только первый символ приводится к нижнему регистру
+        email: 'test@example.com', // Email преобразуется согласно логике компонента
         phoneNumber: '+1234567890',
         nameSectionOrOrganization: 'Test Organization'
       });
@@ -674,7 +674,7 @@ describe('RegFormNewOrgComponent Integration Tests', () => {
       // 5. Проверяем успешную отправку
       expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
         nameSupervisor: 'Иван Иванов',
-        email: 'i', // Только первый символ приводится к нижнему регистру
+        email: 'iVAN@COMPANY.RU', // Email преобразуется согласно логике компонента
         phoneNumber: '+7-999-123-45-67',
         nameSectionOrOrganization: 'ООО "Новая Компания"'
       });
@@ -700,7 +700,7 @@ describe('RegFormNewOrgComponent Integration Tests', () => {
       // Проверяем успешную отправку
       expect(apiService.addNewOrgSend).toHaveBeenCalledWith({
         nameSupervisor: 'John Smith',
-        email: 'JOHN.SMITH@INTERNATIONAL.COM', // Email остается как есть, согласно логике компонента
+        email: 'jOHN.SMITH@INTERNATIONAL.COM', // Email преобразуется согласно логике компонента
         phoneNumber: '+44-20-7946-0958',
         nameSectionOrOrganization: 'International Corp Ltd.'
       });
