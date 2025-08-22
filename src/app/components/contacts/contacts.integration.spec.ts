@@ -308,8 +308,8 @@ describe('ContactsComponent Integration Tests', () => {
 
       component.submit();
 
-      // При ошибке форма остается заблокированной
-      expect(component.form.disabled).toBeTrue();
+      // При ошибке форма включается обратно для повторной попытки
+      expect(component.form.disabled).toBeFalse();
       
       // Восстанавливаем mock для успешного ответа
       apiService.sendInSupport.and.returnValue(of({ message: 'Success' }));

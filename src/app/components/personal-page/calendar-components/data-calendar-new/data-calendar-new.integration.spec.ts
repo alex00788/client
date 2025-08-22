@@ -288,6 +288,14 @@ describe('DataCalendarNewComponent Integration Tests', () => {
       fixture.detectChanges();
       tick();
 
+      // Mock the inputElementRef to avoid DOM access issues in tests
+      component.inputElementRef = {
+        nativeElement: {
+          value: '',
+          focus: jasmine.createSpy('focus')
+        }
+      } as any;
+
       spyOn(component, 'refreshData' as any);
       spyOn(component, 'checkingTheNumberOfRecorded' as any);
 

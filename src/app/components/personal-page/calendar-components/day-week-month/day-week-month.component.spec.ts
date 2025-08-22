@@ -29,6 +29,33 @@ describe('DayWeekMonthComponent', () => {
       recordsBlock: mockRecordsBlock
     });
 
+    // Убедимся, что методы являются функциями
+    recordingServiceSpy.showDay.and.callFake(() => {
+      mockShowCurrentDay.next(true);
+      mockShowCurrentWeek.next(false);
+      mockShowCurrentMonth.next(false);
+    });
+    
+    recordingServiceSpy.showWeek.and.callFake(() => {
+      mockShowCurrentDay.next(false);
+      mockShowCurrentWeek.next(true);
+      mockShowCurrentMonth.next(false);
+    });
+    
+    recordingServiceSpy.showMonth.and.callFake(() => {
+      mockShowCurrentDay.next(false);
+      mockShowCurrentWeek.next(false);
+      mockShowCurrentMonth.next(true);
+    });
+    
+    recordingServiceSpy.closeRecordsBlock.and.callFake(() => {
+      mockRecordsBlock.next(false);
+    });
+    
+    recordingServiceSpy.openRecordsBlock.and.callFake(() => {
+      mockRecordsBlock.next(true);
+    });
+
     await TestBed.configureTestingModule({
       imports: [DayWeekMonthComponent],
       providers: [
@@ -102,6 +129,7 @@ describe('DayWeekMonthComponent', () => {
     it('should render close button with correct HTML entity', () => {
       fixture.detectChanges();
       const closeButton = fixture.nativeElement.querySelector('button:last-child');
+      // HTML entity &times; преобразуется в символ × при рендеринге
       expect(closeButton.innerHTML).toContain('×');
     });
   });
