@@ -55,7 +55,8 @@ export class ContactsComponent implements OnDestroy {
           this.successService.localHandler(res.message);
         },
         error: (error) => {
-          // При ошибке API форма остается заблокированной
+          // При ошибке API включаем форму обратно
+          this.form.enable();
           console.error('API Error:', error);
         }
       })

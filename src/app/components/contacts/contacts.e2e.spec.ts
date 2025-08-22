@@ -307,8 +307,8 @@ describe('ContactsComponent E2E Tests', () => {
       // Act - User submits form
       component.submit();
       
-      // Assert - Form remains disabled after API error
-      expect(component.form.disabled).toBeTrue();
+      // Assert - Form is enabled back after API error
+      expect(component.form.enabled).toBeTrue();
       
       // Assert - No success handling occurred
       expect(successService.localHandler).not.toHaveBeenCalled();
@@ -388,8 +388,8 @@ describe('ContactsComponent E2E Tests', () => {
       const submitButton = fixture.debugElement.query(By.css('button[type="submit"]'));
       submitButton.nativeElement.click();
       
-      // Assert - Form remains in disabled state
-      expect(component.form.disabled).toBeTrue();
+      // Assert - Form is enabled back after service unavailable error
+      expect(component.form.enabled).toBeTrue();
       
       // Assert - No success handling occurred
       expect(successService.localHandler).not.toHaveBeenCalled();

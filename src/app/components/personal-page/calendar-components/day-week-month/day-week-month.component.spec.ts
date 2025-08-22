@@ -20,7 +20,8 @@ describe('DayWeekMonthComponent', () => {
       'showDay',
       'showWeek', 
       'showMonth',
-      'closeRecordsBlock'
+      'closeRecordsBlock',
+      'openRecordsBlock'
     ], {
       showCurrentDay: mockShowCurrentDay,
       showCurrentWeek: mockShowCurrentWeek,

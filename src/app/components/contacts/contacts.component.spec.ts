@@ -171,7 +171,7 @@ describe('ContactsComponent', () => {
 
   // === ДОПОЛНИТЕЛЬНЫЕ ТЕСТЫ ДЛЯ ПОЛНОГО ПОКРЫТИЯ ===
 
-  it('should handle API error and keep form disabled', fakeAsync(() => {
+  it('should handle API error and enable form back', fakeAsync(() => {
     component.openSupportBlock();
     component.form.enable();
     component.description.setValue('valid description text');
@@ -181,12 +181,12 @@ describe('ContactsComponent', () => {
     // Устанавливаем ошибку API
     apiService.setErrorResponse();
 
-    // При ошибке API форма остается заблокированной
+    // При ошибке API форма включается обратно
     component.submit();
     tick();
 
-    // Форма остается заблокированной после submit
-    expect(component.form.disabled).toBeTrue();
+    // Форма включается обратно после API error
+    expect(component.form.enabled).toBeTrue();
   }));
 
   it('should validate email field (optional field)', () => {
