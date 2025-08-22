@@ -274,17 +274,22 @@ describe('RenameOrgComponent Integration Tests', () => {
   it('should handle form state changes in integration', () => {
     // Проверяем начальное состояние
     expect(component.renameForm.pristine).toBeTrue();
-    expect(component.renameForm.touched).toBeFalse();
+    expect(component.renameForm.get('nameOrg')?.touched).toBeFalse();
     
-    // Пользователь изменяет форму
+    // Пользователь взаимодействует с формой
     const input = fixture.debugElement.query(By.css('input[formControlName="nameOrg"]'));
-    input.nativeElement.focus();
-    input.nativeElement.blur();
     
+    // Симулируем пользовательское взаимодействие
+    input.nativeElement.focus();
+    input.triggerEventHandler('focus', {});
     fixture.detectChanges();
     
-    // Состояние должно измениться
-    expect(component.renameForm.touched).toBeTrue();
+    input.nativeElement.blur();
+    input.triggerEventHandler('blur', {});
+    fixture.detectChanges();
+    
+    // Состояние control должно измениться
+    expect(component.renameForm.get('nameOrg')?.touched).toBeTrue();
   });
 
   it('should handle component lifecycle correctly in integration', () => {
